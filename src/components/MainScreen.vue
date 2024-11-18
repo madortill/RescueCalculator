@@ -1,12 +1,18 @@
 <template>
     <div id="main-screen">
-        
+      <CalculatorSVG class="container"></CalculatorSVG>
     </div>
 </template>
 
 <script>
+import CalculatorSVG from './CalculatorSVG.vue';
+
+
 export default {
   name: "main-screen",
+  components: {
+    CalculatorSVG
+  },
   data() {
     return {
     }
@@ -23,5 +29,10 @@ export default {
     width: 100%;
     height: 100%;
     background-color: black;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
 }
 </style>
