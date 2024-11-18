@@ -22,6 +22,7 @@ export default {
 </script>
 
 <style scoped>
+
 #app {
   direction: rtl;
   width: 100vw;

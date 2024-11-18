@@ -65,7 +65,7 @@
   
   <style>
   .cls-1 {
-    fill: #000000;
+    fill: #383737;
     opacity: 0.63;
   }
   .cls-2 {
