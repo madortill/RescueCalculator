@@ -94,7 +94,8 @@
   }
   .cls-2 {
     font-family: 'OpenSansHebrew';
-    font-size: 2rem;
+    font-size: calc(15px + 4vw);
+    /* font-size: 2rem; */
     font-style: italic;
     font-weight: 600;
   }
@@ -107,14 +108,16 @@
     fill: #b3b3b3;
   }
   .cls-3 {
-    font-size: 3.4rem;
+    font-size: calc(15px + 10vw);
+    /* font-size: 3.4rem; */
   }
   .cls-3,
   .cls-4 {
     font-family: 'Heebo';
   }
   .cls-4 {
-    font-size: 2.8rem;
+    /* font-size: 2.8rem; */
+    font-size: calc(15px + 7vw);
   }
   .cls-6 {
     fill: #fbb03b;

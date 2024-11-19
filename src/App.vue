@@ -31,6 +31,9 @@ export default {
   font-family: 'OpenSansHebrew';
   src: url(/src/assets/fonts/OpenSansHebrew/OpenSansHebrew-Italic.ttf);
 }
+html {
+  font-size: calc(14px + 0.4vw);
+}
 
 #app {
   direction: rtl;
