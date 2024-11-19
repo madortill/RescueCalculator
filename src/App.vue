@@ -22,11 +22,21 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: 'Heebo';
+  src: url(/src/assets/fonts/Heebo/Heebo-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'OpenSansHebrew';
+  src: url(/src/assets/fonts/OpenSansHebrew/OpenSansHebrew-Italic.ttf);
+}
 
 #app {
   direction: rtl;
   width: 100vw;
 	height: 100vh;
   overflow: hidden;
+  font-family: 'Heebo';
 }
 </style>
