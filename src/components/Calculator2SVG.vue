@@ -62,10 +62,6 @@
             <text class="cls-2" text-anchor="middle" x="380" y="635">שינוי</text>
             <text class="cls-2" text-anchor="middle" x="380" y="675">זוית</text>
         </g>
-        <!-- <text class="cls-2" transform="translate(350.9 635.54) scale(1.12 1)">
-          <tspan x="59" y="0">שינוי</tspan>
-          <tspan x="50" y="47">זוית</tspan>
-        </text> -->
         <rect class="cls-6" x="299.8" y="197.75" width="69.41" height="151.42" rx="17.78" ry="17.78" transform="translate(61.05 607.96) rotate(-90)" />
         <text class="cls-2" transform="translate(281.08 282.75) scale(1.06 1)">
           <tspan x="103" y="0">נוסחאות</tspan>

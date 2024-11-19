@@ -1,20 +1,20 @@
 <template>
     <div id="main-screen">
-      <!-- <CalculatorSVG class="container"></CalculatorSVG> -->
-       <Calculator2SVG class="container"></Calculator2SVG>
+       <!-- <Calculator2SVG class="container"></Calculator2SVG> -->
+       <CalculatorLightSVG class="container"></CalculatorLightSVG>
     </div>
 </template>
 
 <script>
 import Calculator2SVG from './Calculator2SVG.vue';
-import CalculatorSVG from './CalculatorSVG.vue';
+import CalculatorLightSVG from './CalculatorLightSVG.vue'
 
 
 export default {
   name: "main-screen",
   components: {
-    CalculatorSVG,
-    Calculator2SVG
+    Calculator2SVG,
+    CalculatorLightSVG
   },
   data() {
     return {
@@ -31,7 +31,8 @@ export default {
 #main-screen {
     width: 100%;
     height: 100%;
-    background-color: black;
+    /* background-color: black; */
+    background-color: white;
     background-size: 110% 110%;
 }
 
