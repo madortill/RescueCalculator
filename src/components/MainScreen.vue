@@ -1,17 +1,20 @@
 <template>
     <div id="main-screen">
-      <CalculatorSVG class="container"></CalculatorSVG>
+      <!-- <CalculatorSVG class="container"></CalculatorSVG> -->
+       <Calculator2SVG class="container"></Calculator2SVG>
     </div>
 </template>
 
 <script>
+import Calculator2SVG from './Calculator2SVG.vue';
 import CalculatorSVG from './CalculatorSVG.vue';
 
 
 export default {
   name: "main-screen",
   components: {
-    CalculatorSVG
+    CalculatorSVG,
+    Calculator2SVG
   },
   data() {
     return {
