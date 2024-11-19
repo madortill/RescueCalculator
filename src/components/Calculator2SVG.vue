@@ -60,7 +60,7 @@
         <rect class="cls-5" x="298.22" y="599.02" width="170.8" height="96" rx="29.2" ry="29.2" transform="translate(-263.4 1030.64) rotate(-90)" />
         <text class="cls-2" transform="translate(350.9 635.54) scale(1.12 1)">
           <tspan x="59" y="0">שינוי</tspan>
-          <tspan x="50" y="39.6">זוית</tspan>
+          <tspan x="50" y="47">זוית</tspan>
         </text>
         <rect class="cls-6" x="299.8" y="197.75" width="69.41" height="151.42" rx="17.78" ry="17.78" transform="translate(61.05 607.96) rotate(-90)" />
         <text class="cls-2" transform="translate(281.08 282.75) scale(1.06 1)">
@@ -94,7 +94,7 @@
   }
   .cls-2 {
     font-family: 'OpenSansHebrew';
-    font-size: 33px;
+    font-size: 2rem;
     font-style: italic;
     font-weight: 600;
   }
@@ -107,14 +107,14 @@
     fill: #b3b3b3;
   }
   .cls-3 {
-    font-size: 55px;
+    font-size: 3.4rem;
   }
   .cls-3,
   .cls-4 {
     font-family: 'Heebo';
   }
   .cls-4 {
-    font-size: 45px;
+    font-size: 2.8rem;
   }
   .cls-6 {
     fill: #fbb03b;
