@@ -72,16 +72,28 @@
   
 <script>
   export default {
-    name: "CustomSvgComponent",
+    // name: "CustomSvgComponent",
   };
 </script>
   
  <style scoped>
+
+@font-face {
+  font-family: 'Heebo';
+  src: url(/src/assets/fonts/Heebo/Heebo-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'OpenSansHebrew';
+  src: url(/src/assets/fonts/OpenSansHebrew/OpenSansHebrew-Italic.ttf);
+}
+
+
   .cls-1 {
     fill: #4d4d4d;
   }
   .cls-2 {
-    font-family: OpenSansSemiCondensed-SemiBoldItalic, 'Open Sans SemiCondensed';
+    font-family: 'OpenSansHebrew';
     font-size: 33px;
     font-style: italic;
     font-weight: 600;
@@ -99,7 +111,7 @@
   }
   .cls-3,
   .cls-4 {
-    font-family: Heebo-Regular, Heebo;
+    font-family: 'Heebo';
   }
   .cls-4 {
     font-size: 45px;
