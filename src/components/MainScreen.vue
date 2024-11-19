@@ -1,7 +1,7 @@
 <template>
     <div id="main-screen">
-       <!-- <Calculator2SVG class="container"></Calculator2SVG> -->
-       <CalculatorLightSVG class="container"></CalculatorLightSVG>
+       <Calculator2SVG class="container"></Calculator2SVG>
+       <!-- <CalculatorLightSVG class="container"></CalculatorLightSVG> -->
     </div>
 </template>
 
