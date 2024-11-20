@@ -1,8 +1,8 @@
 <template>
   <div div id="main-screen" :style="{ backgroundColor: darkMode ? 'black' : 'white' }">
-    <!-- <ThemeSwitcher @click="changeMode">לחצו עליי!</ThemeSwitcher> -->
-    <button @click="changeMode">לחצו עליי!</button>
-    <Calculator2SVG class="container" :darkMode="darkMode"></Calculator2SVG>
+    <ThemeSwitcher @click="changeMode">לחצו עליי!</ThemeSwitcher>
+    <!-- <button @click="changeMode">לחצו עליי!</button> -->
+    <Calculator2SVG class="container" :darkMode="darkMode" @toggle-theme="changeMode"></Calculator2SVG>
       <!-- <CalculatorLightSVG class="container" v-else></CalculatorLightSVG> -->
   </div>
 </template>
@@ -10,7 +10,7 @@
 <script>
 import Calculator2SVG from './Calculator2SVG.vue';
 import CalculatorLightSVG from './CalculatorLightSVG.vue';
-// import ThemeSwitcher from './ThemeSwitcher.vue'
+import ThemeSwitcher from './ThemeSwitcher.vue'
 
 
 export default {
@@ -18,7 +18,7 @@ export default {
   components: {
     Calculator2SVG,
     CalculatorLightSVG,
-    // ThemeSwitcher
+    ThemeSwitcher
   },
   data() {
     return {
