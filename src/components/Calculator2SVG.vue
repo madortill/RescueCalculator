@@ -89,7 +89,7 @@
                 <text class="cls-2" text-anchor="middle" x="380" y="675">זוית</text>
             </g>
         </g>
-        <g class="button">
+        <g id="formula-btn" class="button">
             <rect class="cls-6" x="299.8" y="197.75" width="69.41" height="151.42" rx="17.78" ry="17.78" transform="translate(61.05 607.96) rotate(-90)" />
             <text class="cls-2" transform="translate(281.08 282.75) scale(1.06 1)">
                 <tspan x="103" y="0">נוסחאות</tspan>
@@ -120,6 +120,12 @@
         },
     },
     methods: {
+        handleFormulaSelection() {
+            const buttonGroups = document.querySelectorAll('.button');
+            buttonGroups.forEach(button => {
+            button.addEventListener('click', this.getInfo);
+            });
+        },
         getInfo(event) {
             if (this.childrenArr.length === 0) {
                 this.childrenArr = event.currentTarget.children;
@@ -138,10 +144,7 @@
     },
     },
     mounted() {
-        const buttonGroups = document.querySelectorAll('.button');
-        buttonGroups.forEach(button => {
-        button.addEventListener('click', this.getInfo);
-    });
+        document.getElementById("formula-btn").addEventListener("click", this.handleFormulaSelection);
     },
     };
 
