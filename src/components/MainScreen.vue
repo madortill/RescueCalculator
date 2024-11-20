@@ -1,8 +1,9 @@
 <template>
-    <div id="main-screen">
-       <Calculator2SVG class="container"></Calculator2SVG>
-       <!-- <CalculatorLightSVG class="container"></CalculatorLightSVG> -->
-    </div>
+  <div div id="main-screen" :style="{ backgroundColor: darkMode ? 'black' : 'white' }">
+      <button @click="changeMode">לחצו עליי!</button>
+      <Calculator2SVG class="container" v-if="darkMode"></Calculator2SVG>
+      <CalculatorLightSVG class="container" v-else></CalculatorLightSVG>
+  </div>
 </template>
 
 <script>
@@ -18,11 +19,15 @@ export default {
   },
   data() {
     return {
+      darkMode: true,
     }
   },
   computed: {
   },
   methods: {
+    changeMode() {
+      this.darkMode = !this.darkMode;
+    }
   }
 }
 </script>
@@ -31,7 +36,7 @@ export default {
 #main-screen {
     width: 100%;
     height: 100%;
-    background-color: black;
+    /* background-color: black; */
     /* background-color: white; */
     background-size: 110% 110%;
 }
