@@ -274,10 +274,10 @@
 
 @keyframes pulse {
   0%, 100% {
-    transform: scale(1);
+    transform: scale(0.995);
   }
   50% {
-    transform: scale(1.0205);
+    transform: scale(1.005);
   }
 }
 

@@ -29,7 +29,7 @@ export default {
     right: 50%;
     transform: translateX(50%);
     border-radius: 2rem;
-    border: 0.5px solid  rgb(182, 152, 32);
+    /* border: 0.5px solid  rgb(182, 152, 32); */
 }
 .charStyle {
     color: rgb(182, 152, 32);
