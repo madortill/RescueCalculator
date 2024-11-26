@@ -94,7 +94,7 @@
             <text class="cls-2" transform="translate(281.08 282.75) scale(1.06 1)">
                 <tspan x="103" y="0">נוסחאות</tspan>
             </text>
-        </g>
+        </g> 
       </g>
     </svg>
   </template>
@@ -121,9 +121,25 @@
     },
     methods: {
         handleFormulaSelection() {
-            const buttonGroups = document.querySelectorAll('.button');
-            buttonGroups.forEach(button => {
-            button.addEventListener('click', this.getInfo);
+            const buttonGroups = document.querySelectorAll(".button");
+            const formulaBtn = document.getElementById("formula-btn");
+
+            formulaBtn.classList.add("pulsing");
+
+            // Initially disable all buttons except "formula-btn"
+            buttonGroups.forEach((button) => {
+                if (button !== formulaBtn) {
+                button.classList.add("disabled");
+                }
+            });
+
+            // Enable all buttons when "formula-btn" is clicked
+            formulaBtn.addEventListener("click", () => {
+                formulaBtn.classList.remove("pulsing"); 
+                buttonGroups.forEach((button) => {
+                button.classList.remove("disabled");
+                button.addEventListener("click", this.getInfo);
+                });
             });
         },
         getInfo(event) {
@@ -144,7 +160,7 @@
     },
     },
     mounted() {
-        document.getElementById("formula-btn").addEventListener("click", this.handleFormulaSelection);
+         this.handleFormulaSelection();
     },
     };
 
@@ -243,5 +259,28 @@
   .light-mode .background {
   fill: #fff; /* Change to black or any color you want for light mode */
 }
+
+.disabled {
+    pointer-events: none; /* Makes the button non-clickable */
+    filter: grayscale(100%);
+    opacity: 0.5;
+  }
+
+
+  .pulsing {
+  position: relative; /* Ensures the button is positioned within its container */
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.0205);
+  }
+}
+
+
   </style>
   
