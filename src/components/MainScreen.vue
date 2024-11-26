@@ -36,7 +36,8 @@ export default {
       this.darkMode = !this.darkMode;
     },
     handleChosenBtn(chosenBtn) { // This will log the chosen button value
-      if (Number(chosenBtn)) {
+
+      if (Number(chosenBtn) || Number(chosenBtn) === 0) {
           this.chosenValue = Number(chosenBtn);
       }
        else {
