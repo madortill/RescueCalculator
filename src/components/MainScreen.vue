@@ -1,8 +1,8 @@
 <template>
-  <div div id="main-screen" :style="{ backgroundColor: darkMode ? 'black' : 'white' }">
-    <Calculator2SVG class="container" :darkMode="darkMode" @chosen-btn="handleChosenBtn" @toggle-theme="changeMode"></Calculator2SVG>
+  <div div id="main-screen" :style="{ backgroundColor: darkMode ? 'black' : 'white' ,  color: darkMode ? 'white' : '#004f51'}">
+    <Calculator2SVG class="container" :darkMode="darkMode" @chosen-btn="handleChosenBtn"  @toggle-theme="changeMode" @clickedBtn="handleFormulaClicked"></Calculator2SVG>
     <ThemeSwitcher @click="changeMode">לחצו עליי!</ThemeSwitcher>
-    <CalculatingContainer class="container" :chosenBtn="chosenValue"></CalculatingContainer>
+    <CalculatingContainer class="container" :chosenBtn="chosenValue" :clickedBtn="didClick"  @clickedBtn="handleFormulaClicked"></CalculatingContainer>
       <!-- <CalculatorLightSVG class="container" v-else></CalculatorLightSVG> -->
   </div>
 </template>
@@ -26,12 +26,16 @@ export default {
     return {
       darkMode: true,
       chosenValue: null,
-      stringBtn: ''
+      stringBtn: '',
+      didClick: false,
     }
   },
   computed: {
   },
   methods: {
+    handleFormulaClicked() {
+      this.didClick = !this.didClick;
+    },
     changeMode() {
       this.darkMode = !this.darkMode;
     },

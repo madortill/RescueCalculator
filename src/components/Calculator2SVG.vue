@@ -135,6 +135,7 @@
 
             // Enable all buttons when "formula-btn" is clicked
             formulaBtn.addEventListener("click", () => {
+                this.$emit('clickedBtn', true);
                 formulaBtn.classList.remove("pulsing"); 
                 buttonGroups.forEach((button) => {
                 button.classList.remove("disabled");
@@ -154,7 +155,7 @@
                 } else if (this.childrenArr[i].tagName === 'text' ) {
                     this.chosenBtn = this.childrenArr[i].textContent;
                     this.childrenArr = [];
-                    this.$emit('chosen-btn', this.chosenBtn)
+                    this.$emit('chosen-btn', this.chosenBtn);
             }
         }
     },
