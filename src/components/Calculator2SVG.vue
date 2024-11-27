@@ -87,7 +87,7 @@
             <g class="button">
         `    <rect  x="82.42" y="177.43" width="69.41" height="87.42" rx="17.78" ry="17.78" transform="translate(-156.02 390.26) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
             <text class="cls-2" :transform="'translate(65 265) scale(1.06 1)'" text-anchor="middle" alignment-baseline="middle" :class="isDark ? 'dark-text' : 'light-text'">
-                <tspan :x="10" :y="26" :style="{ fontSize: 'calc(13px + 4vw)'}">{{ MKinfo.factor }}</tspan>
+                <tspan :x="5" :y="26" :style="{ fontSize: 'calc(13px + 4vw)'}">{{ MKinfo.factor }}</tspan>
                 <tspan :x="20" :y="2" :style="{ fontSize: 'calc(9px + 2vw)'}">{{ MKinfo.name }}</tspan>
             </text>
             </g>`

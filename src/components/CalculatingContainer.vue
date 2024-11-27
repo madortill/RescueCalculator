@@ -57,7 +57,7 @@ export default {
         ],
         groundTypesArr: [
             {
-                name: 'כביש   ',
+                name: '  כביש  ',
                 factor: 0.04
             },
             {
@@ -65,23 +65,23 @@ export default {
                 factor: 0.1
             },
             {
-                name: 'חצץ     ',
+                name: '  חצץ  ',
                 factor: 0.2
             },
             {
-                name: 'חול     ',
+                name: '   חול   ',
                 factor: 0.25
             },
             {
-                name: 'בוץ קל  ',
+                name: ' בוץ קל ',
                 factor: 0.333
             },
             {
-                name: 'בוץ כבד ',
+                name: ' בוץ כבד ',
                 factor: 0.5
             },
             {
-                name: 'בוץ דביק ',
+                name: ' בוץ דביק ',
                 factor: 0.66
             }
         ],
