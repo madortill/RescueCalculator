@@ -85,12 +85,43 @@
 
         <g v-else>
             <g class="button">
-        `    <rect  x="82.42" y="177.43" width="69.41" height="87.42" rx="17.78" ry="17.78" transform="translate(-156.02 390.26) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
-            <text class="cls-2" :transform="'translate(' + (82.42 + 69.41 / 2) + ',' + (177.43 + 87.42 / 2) + ') scale(1.06 1)'" text-anchor="middle" alignment-baseline="middle" :class="isDark ? 'dark-text' : 'light-text'">
-                <tspan :x="10" :y="-10" :style="{ fontSize: 'calc(13px + 4vw)'}">{{ MKinfo.factor }}</tspan>
-                <tspan :x="-10" :y="40" :style="{ fontSize: 'calc(13px + 1vw)'}">{{ MKinfo.name }}</tspan>
-            </text>
-            </g>`
+    <!-- The rectangle element -->
+    <rect 
+        x="82.42" 
+        y="177.43" 
+        width="69.41" 
+        height="87.42" 
+        rx="17.78" 
+        ry="17.78" 
+        transform="translate(-156.02 390.26) rotate(-90)" 
+        :class="isDark ? 'dark-button' : 'light-button'" 
+    />
+
+    <!-- The text element -->
+    <text 
+        class="cls-2" 
+        :transform="'translate(' + (82.42 + 69.41 / 2) + ',' + (177.43 + 87.42 / 2) + ') scale(1.06 1)'" 
+        text-anchor="middle" 
+        alignment-baseline="middle" 
+        :class="isDark ? 'dark-text' : 'light-text'">
+        
+        <!-- Factor text -->
+        <tspan 
+            :x="0" 
+            :y="0" 
+            :style="{ fontSize: 'calc(13px + 4vw)'}">
+            {{ MKinfo.factor }}
+        </tspan>
+
+        <!-- Name text with adjusted 'y' for better positioning -->
+        <tspan 
+            :x="0" 
+            :y="20" 
+            :style="{ fontSize: 'calc(13px + 1vw)'}">
+            {{ MKinfo.name }}
+        </tspan>
+    </text>
+</g>
 
 
             <g class="button" @click=" this.$emit('clickedBtn', 'ground');">
