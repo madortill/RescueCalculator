@@ -1,9 +1,31 @@
 <template>
-  <div div id="main-screen" :style="{ backgroundColor: darkMode ? 'black' : 'white' ,  color: darkMode ? 'white' : '#004f51'}">
-    <Calculator2SVG class="container" :darkMode="darkMode" @chosen-btn="handleChosenBtn"  @toggle-theme="changeMode" @clickedBtn="handleFormulaClicked"></Calculator2SVG>
-    <ThemeSwitcher @click="changeMode">לחצו עליי!</ThemeSwitcher>
-    <CalculatingContainer class="container" :chosenBtn="chosenValue" :clickedBtn="didClick"  @clickedBtn="handleFormulaClicked"></CalculatingContainer>
-      <!-- <CalculatorLightSVG class="container" v-else></CalculatorLightSVG> -->
+  <div div id="main-screen" :style="{ backgroundColor: darkMode ? 'black' : 'white' }">
+    
+    <Calculator2SVG 
+        class="container" 
+        :darkMode="darkMode" 
+        :MKinfo = "MKinfo"
+        @chosen-btn="handleChosenBtn" 
+        @toggle-theme="changeMode"
+        @clickedBtn="handleClicked">
+    </Calculator2SVG>
+    
+    <ThemeSwitcher
+        @click="changeMode">
+    </ThemeSwitcher>
+
+    <CalculatingContainer 
+      class="container"
+      :darkMode="darkMode"
+      :chosenBtn="chosenValue"
+      :clickedStates="clickedStates"
+      @clickedBtn="handleClicked"
+      @MKinfo="foundMK"
+      >
+  </CalculatingContainer>
+    
+
+  
   </div>
 </template>
 
@@ -27,14 +49,22 @@ export default {
       darkMode: true,
       chosenValue: null,
       stringBtn: '',
-      didClick: false,
-    }
+      clickedStates: {
+        formula: false,
+        ground: false,
+        degree: false,
+      },
+      MKinfo: undefined
+   };
   },
   computed: {
   },
   methods: {
-    handleFormulaClicked() {
-      this.didClick = !this.didClick;
+    foundMK(ground) {
+      this.MKinfo = ground;
+    },
+    handleClicked(btn) {
+      this.clickedStates[btn] = !this.clickedStates[btn];
     },
     changeMode() {
       this.darkMode = !this.darkMode;

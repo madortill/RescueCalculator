@@ -76,13 +76,29 @@
                 <tspan x="29" y="2">=</tspan>
             </text>
         </g>
-        <g class="button">
+        <g class="button" v-if="!MKfound" @click=" this.$emit('clickedBtn', 'ground');">
             <rect class="cls-6" x="82.42" y="197.43" width="69.41" height="151.42" rx="17.78" ry="17.78" transform="translate(-156.02 390.26) rotate(-90)" />
             <text class="cls-2" transform="translate(56.51 281.72) scale(1.06 1)">
                 <tspan x="114" y="0">סוג קרקע</tspan>
             </text>
         </g>
-        <g class="button">
+
+        <g v-else>
+            <g class="button">
+                <rect class="cls-6" x="82.42" y="197.43" width="69.41" height="87.42" rx="17.78" ry="17.78" transform="translate(-156.02 390.26) rotate(-90)" />
+                <text class="cls-2" transform="translate(56.51 281.72) scale(1.06 1)">
+                    <tspan x="50" y="0">{{ MKinfo.factor }}</tspan>
+                </text>
+            <g class="button" @click=" this.$emit('clickedBtn', 'ground');">
+                <rect class="cls-6" x="82.42" y="307.43" width="69.41" height="87.42" rx="17.78" ry="17.78" transform="translate(-156.02 390.26) rotate(-90)" />
+                <text class="cls-2" transform="translate(56.51 281.72) scale(1.06 1)">
+                    <tspan x="174" y="0">סוג קרקע</tspan>
+                </text>
+            </g>
+            </g>
+        </g>
+        
+        <g class="button" @click="this.$emit('clickedBtn', 'degree');">
             <rect class="cls-5" x="298.22" y="599.02" width="170.8" height="96" rx="29.2" ry="29.2" transform="translate(-263.4 1030.64) rotate(-90)" />
             <g transform="translate(0, 0)">
                 <text class="cls-2" text-anchor="middle" x="380" y="635">שינוי</text>
@@ -102,12 +118,7 @@
   <script>
     export default {
     name: "calculator-svg",
-    props: {
-        darkMode: {
-        type: Boolean,
-        required: true,
-        },
-    },
+    props: ['darkMode','MKinfo'],
     data() {
         return {
             childrenArr: [],
@@ -118,27 +129,28 @@
         isDark() {
         return this.darkMode;
         },
+        MKfound() {
+            return this.MKinfo;
+        }
     },
     methods: {
         handleFormulaSelection() {
             const buttonGroups = document.querySelectorAll(".button");
             const formulaBtn = document.getElementById("formula-btn");
 
-            formulaBtn.classList.add("pulsing");
+            // formulaBtn.classList.add("pulsing");
 
-            // Initially disable all buttons except "formula-btn"
-            buttonGroups.forEach((button) => {
-                if (button !== formulaBtn) {
-                button.classList.add("disabled");
-                }
-            });
+            // // Initially disable all buttons except "formula-btn"
+            // buttonGroups.forEach((button) => {
+            //     if (button !== formulaBtn) {
+            //     button.classList.add("disabled");
+            //     }
+            // });
 
             // Enable all buttons when "formula-btn" is clicked
             formulaBtn.addEventListener("click", () => {
-                this.$emit('clickedBtn', true);
-                formulaBtn.classList.remove("pulsing"); 
+                this.$emit('clickedBtn', 'formula');
                 buttonGroups.forEach((button) => {
-                button.classList.remove("disabled");
                 button.addEventListener("click", this.getInfo);
                 });
             });
@@ -258,7 +270,7 @@
     font-family: 'OpenSansHebrew';
   }
   .light-mode .background {
-  fill: #fff; /* Change to black or any color you want for light mode */
+  fill: #fff; /*                                           to black or any color you want for light mode */
 }
 
 .disabled {
