@@ -79,7 +79,7 @@
         <g class="button">
             <rect class="cls-6" x="82.42" y="197.43" width="69.41" height="151.42" rx="17.78" ry="17.78" transform="translate(-156.02 390.26) rotate(-90)" />
             <text class="cls-2" transform="translate(56.51 281.72) scale(1.06 1)">
-                <tspan x="120" y="0">סוג קרקע</tspan>
+                <tspan x="114" y="0">סוג קרקע</tspan>
             </text>
         </g>
         <g class="button">
@@ -92,7 +92,7 @@
         <g id="formula-btn" class="button">
             <rect class="cls-6" x="299.8" y="197.75" width="69.41" height="151.42" rx="17.78" ry="17.78" transform="translate(61.05 607.96) rotate(-90)" />
             <text class="cls-2" transform="translate(281.08 282.75) scale(1.06 1)">
-                <tspan x="103" y="0">נוסחאות</tspan>
+                <tspan x="101" y="0">נוסחאות</tspan>
             </text>
         </g> 
       </g>
