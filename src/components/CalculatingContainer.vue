@@ -3,6 +3,7 @@
         <div class="charStyle" :class="darkMode ? 'dark' : 'light'" v-show="!clickedStates.formula && !clickedStates.ground">
             {{ chosenFormula }}
         </div>
+        <!-- <div> {{  }}</div> -->
         <!-- Use clickedBtn prop directly for v-show -->
         <div class="formula-container" v-show="clickedStates.formula" :class="darkMode ? 'dark-mode' : 'light-mode'">
             <div 
