@@ -100,7 +100,7 @@
     <!-- The text element -->
     <text 
         class="cls-2" 
-        :transform="'translate(' + (82.42 + 69.41 / 2) + ',' + (177.43 + 87.42 / 2) + ') scale(1.06 1)'" 
+        :transform="'translate(' + (82.42 + 69.41 / -5) + ',' + (177.43 + 87.42 / 2) + ') scale(1.06 1)'" 
         text-anchor="middle" 
         alignment-baseline="middle" 
         :class="isDark ? 'dark-text' : 'light-text'">
@@ -108,7 +108,7 @@
         <!-- Factor text -->
         <tspan 
             :x="0" 
-            :y="0" 
+            :y="-20" 
             :style="{ fontSize: 'calc(13px + 4vw)'}">
             {{ MKinfo.factor }}
         </tspan>
