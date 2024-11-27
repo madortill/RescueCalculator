@@ -114,7 +114,7 @@ export default {
             setTimeout(() => {
                 this.chosenFormula = formulaName;
                 this.$emit("clickedBtn", "formula");
-            },500)
+            },750)
         },
         chooseGround(ground) {
             setTimeout(() => {
@@ -122,7 +122,7 @@ export default {
                 this.$emit("MKinfo", ground);
                 // console.log(groundFormula);
                 this.$emit("clickedBtn", "ground");
-            },500)
+            },750)
            
         }
     }
@@ -172,10 +172,10 @@ export default {
     background-color: rgba(123, 114, 114, 0.498);
     color:  #ffffff;
 }
-.formula-options:hover {
+/* .formula-options:hover {
     background-color: rgba(255, 228, 192, 0.841);
     scale: 1.05;
-}
+} */
 .formula-container {
     text-align: center;
     /* background-color: rgba(244, 223, 179, 0.669); */
@@ -193,6 +193,8 @@ export default {
     border-radius: 15px;
 }
 
+
+
 .item {
     padding: 0.7rem;
     margin: 0.3rem;
@@ -201,6 +203,26 @@ export default {
     z-index: 23;
     color: black;
 }
+.formula-options,
+.item {
+    transition: transform 0.3s ease-in, background-color 0.3s ease-in;
+}
+
+/* Correct the scale property with transform */
+.formula-options:hover {
+    background-color: rgba(255, 228, 192, 0.841);
+    transform: scale(1.05); /* Corrected scale with transform */
+}
+
+.item:hover {
+    background-color: rgba(4, 4, 4, 0.841);
+    transform: scale(1.15); /* Corrected scale with transform */
+}
+
+/* .item:hover {
+    background-color: rgba(4, 4, 4, 0.841);
+    scale: 1.15;
+} */
 
 .light-mode .item {
     background-color: rgba(246, 153, 102, 0.358);

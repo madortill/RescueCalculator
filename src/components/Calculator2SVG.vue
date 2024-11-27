@@ -79,23 +79,27 @@
         <g class="button" v-if="!MKfound" @click=" this.$emit('clickedBtn', 'ground');">
             <rect class="cls-6" x="82.42" y="197.43" width="69.41" height="151.42" rx="17.78" ry="17.78" transform="translate(-156.02 390.26) rotate(-90)" />
             <text class="cls-2" transform="translate(56.51 281.72) scale(1.06 1)">
-                <tspan x="114" y="0">סוג קרקע</tspan>
+                <tspan x="104" y="0"  :style="{ fontSize: 'calc(15px + 3vw)' }">סוג קרקע</tspan>
             </text>
         </g>
 
         <g v-else>
             <g class="button">
-                <rect class="cls-6" x="82.42" y="197.43" width="69.41" height="87.42" rx="17.78" ry="17.78" transform="translate(-156.02 390.26) rotate(-90)" />
-                <text class="cls-2" transform="translate(56.51 281.72) scale(1.06 1)">
-                    <tspan x="50" y="0">{{ MKinfo.factor }}</tspan>
-                </text>
+        `    <rect  x="82.42" y="177.43" width="69.41" height="87.42" rx="17.78" ry="17.78" transform="translate(-156.02 390.26) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
+            <text class="cls-2" :transform="'translate(' + (82.42 + 69.41 / -4.2) + ',' + (177.43 + 87.42 / 0.9) + ') scale(1.06 1)'" text-anchor="middle" alignment-baseline="middle" :class="isDark ? 'dark-text' : 'light-text'">
+                <tspan :x="0" :y="0" :style="{ fontSize: 'calc(13px + 4vw)'}">{{ MKinfo.factor }}</tspan>
+                <tspan :x="0" :y="20" :style="{ fontSize: 'calc(13px + 1vw)'}">{{ MKinfo.name }}</tspan>
+            </text>
+            </g>`
+
+
             <g class="button" @click=" this.$emit('clickedBtn', 'ground');">
-                <rect class="cls-6" x="82.42" y="307.43" width="69.41" height="87.42" rx="17.78" ry="17.78" transform="translate(-156.02 390.26) rotate(-90)" />
+                <rect class="cls-6" x="82.42" y="287.43" width="69.41" height="127.42" rx="17.78" ry="17.78" transform="translate(-156.02 390.26) rotate(-90)" />
                 <text class="cls-2" transform="translate(56.51 281.72) scale(1.06 1)">
-                    <tspan x="174" y="0">סוג קרקע</tspan>
+                    <tspan x="179" y="0" :style="{ fontSize: 'calc(15px + 3vw)' }">סוג קרקע</tspan>
                 </text>
             </g>
-            </g>
+            
         </g>
         
         <g class="button" @click="this.$emit('clickedBtn', 'degree');">
@@ -106,9 +110,9 @@
             </g>
         </g>
         <g id="formula-btn" class="button">
-            <rect class="cls-6" x="299.8" y="197.75" width="69.41" height="151.42" rx="17.78" ry="17.78" transform="translate(61.05 607.96) rotate(-90)" />
+            <rect class="cls-6" x="299.8" y="214.75" width="69.41" height="141.42" rx="17.78" ry="17.78" transform="translate(61.05 607.96) rotate(-90)" />
             <text class="cls-2" transform="translate(281.08 282.75) scale(1.06 1)">
-                <tspan x="101" y="0">נוסחאות</tspan>
+                <tspan x="106" y="0"  :style="{ fontSize: 'calc(15px + 3vw)'}">נוסחאות</tspan>
             </text>
         </g> 
       </g>
@@ -222,7 +226,8 @@
 
   /* Light mode styles */
   .light-mode .cls-1 {
-    fill: #dae6e6;
+    /* fill: #dae6e6; */
+    fill: #2e4a4a61;
   }
   
   .light-mode .cls-2 {
@@ -259,9 +264,10 @@
   }
 
   .light-mode  .light-text {
-    fill: #004f51;
+    /* fill: #004f51; */
+    fill: #ffffff;
     font-size: calc(15px + 7vw);
-    opacity: 0.65;
+    opacity: 1;
   }
   
   .light-mode  .differentSize,
@@ -294,6 +300,18 @@
   }
 }
 
+
+/* Light Mode Button */
+.light-button {
+    fill: rgba(171, 53, 53, 0.651);
+   /* Fill color for the button in light mode */
+}
+
+
+/* Dark Mode Button */
+.dark-button {
+  fill: rgb(196, 154, 122); /* Fill color for the button in dark mode */
+}
 
   </style>
   
