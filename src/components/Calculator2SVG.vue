@@ -82,7 +82,6 @@
               <tspan x="104" y="0"  :style="{ fontSize: 'calc(15px + 3vw)' }">סוג קרקע</tspan>
           </text>
       </g>
-
       <g v-else>
           <g class="button">
       `    <rect  x="82.42" y="177.43" width="69.41" height="87.42" rx="17.78" ry="17.78" transform="translate(-156.02 390.26) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
@@ -91,7 +90,6 @@
               <tspan :x="-6" :y="2" :style="{ fontSize: 'calc(9px + 2vw)'}">{{ MKinfo.name }}</tspan>
           </text>
           </g>`
-
           <g class="button" @click=" this.$emit('clickedBtn', 'ground');">
               <rect class="cls-6" x="82.42" y="287.43" width="69.41" height="127.42" rx="17.78" ry="17.78" transform="translate(-156.02 390.26) rotate(-90)" />
               <text class="cls-2" transform="translate(56.51 281.72) scale(1.06 1)">
@@ -139,16 +137,13 @@
       handleFormulaSelection() {
           const buttonGroups = document.querySelectorAll(".button");
           const formulaBtn = document.getElementById("formula-btn");
-
           // formulaBtn.classList.add("pulsing");
-
           // // Initially disable all buttons except "formula-btn"
           // buttonGroups.forEach((button) => {
           //     if (button !== formulaBtn) {
           //     button.classList.add("disabled");
           //     }
           // });
-
           // Enable all buttons when "formula-btn" is clicked
           formulaBtn.addEventListener("click", () => {
               this.$emit('clickedBtn', 'formula');
@@ -165,7 +160,6 @@
               if ((this.childrenArr[i].children).length > 1) {
                   this.childrenArr = this.childrenArr[i].children;
                   this.getInfo(this.childrenArr);
-
               } else if (this.childrenArr[i].tagName === 'text' ) {
                   this.chosenBtn = this.childrenArr[i].textContent;
                   this.childrenArr = [];
@@ -178,7 +172,6 @@
        this.handleFormulaSelection();
   },
   };
-
 </script>
 
 <style scoped>
@@ -221,7 +214,6 @@
 .dark-mode .background {
 fill: #000; /* Change to white or any color you want for dark mode */
 }
-
 /* Light mode styles */
 .light-mode .cls-1 {
   /* fill: #dae6e6; */
@@ -260,7 +252,6 @@ fill: #000; /* Change to white or any color you want for dark mode */
 .light-mode .cls-6 {
   fill: #e6e6e6;
 }
-
 .light-mode  .light-text {
   /* fill: #004f51; */
   fill: #ffffff;
@@ -276,19 +267,15 @@ fill: #000; /* Change to white or any color you want for dark mode */
 .light-mode .background {
 fill: #fff; /*                                           to black or any color you want for light mode */
 }
-
 .disabled {
   pointer-events: none; /* Makes the button non-clickable */
   filter: grayscale(100%);
   opacity: 0.5;
 }
-
-
 .pulsing {
 position: relative; /* Ensures the button is positioned within its container */
 animation: pulse 2s infinite;
 }
-
 @keyframes pulse {
 0%, 100% {
   transform: scale(0.995);
@@ -297,18 +284,13 @@ animation: pulse 2s infinite;
   transform: scale(1.005);
 }
 }
-
-
 /* Light Mode Button */
 .light-button {
   fill: rgba(171, 53, 53, 0.651);
  /* Fill color for the button in light mode */
 }
-
-
 /* Dark Mode Button */
 .dark-button {
 fill: rgb(196, 154, 122); /* Fill color for the button in dark mode */
 }
-
 </style>
