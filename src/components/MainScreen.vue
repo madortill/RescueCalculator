@@ -54,7 +54,7 @@ export default {
         ground: false,
         degree: false,
       },
-      MKinfo: undefined
+      MKinfo: null
    };
   },
   computed: {
@@ -64,8 +64,13 @@ export default {
       this.MKinfo = ground;
     },
     handleClicked(btn) {
-      this.clickedStates[btn] = !this.clickedStates[btn];
+      const currentState = this.clickedStates[btn];
+      Object.keys(this.clickedStates).forEach(name => {
+        this.clickedStates[name] = false;
+      });
+      this.clickedStates[btn] = !currentState;
     },
+
     changeMode() {
       this.darkMode = !this.darkMode;
     },

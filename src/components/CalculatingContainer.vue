@@ -3,8 +3,10 @@
         <div class="charStyle" :class="darkMode ? 'dark' : 'light'" v-show="!clickedStates.formula && !clickedStates.ground">
             {{ chosenFormula }}
         </div>
-        <!-- <div> {{  }}</div> -->
-        <!-- Use clickedBtn prop directly for v-show -->
+        <div class="calc">
+            <!-- <input type="text" v-model="inputValue" @mousedown="updateInput"/> -->
+        </div>
+
         <div class="formula-container" v-show="clickedStates.formula" :class="darkMode ? 'dark-mode' : 'light-mode'">
             <div 
                 class="formula-options" 
@@ -28,15 +30,18 @@
 </template>
 
 <script>
+import { computed } from 'vue';
+
 export default {
     name: "calculating-container",
-    props: ['chosenBtn', 'clickedStates', 'darkMode'], 
+    props: ['chosenBtn', 'clickedStates', 'darkMode',], 
     data() {
       return {
         MKnumber: null,
         MTSnumber: null,
         degreeNum: null,
         safetyFactor: 1.25,
+        inputValue: '',
         formulasArr: [
             {
                 name: 'התנגדות לחילוץ עד 45 מעלות',
@@ -116,6 +121,7 @@ export default {
                 this.chosenFormula = formulaName;
                 this.$emit("clickedBtn", "formula");
             },750)
+            
         },
         chooseGround(ground) {
             setTimeout(() => {
@@ -123,10 +129,16 @@ export default {
                 this.$emit("MKinfo", ground);
                 // console.log(groundFormula);
                 this.$emit("clickedBtn", "ground");
-            },750)
-           
+            },750)  
+        },
+    },
+    computed : {
+        updateInput() {
+            this.inputValue = this.chosenBtn
+            return this.inputValue;
         }
     }
+
 };
 </script>
 
