@@ -1,3 +1,5 @@
+<!-- הגרסה הכי חדשה - 1.12 שעה 17:55 -->
+
 <template>
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.62 754" :class="isDark ? 'dark-mode' : 'light-mode'">
     <g id="Layer_1" data-name="Layer 1">
@@ -5,110 +7,104 @@
     </g>
     <g id="Layer_3" data-name="Layer 3">
       <g class="button">
-          <ellipse class="cls-1" cx="165" cy="570" rx="40" ry="40" />
+          <ellipse class="cls-1" cx="165" cy="550" rx="37" ry="37" />
           <text  :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(150 600) scale(.999)">
-              <tspan x="24" y="2">2</tspan>
+              <tspan x="26.5" y="-35">2</tspan>
           </text>
       </g>
       <g class="button">
-          <ellipse class="cls-1" cx="165" cy="460" rx="40" ry="40" />
+          <ellipse class="cls-1" cx="165" cy="450" rx="37" ry="37" />
           <text  :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(150 495) scale(.999)">
-           <tspan x="24" y="0">5</tspan>
+           <tspan x="25" y="-30">5</tspan>
           </text>
       </g>
       <g class="button">
-          <ellipse class="cls-1" cx="165" cy="350" rx="40" ry="40" />
+          <ellipse class="cls-1" cx="165" cy="350" rx="37" ry="37" />
           <text  :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(150 390) scale(.999)">
-              <tspan x="24" y="0">8</tspan>
+              <tspan x="26" y="-24">8</tspan>
           </text>
       </g>
       <g class="button">    
-      <ellipse class="cls-1" cx="55" cy="570" rx="40" ry="40" />
+      <ellipse class="cls-1" cx="58" cy="550" rx="37" ry="37" />
           <text :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(45 600) scale(.999)">
-              <tspan x="24" y="2">1</tspan>
+              <tspan x="25" y="-35">1</tspan>
           </text>
       </g>
       <g class="button">
-          <ellipse class="cls-1" cx="55" cy="460" rx="40" ry="40" />
+          <ellipse class="cls-1" cx="58" cy="450" rx="37" ry="37" />
           <text  :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(45 495) scale(.999)">
-              <tspan x="24" y="0">4</tspan>
+              <tspan x="22" y="-31">4</tspan>
           </text>
       </g>
       <g class="button">
-          <ellipse class="cls-1" cx="55" cy="350" rx="40" ry="40" />
+          <ellipse class="cls-1" cx="58" cy="350" rx="37" ry="37" />
           <text  :class="['cls-4', { 'light-text': !isDark }]" transform="translate(45 390) scale(.999)">
-              <tspan x="24" y="0">7</tspan>
+              <tspan x="24" y="-23">7</tspan>
           </text>
       </g>
       <g class="button">
-          <rect class="cls-1" x="15" y="640" width="296" height="75" rx="28.45" ry="28.45" />
+          <rect class="cls-1" x="17" y="605" width="296" height="75" rx="28.45" ry="28.45" />
           <text  :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(45 710) scale(.999)">
-              <tspan x="24" y="0">0</tspan>
+              <tspan x="20" y="-51">0</tspan>
           </text>
       </g>
       <g class="button">
-          <ellipse class="cls-1" cx="270" cy="570" rx="40" ry="40" />
+          <ellipse class="cls-1" cx="273" cy="550" rx="37" ry="37" />
           <text  :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(260 600) scale(.999)">
-              <tspan x="24" y="2">3</tspan>
+              <tspan x="24" y="-35">3</tspan>
           </text>
       </g>
       <g class="button">
-          <ellipse class="cls-1" cx="270" cy="460" rx="40" ry="40" />
+          <ellipse class="cls-1" cx="273" cy="450" rx="37" ry="37" />
           <text  :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(260 495) scale(.999)">
-              <tspan x="24" y="0">6</tspan>
+              <tspan x="23" y="-31">6</tspan>
           </text>
       </g>
       <g class="button">
-          <ellipse class="cls-1" cx="270" cy="350" rx="40" ry="40" />
+          <ellipse class="cls-1" cx="273" cy="350" rx="37" ry="37" />
           <text :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(260 390) scale(.999)">
-              <tspan x="24" y="0">9</tspan>
+              <tspan x="24" y="-25">9</tspan>
           </text>
       </g>
       <g class="button">
-          <ellipse class="cls-5" cx="380" cy="460" rx="40" ry="40" />
+          <ellipse class="cls-5" cx="385" cy="455" rx="46" ry="46" />
           <text  class="cls-4 differentSize" transform="translate(355 495) scale(.999)">
-              <tspan x="57" y="-3">מחק</tspan>
+              <tspan x="57.5" y="-30">מחק</tspan>
           </text>
       </g>
       <g class="button">
-          <ellipse class="cls-5" cx="380" cy="350" rx="40" ry="40" />
+          <ellipse class="cls-5" cx="385" cy="350" rx="43" ry="43" />
           <text class="cls-3" transform="translate(365 395) scale(.999)">
-              <tspan x="29" y="2">=</tspan>
+              <tspan x="35" y="-25">=</tspan>
           </text>
       </g>
-      <g class="button" v-if="!MKfound" @click=" this.$emit('clickedBtn', 'ground');">
-          <rect class="cls-6" x="80" y="200" width="70" height="150" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" />
+      <g class="button" @click=" this.$emit('clickedBtn', 'ground');">
+          <rect class="cls-6" x="102.5" y="170" width="70" height="135" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" />
           <text class="cls-2" transform="translate(55 280) scale(0.999)">
-              <tspan x="104" y="0"  :style="{ fontSize: 'calc(15px + 3vw)' }">סוג קרקע</tspan>
+              <tspan x="85" y="-20">סוג קרקע</tspan>
           </text>
       </g>
-      <g v-else>
+      <g v-if="MKfound">
           <g class="button">
-      `    <rect  x="80" y="180" width="70" height="90" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
+          <rect  x="102.5" y="337.5" width="70" height="90" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
           <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle" :class="isDark ? 'dark-text' : 'light-text'">
-              <tspan :x="-2" :y="26" :style="{ fontSize: 'calc(13px + 4vw)'}">{{ MKinfo.factor }}</tspan>
-              <tspan :x="-6" :y="2" :style="{ fontSize: 'calc(9px + 2vw)'}">{{ MKinfo.name }}</tspan>
+              <tspan :x="165" :y="-10" :style="{ fontSize: 'calc(13px + 4vw)'}">{{ MKinfo.factor }}</tspan>
+              <tspan :x="165" :y="10" :style="{ fontSize: 'calc(9px + 2vw)'}">{{ MKinfo.name }}</tspan>
           </text>
-          </g>`
-          <g class="button" @click=" this.$emit('clickedBtn', 'ground');">
-              <rect class="cls-6" x="80" y="290" width="70" height="130" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" />
-              <text class="cls-2" transform="translate(55 280) scale(0.999)">
-                  <tspan x="179" y="0" :style="{ fontSize: 'calc(15px + 3vw)' }">סוג קרקע</tspan>
-              </text>
           </g>
       </g>
       
       <g class="button" @click="this.$emit('clickedBtn', 'degree');">
-          <rect class="cls-5" x="300" y="580" width="170.8" height="96" rx="29.2" ry="29.2" transform="translate(-260 1030) rotate(-90)" />
+          <rect class="cls-5" x="342.5" y="600.5" width="165" height="90" rx="29.2" ry="29.2" transform="translate(-260 1030) rotate(-90)" />
           <g transform="translate(0, 0)">
-              <text class="cls-2" text-anchor="middle" x="380" y="635">שינוי</text>
-              <text class="cls-2" text-anchor="middle" x="380" y="675">זוית</text>
+              <text class="cls-2" text-anchor="middle" x="385" y="591">שינוי</text>
+              <text class="cls-2" text-anchor="middle" x="385" y="625">זוית</text>
           </g>
       </g>
       <g id="formula-btn" class="button">
-          <rect class="cls-6" x="300" y="214.75" width="70" height="140" rx="17.78" ry="17.78" transform="translate(60 605) rotate(-90)" />
+          <rect class="cls-6" x="317.5" y="245" width="70" height="125" rx="17.78" ry="17.78" transform="translate(60 605) rotate(-90)" />
           <text class="cls-2" transform="translate(280 280) scale(0.999)">
-              <tspan x="106" y="0"  :style="{ fontSize: 'calc(15px + 3vw)'}">נוסחאות</tspan>
+              <tspan x="135" y="-19.5">נוסחאות</tspan>
           </text>
       </g> 
     </g>
@@ -294,115 +290,3 @@ animation: pulse 2s infinite;
 fill: rgb(196, 154, 122); /* Fill color for the button in dark mode */
 }
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <template>
-    <svg xmlns="http://www.w3.org/2000/svg" :viewBox="viewBox" :width="width" :height="height">
-      <g id="Layer_1" data-name="Layer 1">
-        <rect width="528" height="754" rx="49.97" ry="49.97" />
-      </g>
-      <g id="Layer_3" data-name="Layer 3">
-        <ellipse class="cls-6" cx="203.38" cy="580.21" rx="40.29" ry="37.21" />
-        <ellipse class="cls-6" cx="203.49" cy="473.57" rx="40.29" ry="37.21" />
-        <ellipse class="cls-6" cx="203.64" cy="369.21" rx="40.29" ry="37.21" />
-        <g>
-          <ellipse class="cls-6" cx="317.71" cy="369.27" rx="40.29" ry="37.21" />
-          <ellipse class="cls-6" cx="317.71" cy="473.57" rx="40.29" ry="37.21" />
-          <ellipse class="cls-6" cx="317.71" cy="577.87" rx="40.29" ry="37.21" />
-        </g>
-        <ellipse class="cls-6" cx="88.29" cy="580.21" rx="40.29" ry="37.21" />
-        <ellipse class="cls-6" cx="89.29" cy="473.57" rx="40.29" ry="37.21" />
-        <ellipse class="cls-6" cx="89.29" cy="369.33" rx="40.29" ry="37.21" />
-        <rect class="cls-6" x="49" y="643" width="178" height="68" rx="28.45" ry="28.45" />
-        <ellipse class="cls-6" cx="439.52" cy="677.39" rx="40.29" ry="37.21" />
-        <ellipse class="cls-6" cx="317.52" cy="677.39" rx="40.29" ry="37.21" />
-        <rect class="cls-5" x="405.21" y="311.79" width="69.57" height="134" rx="28.45" ry="28.45" transform="translate(61.21 818.79) rotate(-90)" />
-        <rect class="cls-5" x="405.21" y="513.21" width="69.57" height="134" rx="28.45" ry="28.45" transform="translate(-140.21 1020.21) rotate(-90)" />
-        <rect class="cls-5" x="405.21" y="409" width="69.57" height="134" rx="28.45" ry="28.45" transform="translate(-36 916) rotate(-90)" />
-      </g>
-      <g id="Layer_2" data-name="Layer 2">
-        <rect class="cls-1" x="33" y="-33" width="466" height="274" rx="27.62" ry="27.62" />
-        <text class="cls-2" transform="translate(100 595)">1</text>
-        <text class="cls-2" transform="translate(215 595)">2</text>
-        <text class="cls-2" transform="translate(100 490)">4</text>
-        <text class="cls-2" transform="translate(330 595)">3</text>
-        <text class="cls-2" transform="translate(215 490)">5</text>
-        <text class="cls-2" transform="translate(330 490)">6</text>
-        <text class="cls-2" transform="translate(100 385)">7</text>
-        <text class="cls-2" transform="translate(215 385)">8</text>
-        <text class="cls-2" transform="translate(330 385)">9</text>
-        <text class="cls-2" transform="translate(100 695)">0</text>
-        <text class="cls-4" transform="translate(347 687)">מחק</text>
-        <text class="cls-2" transform="translate(450 695)">=</text>
-        <text class="cls-3" transform="translate(487 385)">נוסחאות</text>
-        <text class="cls-3" transform="translate(495 485)">סוג קרקע</text>
-        <text class="cls-3" transform="translate(495 587)">שינוי זוית</text>
-      </g>
-    </svg>
-  </template>
-  
-  <script>
-  export default {
-    // name: "SvgComponent",
-    props: {
-      width: {
-        type: String,
-        default: "528px",
-      },
-      height: {
-        type: String,
-        default: "754px",
-      },
-      viewBox: {
-        type: String,
-        default: "0 0 528 754",
-      },
-    },
-  };
-  </script>
-  
-  <style>
-  .cls-1 {
-    fill: #000000c6;
-    opacity: 0.63;
-  }
-  .cls-2 {
-    font-size: 48px;
-  }
-  .cls-2, .cls-3, .cls-4 {
-    fill: #fff;
-  }
-  .cls-2, .cls-4 {
-    font-family: Heebo-Thin, Heebo;
-    font-weight: 200;
-  }
-  .cls-3 {
-    font-family: Heebo-Regular, Heebo;
-    font-size: 28px;
-  }
-  .cls-5 {
-    fill: #f7931e;
-  }
-  .cls-4 {
-    font-size: 34px;
-  }
-  .cls-6 {
-    fill: #c4c3c2;
-  }
-</style> -->
