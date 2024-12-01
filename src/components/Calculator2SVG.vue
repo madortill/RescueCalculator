@@ -93,9 +93,9 @@
       <g v-if="MKfound">
           <g class="button">
           <rect  x="102.5" y="337.5" width="70" height="90" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
-          <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle" :class="isDark ? 'dark-text' : 'light-text'">
+          <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
               <tspan :x="165" :y="-10" :style="{ fontSize: 'calc(13px + 4vw)'}">{{ MKinfo.factor }}</tspan>
-              <tspan :x="-25" :y="-20" :style="{ fontSize: 'calc(9px + 2vw)'}">{{ MKinfo.name }}</tspan>
+              <tspan :x="165" :y="7" :style="{ fontSize: 'calc(9px + 2vw)'}">{{ MKinfo.name }}</tspan>
           </text>
           </g>
       </g>
@@ -132,8 +132,8 @@
       return this.darkMode;
       },
       MKfound() {
-          return this.MKinfo;
-      }
+      return this.MKinfo;
+      },
   },
   methods: {
       handleFormulaSelection() {
@@ -295,4 +295,5 @@ animation: pulse 2s infinite;
 .dark-button {
 fill: rgb(196, 154, 122); /* Fill color for the button in dark mode */
 }
+
 </style>

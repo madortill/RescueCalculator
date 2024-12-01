@@ -73,6 +73,7 @@ export default {
 
       if (Number(chosenBtn) || Number(chosenBtn) === 0) {
           this.chosenValue = Number(chosenBtn);
+          console.log(this.chosenValue);
       }
        else {
         this.stringBtn = chosenBtn;
