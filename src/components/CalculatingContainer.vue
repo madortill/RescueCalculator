@@ -118,6 +118,7 @@ export default {
             }
 
             let formula = this.chosenFormula.formula;
+            console.log(formula);
 
             const variableLabels = {
                 MKnumber: 'מקדם קרקע',
@@ -137,7 +138,7 @@ export default {
                 const value =
                     variables[key] !== null
                         ? variables[key]
-                        : `<span class="placeholder" data-var="${key}">${variableLabels[key]}</span>`;
+                        : `<span class="placeholder" data-var="${key}">${variableLabels[key]}</span>`
                 formula = formula.split(key).join(value);
             });
 
@@ -170,10 +171,10 @@ export default {
 <style scoped>
 
 #calculating-container {
-    width: 83%;
-    height: 20%;
+    width: 92%;
+    height: 23%;
     position: absolute;
-    top: 2.5rem;
+    top: 1.75rem;
     right: 50%;
     transform: translateX(50%);
     border-radius: 2rem;
@@ -199,7 +200,6 @@ export default {
 
 .formula-container {
     position: absolute;
-    top: -0.9rem;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -208,12 +208,14 @@ export default {
     border-radius: 15px;
     width: 100%;
     height: 100%;
+
 }
 
 .formula-options {
-    padding: 0.45rem;
+    padding: 0.25rem;
+    width: 75%;
     border-radius: 15px;
-    margin: 0.15rem;
+    margin: 0.1rem;
     z-index: 23;
     color: black;
 }
@@ -279,15 +281,6 @@ export default {
     color:  #ffffff;
 }
 
-.placeholder {
-    display: inline-block;
-    padding: 0.2rem 0.4rem;
-    margin: 0 0.1rem;
-    background-color: rgba(255, 255, 0, 0.5);
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
-}
 
 .guidance {
     text-align: center;
@@ -308,6 +301,17 @@ export default {
     direction: ltr;
     text-align: left;
     margin-top: 5rem;
+}
+
+</style>
+
+<style>
+.placeholder {
+    /* border: solid !important; */
+    display: inline-block; /* Ensure the span behaves like a block for better visibility */
+    border: 1px solid red;
+    padding: 4px;
+    text-align: center;
 }
 
 </style>
