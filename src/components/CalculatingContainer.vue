@@ -199,7 +199,7 @@ export default {
 
 .formula-container {
     position: absolute;
-    top: -1.2rem;
+    top: -0.9rem;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
