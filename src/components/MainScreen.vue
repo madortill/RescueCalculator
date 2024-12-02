@@ -18,10 +18,10 @@
     <CalculatingContainer 
       class="container"
       :darkMode="darkMode"
-      :chosenBtn="chosenValueString"
+      :chosenValueString="chosenValueString"
+      :stringBtn="stringBtn"
       :clickedStates="clickedStates" 
       @clickedBtn="handleClicked"
-      @resetButtonState = "resetButtons"
       @MKinfo="foundMK"
       >
   </CalculatingContainer>
@@ -55,7 +55,7 @@ export default {
         degree: false,
       },
       MKinfo: null,
-      reset: false,
+      counter: 0,
    };
   },
   computed: {
@@ -76,19 +76,15 @@ export default {
       this.darkMode = !this.darkMode;
     },
     handleChosenBtn(chosenBtn) { 
-      console.log(chosenBtn);
+      this.counter++;
+      // console.log(chosenBtn);
       if (Number(chosenBtn) || Number(chosenBtn) === 0) {
-          this.chosenValueString = String(chosenBtn);
-          console.log(this.chosenValueString);
-      }
-       else {
+          this.chosenValueString = String(chosenBtn)+String(this.counter);
+      } else {
         this.stringBtn = chosenBtn;
-        console.log(this.stringBtn);
+        // console.log(this.stringBtn);
        }
     },
-    resetButtons() {
-      this.reset = !this.reset;
-    }
   }
 }
 </script>

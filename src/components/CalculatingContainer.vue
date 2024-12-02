@@ -28,7 +28,7 @@
         <div class="charStyle" :class="darkMode ? 'dark' : 'light'" v-show="!clickedStates.formula && !clickedStates.ground">
             {{ chosenFormula.name }}
         </div>
-        <div class="calc" ref="formulaContainer" v-show="!clickedStates.formula && !clickedStates.ground">
+        <div class="calc" ref="formulaContainer" v-show="!clickedStates.formula && !clickedStates.ground" @click="handlePlaceholderClick">
             <div v-html="renderFormula()"></div>
         </div>
     </div>
@@ -38,7 +38,7 @@
 
 export default {
     name: "calculating-container",
-    props: ['chosenBtn', 'clickedStates', 'darkMode',], 
+    props: ['chosenValueString', 'clickedStates', 'darkMode', 'stringBtn'], 
     data() {
       return {
         showGuidance: false,
@@ -59,19 +59,19 @@ export default {
         formulasArr: [
             {
                 name: 'התנגדות לחילוץ עד 45 מעלות',
-                formula: 'safetyFactor * ((MKnumber * MTSnumber) + (MTSnumber * degreeNum / 60))'
+                formula: 'safetyFactor x ((MKnumber x MTSnumber) + (MTSnumber x degreeNum / 60))'
             },
             {
                 name: 'התנגדות לחילוץ מעל 45 מעלות',
-                formula: 'safetyFactor * ((MKnumber * MTSnumber) + MTSnumber)'
+                formula: 'safetyFactor x ((MKnumber x MTSnumber) + MTSnumber)'
             },
             {
                 name: 'התנגדות לחילוץ במישור',
-                formula: 'safetyFactor * (MKnumber * MTSnumber)'
+                formula: 'safetyFactor x (MKnumber x MTSnumber)'
             },
             {
                 name: 'התנגדות להיפוך - חוק היפוך הרכב',
-                formula: '(MTSnumber * 2 / 3)'
+                formula: '(MTSnumber x 2 / 3)'
             }
         ],
         groundTypesArr: [
@@ -91,8 +91,27 @@ export default {
             {degree: 30, factor: 2},
         ],
         chosenFormula: '',
-        chosenCalc: null
+        chosenCalc: null,
+        localChosenBtn: this.chosenValueString,
+        newInput: false,
+        insertedValues: {}, // Store the inserted values for each variable
+        placeholders: {} // Store the placeholders so we can update them simultaneously
       };
+    },
+    watch: {
+        chosenValueString(newVal) {
+            // Remove the last character using slice
+            this.localChosenBtn = newVal.slice(0, -1);
+            this.alertUpdate();
+        }
+        },
+    computed: {
+        updatedChosenBtn() {
+            return this.localChosenBtn;
+        },
+        updateStringBtn() {
+            return this.stringBtn;
+        }
     },
     methods: {
         chooseFormula(formula) {
@@ -118,7 +137,6 @@ export default {
             }
 
             let formula = this.chosenFormula.formula;
-            console.log(formula);
 
             const variableLabels = {
                 MKnumber: 'מקדם קרקע',
@@ -133,38 +151,85 @@ export default {
                 degreeNum: this.degreeNum,
                 safetyFactor: this.safetyFactor
             };
+            const modeClass = this.darkMode ? 'dark-mode' : 'light-mode';
 
             Object.keys(variables).forEach((key) => {
                 const value =
                     variables[key] !== null
                         ? variables[key]
-                        : `<span class="placeholder" data-var="${key}">${variableLabels[key]}</span>`
+                        : `<span class="placeholder ${modeClass}" data-var="${key}">${variableLabels[key]}</span>`;
                 formula = formula.split(key).join(value);
             });
 
             return formula;
         },
-
+        alertUpdate() {
+            this.newInput = true;
+        },
         handlePlaceholderClick(event) {
-            const variable = event.target.getAttribute('data-var');
-            if (!variable) return;
+            if (event.target.classList.contains("placeholder")) {
+                const variable = event.target.getAttribute('data-var');
+                if (!variable) return;
 
-            const value = prompt(`הכנס ערך עבור ${variable}`);
-            if (!isNaN(value)) {
-                this[variable] = parseFloat(value);
-            }
-        }
+                if (this.selectedPlaceholder && this.selectedPlaceholder !== event.target) {
+                    clearInterval(this.intervalId); // Stop the interval
+                    if (this.currentInput) {
+                        this[variable] = parseFloat(this.currentInput); // Save the previous value
+                    }
+                }
+                this.selectedPlaceholder = event.target;
+                this.currentInput = ''; // Reset input for the new placeholder
+
+                if (this.intervalId) {
+                    clearInterval(this.intervalId);
+                }
+
+                this.intervalId = setInterval(() => {
+                    if (this.updatedChosenBtn !== null && this.newInput) {
+                        // Add the button value and reset flag
+                        this.currentInput += this.updatedChosenBtn;
+                        this.newInput = false;
+                    }
+                    this.selectedPlaceholder.textContent = this.currentInput;
+
+                    // if (this.stringBtn === 'מחק') {
+                    //     this.currentInput ='';
+                    // }
+
+                    if (this.currentInput.length === 7) {
+                        clearInterval(this.intervalId);
+                        this[variable] = parseFloat(this.currentInput); // Save the final value
+                    }
+                }, 250); // Adjust speed if needed
+            } else {
+                // User clicked outside a placeholder
+                if (this.selectedPlaceholder) {
+                    const variable = this.selectedPlaceholder.getAttribute('data-var');
+                    clearInterval(this.intervalId); // Stop the interval
+                    if (this.currentInput) {
+                        this[variable] = parseFloat(this.currentInput); // Save the value
+                    }
+                    this.selectedPlaceholder = null; // Reset the placeholder
+                    }
+                }
+
     },
     mounted() {
-        const container = this.$refs.formulaContainer;
-        if (container) {
-        container.addEventListener('click', (event) => {
-            if (event.target.classList.contains('placeholder')) {
-                this.handlePlaceholderClick(event);
-            }
-        });
+        const calcContainer = this.$refs.formulaContainer;
+        
+        calcContainer.addEventListener('touchstart', this.handlePlaceholderClick, false);
+        calcContainer.addEventListener('touchend', this.handlePlaceholderClick, false);
+    },
+    beforeDestroy() {
+        const calcContainer = this.$refs.formulaContainer;
+        calcContainer.removeEventListener('touchstart', this.handlePlaceholderClick, false);
+        calcContainer.removeEventListener('touchend', this.handlePlaceholderClick, false);
+
+        if (this.intervalId) {
+        clearInterval(this.intervalId);
         }
     }
+}
 };
 </script>
 
@@ -307,11 +372,43 @@ export default {
 
 <style>
 .placeholder {
-    /* border: solid !important; */
-    display: inline-block; /* Ensure the span behaves like a block for better visibility */
-    border: 1px solid red;
-    padding: 4px;
+    display: inline-block;
+    background-color: transparent; /* No background color to blend with the input area */
+    color: #666; /* Default text color */
+    padding: 0.4rem;
+    border-bottom: 2px solid #aaa; /* Underline for better emphasis */
+    font-style: italic; /* To indicate it's a placeholder */
     text-align: center;
+    cursor: pointer; /* Indicate that it is clickable */
+    transition: all 0.3s ease-in-out;
 }
 
+/* Dark mode styling */
+.dark-mode .placeholder {
+    color: #ddd; /* Light text color for dark mode */
+    border-bottom: 2px solid #bbb; /* Lighter border for contrast */
+}
+
+/* Light mode styling */
+.light-mode .placeholder {
+    color: #333; /* Darker text color for light mode */
+    border-bottom: 2px solid #888; /* Darker border for better contrast */
+}
+
+.placeholder:hover {
+    color: #0056b3; /* Change color on hover */
+    border-bottom-color: #0056b3; /* Highlight the underline on hover */
+}
+
+@keyframes clickme {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
 </style>
