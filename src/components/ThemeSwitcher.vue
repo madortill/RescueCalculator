@@ -78,7 +78,7 @@
   }
   
   .text {
-    font-size: calc(4px + 2.5vw);
+    font-size: 0.8rem;
     z-index: 1000;
     color: var(--text-color); /* Dynamic text color */
     transition: color 0.5s ease;

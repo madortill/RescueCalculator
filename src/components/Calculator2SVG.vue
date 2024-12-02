@@ -93,8 +93,8 @@
           <g class="button">
           <rect  x="102.5" y="337.5" width="70" height="90" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
           <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
-              <tspan :x="165" :y="-10" :style="{ fontSize: 'calc(13px + 4vw)'}">{{ MKinfo.factor }}</tspan>
-              <tspan :x="165" :y="7" :style="{ fontSize: 'calc(9px + 2vw)'}">{{ MKinfo.name }}</tspan>
+              <tspan :x="165" :y="-10" :style="{ fontSize: '2rem'}">{{ MKinfo.factor }}</tspan>
+              <tspan :x="165" :y="7" :style="{ fontSize: '1rem'}">{{ MKinfo.name }}</tspan>
           </text>
           </g>
       </g>
@@ -190,7 +190,7 @@
 
 .dark-mode .cls-2 {
   font-family: 'OpenSansHebrew';
-  font-size: calc(15px + 4vw);
+  font-size: 1.78rem;
 }
 
 .dark-mode .cls-2,
@@ -204,7 +204,7 @@
 }
 
 .dark-mode .cls-3 {
-  font-size: calc(15px + 10vw);
+  font-size: 3.5rem;
 }
 
 .dark-mode .cls-3,
@@ -213,7 +213,7 @@
 }
 
 .dark-mode .cls-4 {
-  font-size: calc(15px + 7vw);
+  font-size: 2.4rem;
 }
 
 .dark-mode .cls-6 {
@@ -229,7 +229,7 @@ fill: #000;
 
 .light-mode .cls-2 {
   font-family: 'OpenSansHebrew';
-  font-size: calc(15px + 4vw);
+  font-size: 1.78rem;
 }
 
 .light-mode .cls-2,
@@ -244,7 +244,7 @@ fill: #000;
 }
 
 .light-mode .cls-3 {
-  font-size: calc(15px + 10vw);
+  font-size: 3.5rem;
 }
 
 .light-mode .cls-3,
@@ -252,22 +252,18 @@ fill: #000;
   font-family: 'Heebo';
 }
 
-.light-mode .cls-4 {
-  font-size: calc(15px + 7vw);
-}
-
 .light-mode .cls-6 {
   fill: #e6e6e6;
 }
 .light-mode  .light-text {
   fill: #ffffff;
-  font-size: calc(15px + 7vw);
+  font-size: 2.4rem;
   opacity: 1;
 }
 
 .light-mode  .differentSize,
 .dark-mode  .differentSize {
-  font-size: calc(15px + 4vw) !important;
+  font-size: 1.9rem !important;
   font-family: 'OpenSansHebrew';
 }
 .light-mode .background {

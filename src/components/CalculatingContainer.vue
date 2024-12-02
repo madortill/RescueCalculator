@@ -177,7 +177,7 @@ export default {
     right: 50%;
     transform: translateX(50%);
     border-radius: 2rem;
-    font-size: calc(10px + 2.4vw);
+    font-size: 1.1rem;
     font-weight: 550;
     font-family: 'OpenSansHebrew';
 }
@@ -188,7 +188,7 @@ export default {
     transform: translateX(-50%);
     width: 100vw;
     text-align: center;
-    font-size: calc(10px + 4vw);
+    font-size: 1.65rem;
     color: white;
     font-weight: 600;
 }
@@ -197,10 +197,23 @@ export default {
     color: #a43b49 !important;
 }
 
-.formula-options {
-    padding: 0.25rem;
+.formula-container {
+    position: absolute;
+    top: -2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     border-radius: 15px;
-    margin-top: 0.15rem;
+    width: 100%;
+    height: 75%;
+}
+
+.formula-options {
+    padding: 0.5rem;
+    border-radius: 15px;
+    margin: 0.15rem;
     z-index: 23;
     color: black;
 }
@@ -215,10 +228,7 @@ export default {
     color:  #ffffff;
 }
 
-.formula-container {
-    text-align: center;
-    border-radius: 15px;
-}
+
 
 .ground-container {
     position: absolute;
@@ -228,6 +238,7 @@ export default {
     justify-content: space-evenly;
     text-align: center;
     border-radius: 15px;
+    width: 100%;
 }
 
 .item {
