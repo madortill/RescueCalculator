@@ -207,7 +207,7 @@ export default {
     text-align: center;
     border-radius: 15px;
     width: 100%;
-    height: 75%;
+    height: 100%;
 }
 
 .formula-options {
