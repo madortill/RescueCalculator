@@ -1,71 +1,77 @@
-<!-- הגרסה הכי חדשה - 1.12 שעה 17:55 -->
-
+<!-- הגרסה הכי חדשה - 2.12 שעה 09:55 -->
 <template>
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.62 754" :class="isDark ? 'dark-mode' : 'light-mode'">
     <g id="Layer_1" data-name="Layer 1">
       <rect class="background" width="450" height="600" />
     </g>
     <g id="Layer_3" data-name="Layer 3">
+      <!-- Row 1 -->
+      <g class="button">
+          <ellipse class="cls-1" cx="65" cy="550" rx="37" ry="37" />
+          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(85 200) scale(.999)">
+              <tspan x="-10" y="365">1</tspan>
+          </text>
+      </g>
       <g class="button">
           <ellipse class="cls-1" cx="165" cy="550" rx="37" ry="37" />
-          <text  :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(150 600) scale(.999)">
-              <tspan x="26.5" y="-35">2</tspan>
+          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(185 200) scale(.999)">
+              <tspan x="-10" y="365">2</tspan>
+          </text>
+      </g>
+      <g class="button">
+          <ellipse class="cls-1" cx="265" cy="550" rx="37" ry="37" />
+          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(285 200) scale(.999)">
+              <tspan x="-10" y="365">3</tspan>
+          </text>
+      </g>
+
+      <!-- Row 2 -->
+      <g class="button">
+          <ellipse class="cls-1" cx="65" cy="450" rx="37" ry="37" />
+          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(85 300) scale(.999)">
+              <tspan x="-10" y="165">4</tspan>
           </text>
       </g>
       <g class="button">
           <ellipse class="cls-1" cx="165" cy="450" rx="37" ry="37" />
-          <text  :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(150 495) scale(.999)">
-           <tspan x="25" y="-30">5</tspan>
+          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(185 300) scale(.999)">
+              <tspan x="-10" y="165">5</tspan>
+          </text>
+      </g>
+      <g class="button">
+          <ellipse class="cls-1" cx="265" cy="450" rx="37" ry="37" />
+          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(285 300) scale(.999)">
+              <tspan x="-10" y="165">6</tspan>
+          </text>
+      </g>
+
+      <!-- Row 3 -->
+      <g class="button">
+          <ellipse class="cls-1" cx="65" cy="350" rx="37" ry="37" />
+          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(85 400) scale(.999)">
+              <tspan x="-10" y="-35">7</tspan>
           </text>
       </g>
       <g class="button">
           <ellipse class="cls-1" cx="165" cy="350" rx="37" ry="37" />
-          <text  :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(150 390) scale(.999)">
-              <tspan x="26" y="-24">8</tspan>
-          </text>
-      </g>
-      <g class="button">    
-      <ellipse class="cls-1" cx="58" cy="550" rx="37" ry="37" />
-          <text :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(45 600) scale(.999)">
-              <tspan x="25" y="-35">1</tspan>
+          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(185 400) scale(.999)">
+              <tspan x="-10" y="-35">8</tspan>
           </text>
       </g>
       <g class="button">
-          <ellipse class="cls-1" cx="58" cy="450" rx="37" ry="37" />
-          <text  :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(45 495) scale(.999)">
-              <tspan x="22" y="-31">4</tspan>
+          <ellipse class="cls-1" cx="265" cy="350" rx="37" ry="37" />
+          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(285 400) scale(.999)">
+              <tspan x="-10" y="-35">9</tspan>
           </text>
       </g>
+
       <g class="button">
-          <ellipse class="cls-1" cx="58" cy="350" rx="37" ry="37" />
-          <text  :class="['cls-4', { 'light-text': !isDark }]" transform="translate(45 390) scale(.999)">
-              <tspan x="24" y="-23">7</tspan>
+          <rect class="cls-1" x="25" y="610" width="280" height="75" rx="28.45" ry="28.45" />
+          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(160 490) scale(.999)">
+              <tspan x="-90" y="175">0</tspan>
           </text>
       </g>
-      <g class="button">
-          <rect class="cls-1" x="17" y="605" width="296" height="75" rx="28.45" ry="28.45" />
-          <text  :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(45 710) scale(.999)">
-              <tspan x="20" y="-51">0</tspan>
-          </text>
-      </g>
-      <g class="button">
-          <ellipse class="cls-1" cx="273" cy="550" rx="37" ry="37" />
-          <text  :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(260 600) scale(.999)">
-              <tspan x="24" y="-35">3</tspan>
-          </text>
-      </g>
-      <g class="button">
-          <ellipse class="cls-1" cx="273" cy="450" rx="37" ry="37" />
-          <text  :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(260 495) scale(.999)">
-              <tspan x="23" y="-31">6</tspan>
-          </text>
-      </g>
-      <g class="button">
-          <ellipse class="cls-1" cx="273" cy="350" rx="37" ry="37" />
-          <text :class="['cls-4', { 'light-text': !isDark }]"  transform="translate(260 390) scale(.999)">
-              <tspan x="24" y="-25">9</tspan>
-          </text>
-      </g>
+
       <g class="button">
           <ellipse class="cls-5" cx="385" cy="455" rx="46" ry="46" />
           <text  class="cls-4 differentSize" transform="translate(355 495) scale(.999)">
@@ -78,7 +84,7 @@
               <tspan x="35" y="-25">=</tspan>
           </text>
       </g>
-      <g class="button" @click=" this.$emit('clickedBtn', 'ground');">
+      <g id="ground-btn" class="button"  @click="addListeners">
           <rect class="cls-6" x="102.5" y="170" width="70" height="135" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" />
           <text class="cls-2" transform="translate(55 280) scale(0.999)">
               <tspan x="85" y="-20">סוג קרקע</tspan>
@@ -87,9 +93,9 @@
       <g v-if="MKfound">
           <g class="button">
           <rect  x="102.5" y="337.5" width="70" height="90" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
-          <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle" :class="isDark ? 'dark-text' : 'light-text'">
+          <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
               <tspan :x="165" :y="-10" :style="{ fontSize: 'calc(13px + 4vw)'}">{{ MKinfo.factor }}</tspan>
-              <tspan :x="165" :y="10" :style="{ fontSize: 'calc(9px + 2vw)'}">{{ MKinfo.name }}</tspan>
+              <tspan :x="165" :y="7" :style="{ fontSize: 'calc(9px + 2vw)'}">{{ MKinfo.name }}</tspan>
           </text>
           </g>
       </g>
@@ -126,28 +132,22 @@
       return this.darkMode;
       },
       MKfound() {
-          return this.MKinfo;
-      }
+      return this.MKinfo;
+      },
   },
   methods: {
-      handleFormulaSelection() {
-          const buttonGroups = document.querySelectorAll(".button");
-          const formulaBtn = document.getElementById("formula-btn");
-          // formulaBtn.classList.add("pulsing");
-          // // Initially disable all buttons except "formula-btn"
-          // buttonGroups.forEach((button) => {
-          //     if (button !== formulaBtn) {
-          //     button.classList.add("disabled");
-          //     }
-          // });
-          // Enable all buttons when "formula-btn" is clicked
-          formulaBtn.addEventListener("click", () => {
-              this.$emit('clickedBtn', 'formula');
-              buttonGroups.forEach((button) => {
-              button.addEventListener("click", this.getInfo);
-              });
-          });
-      },
+    addListeners() {
+      this.$emit('clickedBtn', 'ground');
+      const buttonGroups = document.querySelectorAll(".button");
+      const formulaBtn = document.getElementById("formula-btn");
+      const groundBtn = document.getElementById("ground-btn");
+      formulaBtn.addEventListener("click", () => {
+          this.$emit('clickedBtn', 'formula');
+          buttonGroups.forEach((button) => {
+          button.addEventListener("click", this.getInfo);
+         });
+      });
+     },
       getInfo(event) {
           if (this.childrenArr.length === 0) {
               this.childrenArr = event.currentTarget.children;
@@ -164,14 +164,10 @@
       }
   },
   },
-  mounted() {
-       this.handleFormulaSelection();
-  },
   };
 </script>
 
 <style scoped>
-/* Dark mode styles */
 .dark-mode .cls-1 {
   fill: #4d4d4d;
 }
@@ -208,11 +204,10 @@
   fill: #fbb03b;
 }
 .dark-mode .background {
-fill: #000; /* Change to white or any color you want for dark mode */
+fill: #000; 
 }
-/* Light mode styles */
+
 .light-mode .cls-1 {
-  /* fill: #dae6e6; */
   fill: #2e4a4a61;
 }
 
@@ -249,7 +244,6 @@ fill: #000; /* Change to white or any color you want for dark mode */
   fill: #e6e6e6;
 }
 .light-mode  .light-text {
-  /* fill: #004f51; */
   fill: #ffffff;
   font-size: calc(15px + 7vw);
   opacity: 1;
@@ -261,32 +255,16 @@ fill: #000; /* Change to white or any color you want for dark mode */
   font-family: 'OpenSansHebrew';
 }
 .light-mode .background {
-fill: #fff; /*                                           to black or any color you want for light mode */
+fill: #fff; 
 }
-.disabled {
-  pointer-events: none; /* Makes the button non-clickable */
-  filter: grayscale(100%);
-  opacity: 0.5;
-}
-.pulsing {
-position: relative; /* Ensures the button is positioned within its container */
-animation: pulse 2s infinite;
-}
-@keyframes pulse {
-0%, 100% {
-  transform: scale(0.995);
-}
-50% {
-  transform: scale(1.005);
-}
-}
-/* Light Mode Button */
+
+
 .light-button {
   fill: rgba(171, 53, 53, 0.651);
- /* Fill color for the button in light mode */
 }
-/* Dark Mode Button */
+
 .dark-button {
-fill: rgb(196, 154, 122); /* Fill color for the button in dark mode */
+fill: rgb(196, 154, 122); 
 }
+
 </style>

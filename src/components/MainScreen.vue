@@ -5,6 +5,7 @@
         class="container" 
         :darkMode="darkMode" 
         :MKinfo = "MKinfo"
+        :clickedStates="clickedStates"
         @chosen-btn="handleChosenBtn" 
         @toggle-theme="changeMode"
         @clickedBtn="handleClicked">
@@ -17,14 +18,13 @@
     <CalculatingContainer 
       class="container"
       :darkMode="darkMode"
-      :chosenBtn="chosenValue"
-      :clickedStates="clickedStates"
+      :chosenBtn="chosenValueString"
+      :clickedStates="clickedStates" 
       @clickedBtn="handleClicked"
+      @resetButtonState = "resetButtons"
       @MKinfo="foundMK"
       >
   </CalculatingContainer>
-    
-
   
   </div>
 </template>
@@ -47,14 +47,15 @@ export default {
   data() {
     return {
       darkMode: true,
-      chosenValue: null,
+      chosenValueString: null,
       stringBtn: '',
       clickedStates: {
         formula: false,
         ground: false,
         degree: false,
       },
-      MKinfo: null
+      MKinfo: null,
+      reset: false,
    };
   },
   computed: {
@@ -74,16 +75,19 @@ export default {
     changeMode() {
       this.darkMode = !this.darkMode;
     },
-    handleChosenBtn(chosenBtn) { // This will log the chosen button value
-
+    handleChosenBtn(chosenBtn) { 
+      console.log(chosenBtn);
       if (Number(chosenBtn) || Number(chosenBtn) === 0) {
-          this.chosenValue = Number(chosenBtn);
-          console.log(this.chosenValue);
+          this.chosenValueString = String(chosenBtn);
+          console.log(this.chosenValueString);
       }
        else {
         this.stringBtn = chosenBtn;
         console.log(this.stringBtn);
        }
+    },
+    resetButtons() {
+      this.reset = !this.reset;
     }
   }
 }
@@ -93,8 +97,6 @@ export default {
 #main-screen {
     width: 100%;
     height: 100%;
-    /* background-color: black; */
-    /* background-color: white; */
     background-size: 110% 110%;
 }
 
@@ -104,6 +106,4 @@ export default {
   position: absolute;
   top: 0;
 }
-
-
 </style>
