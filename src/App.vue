@@ -1,22 +1,51 @@
 <template>
     <div id="app">
-      <main-screen></main-screen>
-    </div>
+      <opening-screen 
+          v-if="page === 0" 
+          @nextScreen="goToNext"
+           @toggle-theme="changeMode"
+          :darkMode="darkMode">
+    </opening-screen>
 
+      <main-screen 
+          v-else-if="page === 1"  
+          @nextScreen="goToNext"
+           @toggle-theme="changeMode"
+          :darkMode="darkMode">
+      </main-screen>
+
+      <ThemeSwitcher
+        @click="changeMode">
+    </ThemeSwitcher>
+    </div>
 </template>
 
 <script>
 import MainScreen from './components/MainScreen.vue'
+import OpeningScreen from './components/OpeningScreen.vue'
+import ThemeSwitcher from './components/ThemeSwitcher.vue'
+
 export default {
   name: "app",
   components: {
-  MainScreen
+  MainScreen,
+  OpeningScreen,
+  ThemeSwitcher
   },
   data() {
     return {
+      page: 0,
+      darkMode: true,
+
     }
   },
   methods: {
+    goToNext() {
+      this.page++;
+    },
+    changeMode() {
+      this.darkMode = !this.darkMode;
+    },
   }
 }
 </script>

@@ -7,13 +7,12 @@
         :MKinfo = "MKinfo"
         :clickedStates="clickedStates"
         @chosen-btn="handleChosenBtn" 
-        @toggle-theme="changeMode"
         @clickedBtn="handleClicked">
     </Calculator2SVG>
     
-    <ThemeSwitcher
+    <!-- <ThemeSwitcher
         @click="changeMode">
-    </ThemeSwitcher>
+    </ThemeSwitcher> -->
 
     <CalculatingContainer 
       class="container"
@@ -38,6 +37,7 @@ import CalculatingContainer from './CalculatingContainer.vue';
 
 export default {
   name: "main-screen",
+  props: ['darkMode'], 
   components: {
     Calculator2SVG,
     CalculatorLightSVG,
@@ -46,7 +46,7 @@ export default {
   },
   data() {
     return {
-      darkMode: true,
+      // darkMode: true,
       chosenValueString: null,
       stringBtn: '',
       clickedStates: {
@@ -72,9 +72,9 @@ export default {
       this.clickedStates[btn] = !currentState;
     },
 
-    changeMode() {
-      this.darkMode = !this.darkMode;
-    },
+    // changeMode() {
+    //   this.darkMode = !this.darkMode;
+    // },
     handleChosenBtn(chosenBtn) { 
       this.counter++;
       // console.log(chosenBtn);
