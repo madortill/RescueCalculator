@@ -94,12 +94,14 @@
           <rect  x="102.5" y="337.5" width="70" height="90" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
           <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
               <tspan :x="165" :y="-10" :style="{ fontSize: '2rem'}">{{ MKinfo.factor }}</tspan>
+          </text>
+          <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
               <tspan :x="165" :y="10" :style="{ fontSize: '1rem'}">{{ MKinfo.name }}</tspan>
           </text>
           </g>
       </g>
       
-      <g class="button" @click="this.$emit('clickedBtn', 'degree');" :class="{'disabled': currState.ground || currState.formula}">
+      <g class="button" :class="{'disabled': currState.ground || currState.formula}">
           <rect class="cls-5" x="342.5" y="600.5" width="165" height="90" rx="29.2" ry="29.2" transform="translate(-260 1030) rotate(-90)" />
           <g transform="translate(0, 0)">
               <text class="cls-2" text-anchor="middle" x="385" y="591">שינוי</text>
@@ -157,6 +159,8 @@
       const buttonGroups = document.querySelectorAll(".button");
       const formulaBtn = document.getElementById("formula-btn");
       const groundBtn = document.getElementById("ground-btn");
+      groundBtn.addEventListener("click", () => {
+        this.$emit('clickedBtn', 'degree')});
       formulaBtn.addEventListener("click", () => {
         this.handleFormula();
           buttonGroups.forEach((button) => {

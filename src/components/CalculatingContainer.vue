@@ -29,7 +29,7 @@
             {{ chosenFormula.name }}
         </div>
         <div class="calc" ref="formulaContainer" v-show="!clickedStates.formula && !clickedStates.ground" @click="handlePlaceholderClick">
-            <div v-html="renderFormula()"></div>
+            <div v-show="!errorMessage" v-html="renderFormula()"></div>
             <div v-show="errorMessage" class="error-message">{{ errorMessage }}</div>
         </div>
     </div>
@@ -181,7 +181,7 @@ export default {
         renderPlaceholderFormula() {
             let formula = this.chosenFormula.formula;
             const variableLabels = {
-                MKnumber: 'מקדם קרקע',
+                MKnumber: `${this.MKnumber}`,
                 MTSnumber: 'משקל ציוד',
                 degreeNum: 'זוית השיפוע',
                 safetyFactor: '1.25' // Default value for safetyFactor
@@ -189,7 +189,7 @@ export default {
             const modeClass = this.darkMode ? 'dark-mode' : 'light-mode';
 
             Object.keys(variableLabels).forEach((key) => {
-                if (key === 'safetyFactor') {
+                if (key === 'safetyFactor' || key === 'MKnumber') {
                     formula = formula.split(key).join(variableLabels[key]); // Use default value for safetyFactor
                 } else {
                     const placeholder = `<span class="placeholder ${modeClass}" data-var="${key}">${variableLabels[key]}</span>`;
@@ -201,7 +201,6 @@ export default {
         },
         resetFormulaInputs() {
             // Reset only the input variables to null, leave safetyFactor unchanged
-            this.MKnumber = null;
             this.MTSnumber = null;
             this.degreeNum = null;
             this.localChosenBtn = ''; 
@@ -296,6 +295,10 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: 'Heebo';
+  src: url(/src/assets/fonts/Heebo/Heebo-Regular.ttf);
+} 
 
 #calculating-container {
     width: 92%;
@@ -428,6 +431,7 @@ export default {
     direction: ltr;
     text-align: left;
     margin-top: 5rem;
+    font-family: 'Heebo';
 }
 
 .error-message {
