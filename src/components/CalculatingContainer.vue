@@ -95,6 +95,7 @@ export default {
         chosenFormula: '',
         chosenCalc: null,
         localChosenBtn: this.chosenValueString,
+        localString: null,
         newInput: false,
         insertedValues: {}, // Store the inserted values for each variable
         placeholders: {} ,// Store the placeholders so we can update them simultaneously
@@ -106,6 +107,10 @@ export default {
             // Extract the most left digit
             this.localChosenBtn = newVal.charAt(0);
             this.alertUpdate();
+        },
+        stringBtn(newVal) {
+            const match = newVal.match(/^[a-zA-Zא-ת]+/); // Match letters only (including Hebrew if needed)
+            this.localString = match ? match[0] : ''; // Save the word part or an empty string
         }
     },
     computed: {
@@ -139,8 +144,10 @@ export default {
                 return ' '; // Return blank if no formula is chosen
             }
 
+            console.log(this.localString);
             // Handle delete button: Reset inputs but keep safetyFactor
-            if (this.updateStringBtn === 'מחק') {
+            if (this.localString === 'איפוס') {
+                console.log("hello");
                 this.resetFormulaInputs(); // Reset inputs
                 return this.renderPlaceholderFormula(); // Re-render formula with placeholders
             }
@@ -205,6 +212,7 @@ export default {
             this.degreeNum = null;
             this.localChosenBtn = ''; 
             this.afterDelete = true;
+            this.localString = '';
         },
         alertUpdate() {
             this.newInput = true;
@@ -280,6 +288,9 @@ export default {
         
         calcContainer.addEventListener('touchstart', this.handlePlaceholderClick, false);
         calcContainer.addEventListener('touchend', this.handlePlaceholderClick, false);
+    },
+    created() {
+        this.localString = this.stringBtn || ''; // Initialize `localString` with `stringBtn` value
     },
     beforeDestroy() {
         const calcContainer = this.$refs.formulaContainer;

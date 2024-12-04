@@ -74,7 +74,7 @@
       <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <ellipse class="cls-5" cx="385" cy="455" rx="46" ry="46" />
           <text  class="cls-4 differentSize" transform="translate(355 495) scale(.999)">
-              <tspan x="57.5" y="-30">מחק</tspan>
+              <tspan x="61" y="-30">איפוס</tspan>
           </text>
       </g>
       <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">

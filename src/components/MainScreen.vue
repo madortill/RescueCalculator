@@ -81,7 +81,7 @@ export default {
       if (Number(chosenBtn) || Number(chosenBtn) === 0) {
           this.chosenValueString = String(chosenBtn)+String(this.counter);
       } else {
-        this.stringBtn = chosenBtn;
+        this.stringBtn = String(chosenBtn)+String(this.counter);
         // console.log(this.stringBtn);
        }
     },
