@@ -5,127 +5,145 @@
     </g>
     <g id="Layer_3" data-name="Layer 3">
       <!-- Row 1 -->
+    <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
+        <ellipse class="cls-1" cx="60" cy="555" rx="37" ry="37" />
+        <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(75 200) scale(.999)">
+            <tspan x="-5" y="370">1</tspan>
+        </text>
+    </g>
+    <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
+        <ellipse class="cls-1" cx="150" cy="555" rx="37" ry="37" />
+        <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(157.5 200) scale(.999)">
+            <tspan x="2.5" y="370">2</tspan>
+        </text>
+    </g>
+    <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
+        <ellipse class="cls-1" cx="245" cy="555" rx="37" ry="37" />
+        <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(240 200) scale(.999)">
+            <tspan x="15.5" y="370">3</tspan>
+        </text>
+    </g>
+
+    <!-- Row 2 -->
+    <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
+        <ellipse class="cls-1" cx="60" cy="460" rx="37" ry="37" />
+        <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(75 300) scale(.999)">
+            <tspan x="-5" y="175">4</tspan>
+        </text>
+    </g>
+    <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
+        <ellipse class="cls-1" cx="150" cy="460" rx="37" ry="37" />
+        <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(157.5 300) scale(.999)">
+            <tspan x="2.5" y="175">5</tspan>
+        </text>
+    </g>
+    <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
+        <ellipse class="cls-1" cx="245" cy="460" rx="37" ry="37" />
+        <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(240 300) scale(.999)">
+            <tspan x="15.5" y="175">6</tspan>
+        </text>
+    </g>
+
+    <!-- Row 3 -->
+    <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
+        <ellipse class="cls-1" cx="60" cy="362.5" rx="37" ry="37" />
+        <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(75 400) scale(.999)">
+            <tspan x="-5" y="-22.5">7</tspan>
+        </text>
+    </g>
+    <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
+        <ellipse class="cls-1" cx="150" cy="362.5" rx="37" ry="37" />
+        <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(157.5 400) scale(.999)">
+            <tspan x="2.5" y="-22.5">8</tspan>
+        </text>
+    </g>
+    <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
+        <ellipse class="cls-1" cx="245" cy="362.5" rx="37" ry="37" />
+        <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(240 400) scale(.999)">
+            <tspan x="15.5" y="-22.5">9</tspan>
+        </text>
+    </g>
+
+    <!-- 0 Button -->
+    <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
+        <rect class="cls-1" x="25" y="610" width="255" height="75" rx="28.45" ry="28.45" />
+        <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(160 490) scale(.999)">
+            <tspan x="-90" y="175">0</tspan>
+        </text>
+    </g>
+
+
       <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
-          <ellipse class="cls-1" cx="65" cy="550" rx="37" ry="37" />
-          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(85 200) scale(.999)">
-              <tspan x="-10" y="365">1</tspan>
+          <ellipse class="cls-5" cx="60" cy="267.5" rx="37" ry="37" />
+          <text  class="cls-4 differentSize" :style="{ fontSize: '1.65rem  !important'}"  transform="translate(355 495) scale(.999)">
+              <tspan x="-265" y="-217.5">איפוס</tspan>
           </text>
       </g>
       <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
-          <ellipse class="cls-1" cx="165" cy="550" rx="37" ry="37" />
-          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(185 200) scale(.999)">
-              <tspan x="-10" y="365">2</tspan>
+          <ellipse class="cls-5 equal" cx="382" cy="276" rx="47" ry="47" />
+          <text class="cls-3" :style="{ fontSize: '4.5rem'}" transform="translate(365 395) scale(.999)">
+              <tspan x="36" y="-93">=</tspan>
           </text>
       </g>
-      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
-          <ellipse class="cls-1" cx="265" cy="550" rx="37" ry="37" />
-          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(285 200) scale(.999)">
-              <tspan x="-10" y="365">3</tspan>
-          </text>
+      
+      <g id="ground-btn" class="button"  @click="handleGround" :class="{'disabled': currState.ground || currState.formula}">
+          <rect class="cls-5" x="477.5" y="578.5" width="100" height="110" rx="29.2" ry="29.2" transform="translate(-260 1030) rotate(-90)" />
+          <g transform="translate(0, 0)">
+              <text class="cls-2" text-anchor="middle" x="370" y="495">סוג</text>
+              <text class="cls-2" text-anchor="middle" x="370" y="527">קרקע</text>
+          </g>
       </g>
 
-      <!-- Row 2 -->
-      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
-          <ellipse class="cls-1" cx="65" cy="450" rx="37" ry="37" />
-          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(85 300) scale(.999)">
-              <tspan x="-10" y="165">4</tspan>
-          </text>
-      </g>
-      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
-          <ellipse class="cls-1" cx="165" cy="450" rx="37" ry="37" />
-          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(185 300) scale(.999)">
-              <tspan x="-10" y="165">5</tspan>
-          </text>
-      </g>
-      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
-          <ellipse class="cls-1" cx="265" cy="450" rx="37" ry="37" />
-          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(285 300) scale(.999)">
-              <tspan x="-10" y="165">6</tspan>
-          </text>
-      </g>
-
-      <!-- Row 3 -->
-      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
-          <ellipse class="cls-1" cx="65" cy="350" rx="37" ry="37" />
-          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(85 400) scale(.999)">
-              <tspan x="-10" y="-35">7</tspan>
-          </text>
-      </g>
-      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
-          <ellipse class="cls-1" cx="165" cy="350" rx="37" ry="37" />
-          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(185 400) scale(.999)">
-              <tspan x="-10" y="-35">8</tspan>
-          </text>
-      </g>
-      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
-          <ellipse class="cls-1" cx="265" cy="350" rx="37" ry="37" />
-          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(285 400) scale(.999)">
-              <tspan x="-10" y="-35">9</tspan>
-          </text>
-      </g>
-
-      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
-          <rect class="cls-1" x="25" y="610" width="280" height="75" rx="28.45" ry="28.45" />
-          <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(160 490) scale(.999)">
-              <tspan x="-90" y="175">0</tspan>
-          </text>
-      </g>
-
-      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
-          <ellipse class="cls-5" cx="385" cy="455" rx="46" ry="46" />
-          <text  class="cls-4 differentSize" transform="translate(355 495) scale(.999)">
-              <tspan x="61" y="-30">איפוס</tspan>
-          </text>
-      </g>
-      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
-          <ellipse class="cls-5" cx="385" cy="350" rx="43" ry="43" />
-          <text class="cls-3" transform="translate(365 395) scale(.999)">
-              <tspan x="35" y="-25">=</tspan>
-          </text>
-      </g>
-      <g id="ground-btn" class="button"  @click="handleGround" :class="{'disabled': currState.formula || currState.degree}">
-          <rect class="cls-6" x="102.5" y="170" width="70" height="135" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" />
+      <!-- <g id="ground-btn" class="button"  @click="handleGround" :class="{'disabled': currState.formula || currState.degree}">
+          <rect class="cls-6" x="-45" y="470" width="70" height="110" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" />
           <text class="cls-2" transform="translate(55 280) scale(0.999)">
-              <tspan x="85" y="-20">סוג קרקע</tspan>
+              <tspan x="380" y="130">סוג קרקע</tspan>
           </text>
-      </g>
-      <g v-if="MKfound">
+      </g> -->
+      <g>
           <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
-          <rect  x="102.5" y="337.5" width="70" height="90" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
+          <rect  x="95.5" y="375.5" width="60" height="90" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
           <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
-              <tspan :x="165" :y="-10" :style="{ fontSize: '2rem'}">{{ MKinfo.factor }}</tspan>
+              <tspan v-if="MKfound" :x="205" :y="5" :style="{ fontSize: '2rem'}">{{ MKinfo.factor }}</tspan>
           </text>
-          <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
-              <tspan :x="165" :y="10" :style="{ fontSize: '1rem'}">{{ MKinfo.name }}</tspan>
+          <text v-if="MKfound" class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
+              <tspan  :x="205" :y="25" :style="{ fontSize: '1rem'}">{{ MKinfo.name }}</tspan>
           </text>
+           <text v-else class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
+              <tspan :x="205" :y="-5" :style="{ fontSize: '1rem'}">לא נבחר</tspan>
+              <tspan :x="205" :y="15" :style="{ fontSize: '1rem'}">סוג קרקע</tspan>
+           </text>
           </g>
       </g>
       
       <g id="degree-btn" class="button" :class="{'disabled': currState.ground || currState.formula}">
-          <rect class="cls-5" x="342.5" y="600.5" width="165" height="90" rx="29.2" ry="29.2" transform="translate(-260 1030) rotate(-90)" />
+          <rect class="cls-5" x="342.5" y="578.5" width="110" height="110" rx="29.2" ry="29.2" transform="translate(-260 1030) rotate(-90)" />
           <g transform="translate(0, 0)">
-              <text class="cls-2" text-anchor="middle" x="385" y="591">שינוי</text>
-              <text class="cls-2" text-anchor="middle" x="385" y="625">זוית</text>
+              <text class="cls-2" text-anchor="middle" x="370" y="628">שינוי</text>
+              <text class="cls-2" text-anchor="middle" x="370" y="660">זוית</text>
           </g>
       </g>
 
-      <g v-if="degreeFound">
+      <g>
           <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
-          <rect  x="52.5" y="337.5" width="70" height="90" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
+          <rect  x="95.5" y="265.5" width="60" height="90" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
           <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
-              <tspan :x="165" :y="-10" :style="{ fontSize: '2rem'}">{{ degreeInfo.factor }}</tspan>
+              <tspan v-if="degreeFound" :x="95" :y="5" :style="{ fontSize: '2rem'}">{{ degreeInfo.factor }}</tspan>
           </text>
-          <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
-              <tspan :x="165" :y="10" :style="{ fontSize: '1rem'}"> {{ degreeInfo.degree }} מעלות</tspan>
-              <!-- צריך להחליף כאן את המיקום  -->
+          <text v-if="degreeFound" class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
+            <tspan :x="95" :y="25" :style="{ fontSize: '1rem'}"> {{ degreeInfo.degree }} מעלות</tspan>     
+          </text>
+          <text v-else class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
+            <tspan :x="95" :y="-5" :style="{ fontSize: '1rem'}">לא נבחר</tspan>
+            <tspan :x="95" :y="15" :style="{ fontSize: '1rem'}">שינוי זוית</tspan>
           </text>
           </g>
       </g>
 
       <g id="formula-btn" class="button" :class="{'disabled': currState.ground || currState.degree}">
-          <rect class="cls-6" x="317.5" y="245" width="70" height="125" rx="17.78" ry="17.78" transform="translate(60 605) rotate(-90)" />
+          <rect class="cls-5" x="177.5" y="258.5" width="75" height="110" rx="17.78" ry="17.78" transform="translate(60 605) rotate(-90)" />
           <text class="cls-2" transform="translate(280 280) scale(0.999)">
-              <tspan x="135" y="-19.5">נוסחאות</tspan>
+              <tspan x="141" y="120">נוסחאות</tspan>
           </text>
       </g> 
     </g>
@@ -244,6 +262,11 @@
 fill: #000; 
 }
 
+.dark-mode .equal {
+  fill: #ba996b;
+}
+
+
 .light-mode .cls-1 {
   fill: #2e4a4a61;
 }
@@ -297,12 +320,14 @@ fill: #fff;
 }
 
 .dark-button {
-fill: rgb(196, 154, 122); 
+  fill: #d9911c;
 }
 
 .button.disabled {
   opacity: 0.5;
   pointer-events: none;
 }
+
+
 
 </style>
