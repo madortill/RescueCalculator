@@ -30,6 +30,7 @@
         </div>
         <div class="calc" ref="formulaContainer" v-show="!clickedStates.formula && !clickedStates.ground" @click="handlePlaceholderClick">
             <div v-show="!errorMessage" v-html="renderFormula()"></div>
+            <span v-show="!errorMessage && result"> = {{ result }}</span>
             <div v-show="errorMessage" class="error-message">{{ errorMessage }}</div>
         </div>
     </div>
@@ -38,275 +39,327 @@
 <script>
 
 export default {
-    name: "calculating-container",
-    props: ['chosenValueString', 'clickedStates', 'darkMode', 'stringBtn'], 
-    data() {
-      return {
-        showGuidance: false,
-        MKnumber: null,
-        MTSnumber: null,
-        degreeNum: null,
-        afterDelete: false,
-        safetyFactor: 1.25,
-        formulasArrOriginal: [
-            {name: 'התנגדות לחילוץ עד 45 מעלות',
-            formula: this.safetyFactor * ((this.MKnumber * this.MTSnumber) + (this.MTSnumber * this.degreeNum / 60))},
-            {name: 'התנגדות לחילוץ מעל 45 מעלות',
-            formula: this.safetyFactor * ((this.MKnumber * this.MTSnumber) + this.MTSnumber)},
-            {name: 'התנגדות לחילוץ במישור',
-            formula: this.safetyFactor * ((this.MKnumber * this.MTSnumber))},
-            {name: 'התנגדות להיפוך - חוק היפוך הרכב',
-            formula: (this.MTSnumber * 2 / 3)}
-        ],
-        formulasArr: [
-            {
-                name: 'התנגדות לחילוץ עד 45 מעלות',
-                formula: 'safetyFactor x ((MKnumber x MTSnumber) + (MTSnumber x degreeNum / 60))'
-            },
-            {
-                name: 'התנגדות לחילוץ מעל 45 מעלות',
-                formula: 'safetyFactor x ((MKnumber x MTSnumber) + MTSnumber)'
-            },
-            {
-                name: 'התנגדות לחילוץ במישור',
-                formula: 'safetyFactor x (MKnumber x MTSnumber)'
-            },
-            {
-                name: 'התנגדות להיפוך - חוק היפוך הרכב',
-                formula: '(MTSnumber x 2 / 3)'
-            }
-        ],
-        groundTypesArr: [
-            {name: 'כביש', factor: 0.04},
-            {name: 'אדמה קשה', factor: 0.1},
-            {name: 'חצץ', factor: 0.2},
-            {name: 'חול', factor: 0.25},
-            {name: 'בוץ קל', factor: 0.333},
-            {name: 'בוץ כבד', factor: 0.5},
-            {name: 'בוץ דביק', factor: 0.66}
-        ],
-        degreeFactorsArr: [
-            {degree: 180, factor: 1},
-            {degree: 120, factor: 1},
-            {degree: 90, factor: 1.4},
-            {degree: 60, factor: 1.7},
-            {degree: 30, factor: 2},
-        ],
-        chosenFormula: '',
-        chosenCalc: null,
-        localChosenBtn: this.chosenValueString,
-        localString: null,
-        newInput: false,
-        insertedValues: {}, // Store the inserted values for each variable
-        placeholders: {} ,// Store the placeholders so we can update them simultaneously
-        errorMessage: '',
-        selectedPlaceholder: null,
-        intervalId: null,
-      };
-    },
-    watch: {
-        chosenValueString(newVal) {
-            // Extract the most left digit
-            this.localChosenBtn = newVal.charAt(0);
-            this.alertUpdate();
+name: "calculating-container",
+props: ['chosenValueString', 'clickedStates', 'darkMode', 'stringBtn'], 
+data() {
+  return {
+    showGuidance: false,
+    MKnumber: null,
+    MTSnumber: null,
+    degreeNum: null,
+    afterDelete: false,
+    safetyFactor: 1.25,
+    formulasArrOriginal: [
+        {name: 'התנגדות לחילוץ עד 45 מעלות',
+        formula: this.safetyFactor * ((this.MKnumber * this.MTSnumber) + (this.MTSnumber * this.degreeNum / 60))},
+        {name: 'התנגדות לחילוץ מעל 45 מעלות',
+        formula: this.safetyFactor * ((this.MKnumber * this.MTSnumber) + this.MTSnumber)},
+        {name: 'התנגדות לחילוץ במישור',
+        formula: this.safetyFactor * ((this.MKnumber * this.MTSnumber))},
+        {name: 'התנגדות להיפוך - חוק היפוך הרכב',
+        formula: (this.MTSnumber * 2 / 3)}
+    ],
+    formulasArr: [
+        {
+            name: 'התנגדות לחילוץ עד 45 מעלות',
+            formula: 'safetyFactor x ((MKnumber x MTSnumber) + (MTSnumber x degreeNum / 60))'
         },
-        stringBtn(newVal) {
-            const match = newVal.match(/^[a-zA-Zא-ת]+/); // Match letters only (including Hebrew if needed)
-            this.localString = match ? match[0] : ''; // Save the word part or an empty string
+        {
+            name: 'התנגדות לחילוץ מעל 45 מעלות',
+            formula: 'safetyFactor x ((MKnumber x MTSnumber) + MTSnumber)'
+        },
+        {
+            name: 'התנגדות לחילוץ במישור',
+            formula: 'safetyFactor x (MKnumber x MTSnumber)'
+        },
+        {
+            name: 'התנגדות להיפוך - חוק היפוך הרכב',
+            formula: '(MTSnumber x 2 / 3)'
         }
+    ],
+    groundTypesArr: [
+        {name: 'כביש', factor: 0.04},
+        {name: 'אדמה קשה', factor: 0.1},
+        {name: 'חצץ', factor: 0.2},
+        {name: 'חול', factor: 0.25},
+        {name: 'בוץ קל', factor: 0.333},
+        {name: 'בוץ כבד', factor: 0.5},
+        {name: 'בוץ דביק', factor: 0.66}
+    ],
+    degreeFactorsArr: [
+        {degree: 180, factor: 1},
+        {degree: 120, factor: 1},
+        {degree: 90, factor: 1.4},
+        {degree: 60, factor: 1.7},
+        {degree: 30, factor: 2},
+    ],
+    chosenFormula: '',
+    chosenCalc: null,
+    localChosenBtn: this.chosenValueString,
+    localString: null,
+    newInput: false,
+    insertedValues: {}, // Store the inserted values for each variable
+    placeholders: {} ,// Store the placeholders so we can update them simultaneously
+    errorMessage: '',
+    selectedPlaceholder: null,
+    intervalId: null,
+    result: null,
+  };
+},
+watch: {
+    chosenValueString(newVal) {
+        // Extract the most left digit
+        this.localChosenBtn = newVal.charAt(0);
+        this.alertUpdate();
     },
-    computed: {
-        updatedChosenBtn() {
-            return this.localChosenBtn;
-        },
-        updateStringBtn() {
-            return this.stringBtn;
-        }
-    },
-    methods: {
-        chooseFormula(formula) {
-            setTimeout(() => {
-                this.chosenFormula = formula;
-                this.$emit("clickedBtn", "formula");
-                // this.$emit("resetButtonState")
-            },750)
-            
-        },
-        chooseGround(ground) {
-            setTimeout(() => {
-                this.MKnumber = ground.factor;
-                this.showGuidance = true;
-                this.$emit("MKinfo", ground);
-                this.$emit("clickedBtn", "ground");
-                // this.$emit("resetButtonState");
-            },750)  
-        },
-        renderFormula() {
-            if (!this.chosenFormula || typeof this.chosenFormula.formula !== 'string') {
-                return ' '; // Return blank if no formula is chosen
-            }
-
-            // Handle delete button: Reset inputs but keep safetyFactor
-            if (this.localString === 'איפוס') {
-                this.resetFormulaInputs(); // Reset inputs
-                return this.renderPlaceholderFormula(); // Re-render formula with placeholders
-            }
-
-            // Replace placeholders with current variable values or leave placeholders if null
-            let formula = this.chosenFormula.formula;
-            const variableLabels = {
-                MKnumber: 'מקדם קרקע',
-                MTSnumber: 'משקל ציוד',
-                degreeNum: 'זוית השיפוע',
-                safetyFactor: '1.25' // Default value for safetyFactor
-            };
-
-            const variables = {
-                MKnumber: this.MKnumber,
-                MTSnumber: this.MTSnumber,
-                degreeNum: this.degreeNum,
-                safetyFactor: this.safetyFactor
-            };
-
-            const modeClass = this.darkMode ? 'dark-mode' : 'light-mode';
-
-            Object.keys(variables).forEach((key) => {
-                let value;
-                if (key === 'safetyFactor') {
-                    value = variableLabels[key]; // Always use default value for safetyFactor
-                } else {
-                    value =
-                        variables[key] !== null
-                            ? variables[key]
-                            : `<span class="placeholder ${modeClass}" data-var="${key}">${variableLabels[key]}</span>`;
-                }
-                formula = formula.split(key).join(value);
-            });
-
-            return formula;
-        },
-        renderPlaceholderFormula() {
-            let formula = this.chosenFormula.formula;
-            const variableLabels = {
-                MKnumber: `${this.MKnumber}`,
-                MTSnumber: 'משקל ציוד',
-                degreeNum: 'זוית השיפוע',
-                safetyFactor: '1.25' // Default value for safetyFactor
-            };
-            const modeClass = this.darkMode ? 'dark-mode' : 'light-mode';
-
-            Object.keys(variableLabels).forEach((key) => {
-                if (key === 'safetyFactor' || key === 'MKnumber') {
-                    formula = formula.split(key).join(variableLabels[key]); // Use default value for safetyFactor
-                } else {
-                    const placeholder = `<span class="placeholder ${modeClass}" data-var="${key}">${variableLabels[key]}</span>`;
-                    formula = formula.split(key).join(placeholder);
-                }
-            });
-
-            return formula;
-        },
-        resetFormulaInputs() {
-             // Reset variables to null or initial state
-            this.MTSnumber = null;
-            this.degreeNum = null;
-            this.localChosenBtn = '';
-            this.afterDelete = true;
-            this.localString = '';
-
-            // Clear the active interval if any
-            if (this.intervalId) {
-                clearInterval(this.intervalId);
-                this.intervalId = null; // Ensure the reference is removed
-            }
-
-            // Deselect any active placeholder
-            if (this.selectedPlaceholder) {
-                this.selectedPlaceholder.textContent = ''; // Clear displayed content
-                this.selectedPlaceholder = null;
-            }
-
-            // Trigger a re-render
-            this.$nextTick(() => {
-                this.renderPlaceholderFormula(); // Re-render the formula with placeholders
-            });
-        },
-        alertUpdate() {
-            this.newInput = true;
-        },
-        validateDegreeNum(value) {
-        if (value > 45) {
-            this.degreeNum = null; // Clear the input
-            this.errorMessage = 'שימו לב, הזוית צריכה להיות קטנה יותר מ-45 מעלות, אנא הכניסו ערך תקין';
-            setTimeout(() => {
-            this.errorMessage = ''; // Clear the error message after a short delay
-            }, 4500);
+    stringBtn(newVal) {
+        if (newVal.includes("=")) {
+            this.localString = "=";
+            this.handleCalculation();
         } else {
-            this.degreeNum = value;
+            const match = newVal.match(/^[a-zA-Zא-ת]+/); 
+            this.localString = match ? match[0] : '';
         }
-        },
-        handlePlaceholderClick(event) {
-        if (event.target.classList.contains("placeholder")) {
-            const variable = event.target.getAttribute('data-var');
-            if (!variable || variable === 'safetyFactor') return; // Do not allow editing safetyFactor
-
-            if (this.selectedPlaceholder && this.selectedPlaceholder !== event.target) {
-            clearInterval(this.intervalId); // Stop the interval
-            if (this.currentInput) {
-                if (variable === 'degreeNum') {
-                this.validateDegreeNum(parseFloat(this.currentInput)); // Validate degreeNum
-                } else {
-                this[variable] = parseFloat(this.currentInput); // Save the previous value
-                }
-            }
-            }
-            this.selectedPlaceholder = event.target;
-            this.currentInput = ''; // Reset input for the new placeholder
-
-            if (this.intervalId) {
-            clearInterval(this.intervalId);
-            }
-
-            this.intervalId = setInterval(() => {
-            if (this.updatedChosenBtn !== null && this.newInput) {
-                // Add the button value and reset flag
-                this.currentInput += this.updatedChosenBtn;
-                this.newInput = false;
-            }
-            this.selectedPlaceholder.textContent = this.currentInput;
-
-            if (this.currentInput.length === 7) {
-                clearInterval(this.intervalId);
-                if (variable === 'degreeNum') {
-                this.validateDegreeNum(parseFloat(this.currentInput)); // Validate degreeNum
-                } else {
-                this[variable] = parseFloat(this.currentInput); // Save the final value
-                }
-            }
-            }, 250); // Adjust speed if needed
-        } else {
-            // User clicked outside a placeholder
-            if (this.selectedPlaceholder) {
-            const variable = this.selectedPlaceholder.getAttribute('data-var');
-            clearInterval(this.intervalId); // Stop the interval
-            if (this.currentInput) {
-                if (variable === 'degreeNum') {
-                this.validateDegreeNum(parseFloat(this.currentInput)); // Validate degreeNum
-                } else {
-                this[variable] = parseFloat(this.currentInput); // Save the value
-                }
-            }
-            this.selectedPlaceholder = null; // Reset the placeholder
-            }
-        }
+    }
+},
+computed: {
+    updatedChosenBtn() {
+        return this.localChosenBtn;
     },
-    mounted() {
-        const calcContainer = this.$refs.formulaContainer;
+    updateStringBtn() {
+        return this.stringBtn;
+    }
+},
+methods: {
+    chooseFormula(formula) {
+        setTimeout(() => {
+            this.chosenFormula = formula;
+            this.$emit("clickedBtn", "formula");
+            // this.$emit("resetButtonState")
+        },750)
         
-        calcContainer.addEventListener('touchstart', this.handlePlaceholderClick, false);
-        calcContainer.addEventListener('touchend', this.handlePlaceholderClick, false);
     },
-    created() {
+    chooseGround(ground) {
+        setTimeout(() => {
+            this.MKnumber = ground.factor;
+            this.showGuidance = true;
+            this.$emit("MKinfo", ground);
+            this.$emit("clickedBtn", "ground");
+            // this.$emit("resetButtonState");
+        },750)  
+    },
+    renderFormula() {
+        if (!this.chosenFormula || typeof this.chosenFormula.formula !== 'string') {
+            return ' '; // Return blank if no formula is chosen
+        }
+        // Handle delete button: Reset inputs but keep safetyFactor
+        if (this.localString === 'איפוס') {
+            this.resetFormulaInputs(); // Reset inputs
+            return this.renderPlaceholderFormula(); // Re-render formula with placeholders
+        }
+        // Replace placeholders with current variable values or leave placeholders if null
+        let formula = this.chosenFormula.formula;
+        const variableLabels = {
+            MKnumber: 'מקדם קרקע',
+            MTSnumber: 'משקל ציוד',
+            degreeNum: 'זוית השיפוע',
+            safetyFactor: '1.25' // Default value for safetyFactor
+        };
+        const variables = {
+            MKnumber: this.MKnumber,
+            MTSnumber: this.MTSnumber,
+            degreeNum: this.degreeNum,
+            safetyFactor: this.safetyFactor
+        };
+        const modeClass = this.darkMode ? 'dark-mode' : 'light-mode';
+        Object.keys(variables).forEach((key) => {
+            let value;
+            if (key === 'safetyFactor') {
+                value = variableLabels[key]; // Always use default value for safetyFactor
+            } else {
+                value =
+                    variables[key] !== null
+                        ? variables[key]
+                        : `<span class="placeholder ${modeClass}" data-var="${key}">${variableLabels[key]}</span>`;
+            }
+            formula = formula.split(key).join(value);
+        });
+        return formula;
+    },
+    renderPlaceholderFormula() {
+        let formula = this.chosenFormula.formula;
+        const variableLabels = {
+            MKnumber: `${this.MKnumber}`,
+            MTSnumber: 'משקל ציוד',
+            degreeNum: 'זוית השיפוע',
+            safetyFactor: '1.25' // Default value for safetyFactor
+        };
+        const modeClass = this.darkMode ? 'dark-mode' : 'light-mode';
+        Object.keys(variableLabels).forEach((key) => {
+            if (key === 'safetyFactor' || key === 'MKnumber') {
+                formula = formula.split(key).join(variableLabels[key]); // Use default value for safetyFactor
+            } else {
+                const placeholder = `<span class="placeholder ${modeClass}" data-var="${key}">${variableLabels[key]}</span>`;
+                formula = formula.split(key).join(placeholder);
+            }
+        });
+        return formula;
+    },
+    resetFormulaInputs() {
+         // Reset variables to null or initial state
+        this.MTSnumber = null;
+        this.degreeNum = null;
+        this.localChosenBtn = '';
+        this.afterDelete = true;
+        this.localString = '';
+        this.result= null;
+        // Clear the active interval if any
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+            this.intervalId = null; // Ensure the reference is removed
+        }
+        // Deselect any active placeholder
+        if (this.selectedPlaceholder) {
+            this.selectedPlaceholder.textContent = ''; // Clear displayed content
+            this.selectedPlaceholder = null;
+        }
+        // Trigger a re-render
+        this.$nextTick(() => {
+            this.renderPlaceholderFormula(); // Re-render the formula with placeholders
+        });
+    },
+    alertUpdate() {
+        this.newInput = true;
+    },
+    validateDegreeNum(value) {
+    if (value > 45) {
+        this.degreeNum = null; // Clear the input
+        this.errorMessage = 'שימו לב, הזוית צריכה להיות קטנה יותר מ-45 מעלות, אנא הכניסו ערך תקין';
+        setTimeout(() => {
+        this.errorMessage = ''; // Clear the error message after a short delay
+        }, 4500);
+    } else {
+        this.degreeNum = value;
+    }
+    },
+    handlePlaceholderClick(event) {
+    if (event.target.classList.contains("placeholder")) {
+        const variable = event.target.getAttribute('data-var');
+        if (!variable || variable === 'safetyFactor') return; // Do not allow editing safetyFactor
+        if (this.selectedPlaceholder && this.selectedPlaceholder !== event.target) {
+        clearInterval(this.intervalId); // Stop the interval
+        if (this.currentInput) {
+            if (variable === 'degreeNum') {
+            this.validateDegreeNum(parseFloat(this.currentInput)); // Validate degreeNum
+            } else {
+            this[variable] = parseFloat(this.currentInput); // Save the previous value
+            }
+        }
+        }
+        this.selectedPlaceholder = event.target;
+        this.currentInput = ''; // Reset input for the new placeholder
+        if (this.intervalId) {
+        clearInterval(this.intervalId);
+        }
+        this.intervalId = setInterval(() => {
+        if (this.updatedChosenBtn !== null && this.newInput) {
+            // Add the button value and reset flag
+            this.currentInput += this.updatedChosenBtn;
+            this.newInput = false;
+        }
+        this.selectedPlaceholder.textContent = this.currentInput;
+        if (this.currentInput.length === 7) {
+            clearInterval(this.intervalId);
+            if (variable === 'degreeNum') {
+            this.validateDegreeNum(parseFloat(this.currentInput)); // Validate degreeNum
+            } else {
+            this[variable] = parseFloat(this.currentInput); // Save the final value
+            }
+        }
+        }, 250); // Adjust speed if needed
+    } else {
+        // User clicked outside a placeholder
+        if (this.selectedPlaceholder) {
+        const variable = this.selectedPlaceholder.getAttribute('data-var');
+        clearInterval(this.intervalId); // Stop the interval
+        if (this.currentInput) {
+            if (variable === 'degreeNum') {
+            this.validateDegreeNum(parseFloat(this.currentInput)); // Validate degreeNum
+            } else {
+            this[variable] = parseFloat(this.currentInput); // Save the value
+            }
+        }
+        this.selectedPlaceholder = null; // Reset the placeholder
+        }
+        }
+    },
+    handleCalculation() {
+        // Extract variable names used in the formula
+        const formulaVariables = ['MKnumber', 'MTSnumber', 'degreeNum', 'safetyFactor'];
+        const missingVariables = [];
+        const variableLabels = {
+            'MKnumber': 'מקדם קרקע',
+            'MTSnumber': 'משקל ציוד',
+            'degreeNum': 'זוית השיפוע',
+            'safetyFactor': 'מקדם בטיחות'
+        }
+
+        // Check for missing variables in the chosen formula
+        formulaVariables.forEach(variable => {
+            if (this.chosenFormula.formula.includes(variable) && (this[variable] === null || this[variable] === undefined)) {
+                missingVariables.push(variableLabels[`${variable}`]);
+            }
+        });
+
+        // If there are missing variables, show an error
+        if (missingVariables.length > 0) {
+            this.errorMessage = ` לצורך החישוב יש להכניס את הנתונים הבאים: ${missingVariables.join(', ')}`;
+            setTimeout(() => {
+                this.errorMessage = ''; // Clear the error message after a delay
+            }, 4500);
+            return;
+        }
+
+        // Prepare variables for formula calculation
+        const variables = {
+            MKnumber: this.MKnumber,
+            MTSnumber: this.MTSnumber,
+            degreeNum: this.degreeNum,
+            safetyFactor: this.safetyFactor
+        };
+
+        // Dynamically evaluate the chosen formula
+        try {
+            let formulaString = this.chosenFormula.formula;
+            formulaString = formulaString.replace(/x/g, '*');
+            const formulaWithValues = formulaString.replace(/(MKnumber|MTSnumber|degreeNum|safetyFactor)/g, match => variables[match] ?? match);
+            this.result = eval(formulaWithValues); // Evaluate the formula
+            // Display the formula with values and the result
+            // this.chosenCalc = `${formulaWithValues} = ${result.toFixed(2)}`;
+        } catch (error) {
+            console.error('Error evaluating formula:', error);
+            this.errorMessage = 'החישוב נכשל, בדקו את הנתונים ואת הנוסחא';
+            setTimeout(() => {
+                this.errorMessage = '';
+            }, 4500);
+        }
+    }
+
+    // handleCalculation() {
+    //     // if clicked "=" before finished entering vars inputs or there are no inputs show error message that some
+    //     // data is missing
+
+    //     // if all data is ok, send the use the inserted data in the formulas and show the calculated result on screen like this:
+    //     // (formula with inserted data) = (result)
+    // }
+},
+mounted() {
+    const calcContainer = this.$refs.formulaContainer;
+        
+    calcContainer.addEventListener('touchstart', this.handlePlaceholderClick, false);
+    calcContainer.addEventListener('touchend', this.handlePlaceholderClick, false);
+},
+created() {
         this.localString = this.stringBtn || ''; // Initialize `localString` with `stringBtn` value
     },
     beforeDestroy() {
@@ -318,7 +371,6 @@ export default {
         clearInterval(this.intervalId);
         }
     }
-}
 };
 </script>
 
@@ -466,6 +518,7 @@ export default {
   color: rgb(222, 67, 53);
   margin-top: 0.2rem;
   text-align: center;
+  direction: rtl;
 }
 
 </style>
