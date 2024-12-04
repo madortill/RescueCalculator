@@ -101,13 +101,27 @@
           </g>
       </g>
       
-      <g class="button" :class="{'disabled': currState.ground || currState.formula}">
+      <g id="degree-btn" class="button" :class="{'disabled': currState.ground || currState.formula}">
           <rect class="cls-5" x="342.5" y="600.5" width="165" height="90" rx="29.2" ry="29.2" transform="translate(-260 1030) rotate(-90)" />
           <g transform="translate(0, 0)">
               <text class="cls-2" text-anchor="middle" x="385" y="591">שינוי</text>
               <text class="cls-2" text-anchor="middle" x="385" y="625">זוית</text>
           </g>
       </g>
+
+      <g v-if="degreeFound">
+          <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
+          <rect  x="52.5" y="337.5" width="70" height="90" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
+          <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
+              <tspan :x="165" :y="-10" :style="{ fontSize: '2rem'}">{{ degreeInfo.factor }}</tspan>
+          </text>
+          <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
+              <tspan :x="165" :y="10" :style="{ fontSize: '1rem'}"> {{ degreeInfo.degree }} מעלות</tspan>
+              <!-- צריך להחליף כאן את המיקום  -->
+          </text>
+          </g>
+      </g>
+
       <g id="formula-btn" class="button" :class="{'disabled': currState.ground || currState.degree}">
           <rect class="cls-6" x="317.5" y="245" width="70" height="125" rx="17.78" ry="17.78" transform="translate(60 605) rotate(-90)" />
           <text class="cls-2" transform="translate(280 280) scale(0.999)">
@@ -121,7 +135,7 @@
 <script>
   export default {
   name: "calculator-svg",
-  props: ['darkMode','MKinfo', 'clickedStates'],
+  props: ['darkMode','MKinfo', 'degreeInfo', 'clickedStates'],
   data() {
       return {
           childrenArr: [],
@@ -139,6 +153,9 @@
       },
       MKfound() {
       return this.MKinfo;
+      },
+      degreeFound() {
+      return this.degreeInfo;
       },
       currState() {
         this.currClickedStates.formula = this.clickedStates.formula;
@@ -158,8 +175,8 @@
     addListeners() {
       const buttonGroups = document.querySelectorAll(".button");
       const formulaBtn = document.getElementById("formula-btn");
-      const groundBtn = document.getElementById("ground-btn");
-      groundBtn.addEventListener("click", () => {
+      const degreeBtn = document.getElementById("degree-btn");
+      degreeBtn.addEventListener("click", () => {
         this.$emit('clickedBtn', 'degree')});
       formulaBtn.addEventListener("click", () => {
         this.handleFormula();

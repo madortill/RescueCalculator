@@ -5,6 +5,7 @@
         class="container" 
         :darkMode="darkMode" 
         :MKinfo = "MKinfo"
+        :degreeInfo = "degreeInfo"
         :clickedStates="clickedStates"
         @chosen-btn="handleChosenBtn" 
         @clickedBtn="handleClicked">
@@ -22,6 +23,7 @@
       :clickedStates="clickedStates" 
       @clickedBtn="handleClicked"
       @MKinfo="foundMK"
+      @DegreeInfo="foundDegree"
       >
   </CalculatingContainer>
   
@@ -55,6 +57,7 @@ export default {
         degree: false,
       },
       MKinfo: null,
+      degreeInfo: null,
       counter: 0,
    };
   },
@@ -63,6 +66,9 @@ export default {
   methods: {
     foundMK(ground) {
       this.MKinfo = ground;
+    },
+    foundDegree(degree) {
+      this.degreeInfo = degree;
     },
     handleClicked(btn) {
       const currentState = this.clickedStates[btn];

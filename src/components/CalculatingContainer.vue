@@ -24,11 +24,21 @@
                 {{ formula.name }}
             </div>
         </div>
+
+        <div class="degree-container" v-show="clickedStates.degree" :class="darkMode ? 'dark-mode' : 'light-mode'">
+            <div 
+                class="item" 
+                v-for="(degree, index) in degreeFactorsArr" 
+                :key="index" 
+                @click="chooseDegree(degree)">
+                {{ degree.degree }}
+            </div>
+        </div>
         
-        <div class="charStyle" :class="darkMode ? 'dark' : 'light'" v-show="!clickedStates.formula && !clickedStates.ground">
+        <div class="charStyle" :class="darkMode ? 'dark' : 'light'" v-show="!clickedStates.formula && !clickedStates.ground && !clickedStates.degree">
             {{ chosenFormula.name }}
         </div>
-        <div class="calc" ref="formulaContainer" v-show="!clickedStates.formula && !clickedStates.ground" @click="handlePlaceholderClick">
+        <div class="calc" ref="formulaContainer" v-show="!clickedStates.formula && !clickedStates.ground && !clickedStates.degree" @click="handlePlaceholderClick">
             <div v-show="!errorMessage" v-html="renderFormula()"></div>
             <span v-show="!errorMessage && result"> = {{ result }}</span>
             <div v-show="errorMessage" class="error-message">{{ errorMessage }}</div>
@@ -145,6 +155,14 @@ methods: {
             this.showGuidance = true;
             this.$emit("MKinfo", ground);
             this.$emit("clickedBtn", "ground");
+            // this.$emit("resetButtonState");
+        },750)  
+    },
+    chooseDegree(degree) {
+        setTimeout(() => {
+            this.degreeNum = degree.factor;
+            this.$emit("DegreeInfo", degree);
+            this.$emit("clickedBtn", "degree");
             // this.$emit("resetButtonState");
         },750)  
     },
@@ -453,6 +471,16 @@ created() {
     width: 100%;
 }
 
+.degree-container {
+    position: absolute;
+    top: 3.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    text-align: center;
+    border-radius: 15px;
+    width: 100%;
+}
 .item {
     padding: 0.7rem;
     margin: 0.3rem;
