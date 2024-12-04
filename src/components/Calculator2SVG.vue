@@ -5,19 +5,19 @@
     </g>
     <g id="Layer_3" data-name="Layer 3">
       <!-- Row 1 -->
-      <g class="button">
+      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <ellipse class="cls-1" cx="65" cy="550" rx="37" ry="37" />
           <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(85 200) scale(.999)">
               <tspan x="-10" y="365">1</tspan>
           </text>
       </g>
-      <g class="button">
+      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <ellipse class="cls-1" cx="165" cy="550" rx="37" ry="37" />
           <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(185 200) scale(.999)">
               <tspan x="-10" y="365">2</tspan>
           </text>
       </g>
-      <g class="button">
+      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <ellipse class="cls-1" cx="265" cy="550" rx="37" ry="37" />
           <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(285 200) scale(.999)">
               <tspan x="-10" y="365">3</tspan>
@@ -25,19 +25,19 @@
       </g>
 
       <!-- Row 2 -->
-      <g class="button">
+      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <ellipse class="cls-1" cx="65" cy="450" rx="37" ry="37" />
           <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(85 300) scale(.999)">
               <tspan x="-10" y="165">4</tspan>
           </text>
       </g>
-      <g class="button">
+      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <ellipse class="cls-1" cx="165" cy="450" rx="37" ry="37" />
           <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(185 300) scale(.999)">
               <tspan x="-10" y="165">5</tspan>
           </text>
       </g>
-      <g class="button">
+      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <ellipse class="cls-1" cx="265" cy="450" rx="37" ry="37" />
           <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(285 300) scale(.999)">
               <tspan x="-10" y="165">6</tspan>
@@ -45,39 +45,39 @@
       </g>
 
       <!-- Row 3 -->
-      <g class="button">
+      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <ellipse class="cls-1" cx="65" cy="350" rx="37" ry="37" />
           <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(85 400) scale(.999)">
               <tspan x="-10" y="-35">7</tspan>
           </text>
       </g>
-      <g class="button">
+      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <ellipse class="cls-1" cx="165" cy="350" rx="37" ry="37" />
           <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(185 400) scale(.999)">
               <tspan x="-10" y="-35">8</tspan>
           </text>
       </g>
-      <g class="button">
+      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <ellipse class="cls-1" cx="265" cy="350" rx="37" ry="37" />
           <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(285 400) scale(.999)">
               <tspan x="-10" y="-35">9</tspan>
           </text>
       </g>
 
-      <g class="button">
+      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <rect class="cls-1" x="25" y="610" width="280" height="75" rx="28.45" ry="28.45" />
           <text :class="['cls-4', { 'light-text': !isDark }]" transform="translate(160 490) scale(.999)">
               <tspan x="-90" y="175">0</tspan>
           </text>
       </g>
 
-      <g class="button">
+      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <ellipse class="cls-5" cx="385" cy="455" rx="46" ry="46" />
           <text  class="cls-4 differentSize" transform="translate(355 495) scale(.999)">
               <tspan x="57.5" y="-30">מחק</tspan>
           </text>
       </g>
-      <g class="button">
+      <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <ellipse class="cls-5" cx="385" cy="350" rx="43" ry="43" />
           <text class="cls-3" transform="translate(365 395) scale(.999)">
               <tspan x="35" y="-25">=</tspan>
@@ -90,7 +90,7 @@
           </text>
       </g>
       <g v-if="MKfound">
-          <g class="button">
+          <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <rect  x="102.5" y="337.5" width="70" height="90" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
           <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
               <tspan :x="165" :y="-10" :style="{ fontSize: '2rem'}">{{ MKinfo.factor }}</tspan>
