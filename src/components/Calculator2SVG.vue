@@ -110,7 +110,7 @@
               <tspan  :x="205" :y="25" :style="{ fontSize: '1rem'}">{{ MKinfo.name }}</tspan>
           </text>
            <text v-else class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
-              <tspan :x="205" :y="-5" :style="{ fontSize: '1rem'}">לא נבחר</tspan>
+              <tspan :x="200" :y="-5" :style="{ fontSize: '1rem'}">לא נבחר</tspan>
               <tspan :x="205" :y="15" :style="{ fontSize: '1rem'}">סוג קרקע</tspan>
            </text>
           </g>
@@ -134,8 +134,8 @@
             <tspan :x="95" :y="25" :style="{ fontSize: '1rem'}"> {{ degreeInfo.degree }} מעלות</tspan>     
           </text>
           <text v-else class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
-            <tspan :x="95" :y="-5" :style="{ fontSize: '1rem'}">לא נבחר</tspan>
-            <tspan :x="95" :y="15" :style="{ fontSize: '1rem'}">שינוי זוית</tspan>
+            <tspan :x="90" :y="-5" :style="{ fontSize: '1rem'}">לא נבחר</tspan>
+            <tspan :x="100" :y="15" :style="{ fontSize: '1rem'}">שינוי זוית</tspan>
           </text>
           </g>
       </g>
