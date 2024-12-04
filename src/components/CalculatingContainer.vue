@@ -63,7 +63,7 @@ data() {
     formulasArr: [
         {
             name: 'התנגדות לחילוץ עד 45 מעלות',
-            formula: '(safetyFactor x ((MKnumber x MTSnumber) + (MTSnumber x degreeNum / 60)) x degreeFactor ',
+            formula: '(safetyFactor x (MKnumber x MTSnumber) + (MTSnumber x degreeNum / 60)) x degreeFactor',
         },
         {
             name: 'התנגדות לחילוץ מעל 45 מעלות',
@@ -184,52 +184,7 @@ computed: {
         this.errorMessage = 'אירעה שגיאה בחישוב. אנא בדוק את הנוסחא והנתונים';
         return null;
     }
-}
-
-    // calculatedResult() {
-    //     if (!this.chosenFormula || !this.chosenFormula.formula) {
-    //         return null; // No formula selected
-    //     }
-
-    //     const formulaVariables = {
-    //         MKnumber: this.MKnumber,
-    //         MTSnumber: this.MTSnumber,
-    //         degreeNum: this.degreeNum,
-    //         safetyFactor: this.safetyFactor
-    //     };
-
-    //     const missingVariables = [];
-    //     const variableLabels = {
-    //         MKnumber: 'מקדם קרקע',
-    //         MTSnumber: 'משקל ציוד',
-    //         degreeNum: 'זוית השיפוע',
-    //         safetyFactor: 'מקדם בטיחות'
-    //     };
-
-    //     // Check for missing variables
-    //     for (const variable of Object.keys(formulaVariables)) {
-    //         if (this.chosenFormula.formula.includes(variable) && !formulaVariables[variable]) {
-    //             missingVariables.push(variableLabels[variable]);
-    //         }
-    //     }
-
-    //     if (missingVariables.length) {
-    //         this.errorMessage = ` יש להשלים את הנתונים הבאים: ${missingVariables.join(', ')}`;
-    //         return null;
-    //     }
-
-    //     try {
-    //         const formulaString = this.chosenFormula.formula.replace(/x/g, '*');
-    //         const formulaWithValues = formulaString.replace(/(MKnumber|MTSnumber|degreeNum|safetyFactor)/g, 
-    //             (match) => formulaVariables[match]);
-    //         return eval(formulaWithValues); // Evaluate safely
-    //     } catch (error) {
-    //         console.error('Error in calculation:', error);
-    //         this.errorMessage = 'אירעה שגיאה בחישוב. אנא בדוק את הנוסחא והנתונים';
-    //         return null;
-    //     }
-    // }
-
+ }
 },
 methods: {
     chooseFormula(formula) {
@@ -261,6 +216,11 @@ methods: {
     renderFormula() {
         if (!this.chosenFormula || typeof this.chosenFormula.formula !== 'string') {
             return ' '; // Return blank if no formula is chosen
+        }
+
+        if (this.localString === 'איפוס') {
+            this.resetFormulaInputs(); // Reset inputs
+            return this.renderPlaceholderFormula(); // Re-render formula with placeholders
         }
 
         let formula = this.chosenFormula.formula;
@@ -297,8 +257,12 @@ methods: {
                         : `<span class="placeholder ${modeClass}" data-var="${key}">${variableLabels[key]}</span>`;
             }
             formula = formula.split(key).join(value);
-        });
+            formula = formula.replace(/\s*x\s*\*?\s*(מקדם שיפוע|degreeFactor)/g, (match, p1) => p1);
+            if (this.degreeFactor) {
+                formula = formula.replace(/(?<=\s*)degreeFactor/g, ` x ${this.degreeFactor}` );
+            }
 
+        });
         return formula;
     },
     renderPlaceholderFormula() {
@@ -454,13 +418,13 @@ methods: {
 
         // Start with the chosen formula
         let formulaString = this.chosenFormula.formula;
-
-        // Remove wrapping parentheses and 'x'
-        formulaString = formulaString.replace(/^\((.+?)x\)/, '$1');
+        console.log(formulaString)
 
         // Replace 'x' with '*' for multiplication and inject variable values
         formulaString = formulaString.replace(/x/g, '*')
             .replace(/(MKnumber|MTSnumber|degreeNum|safetyFactor|degreeFactor)/g, match => variables[match] ?? match);
+
+        
 
         // Safely evaluate the final formula
         this.result = eval(formulaString);

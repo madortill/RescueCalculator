@@ -101,7 +101,7 @@
           </text>
       </g> -->
       <g>
-          <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
+          <g :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <rect  x="95.5" y="375.5" width="60" height="90" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
           <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
               <tspan v-if="MKfound" :x="205" :y="5" :style="{ fontSize: '2rem'}">{{ MKinfo.factor }}</tspan>
@@ -125,7 +125,7 @@
       </g>
 
       <g>
-          <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
+          <g :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <rect  x="95.5" y="265.5" width="60" height="90" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
           <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
               <tspan v-if="degreeFound" :x="95" :y="5" :style="{ fontSize: '2rem'}">{{ degreeInfo.factor }}</tspan>
