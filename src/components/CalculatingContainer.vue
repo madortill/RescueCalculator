@@ -100,6 +100,8 @@ export default {
         insertedValues: {}, // Store the inserted values for each variable
         placeholders: {} ,// Store the placeholders so we can update them simultaneously
         errorMessage: '',
+        selectedPlaceholder: null,
+        intervalId: null,
       };
     },
     watch: {
@@ -144,10 +146,8 @@ export default {
                 return ' '; // Return blank if no formula is chosen
             }
 
-            console.log(this.localString);
             // Handle delete button: Reset inputs but keep safetyFactor
             if (this.localString === 'איפוס') {
-                console.log("hello");
                 this.resetFormulaInputs(); // Reset inputs
                 return this.renderPlaceholderFormula(); // Re-render formula with placeholders
             }
@@ -207,12 +207,29 @@ export default {
             return formula;
         },
         resetFormulaInputs() {
-            // Reset only the input variables to null, leave safetyFactor unchanged
+             // Reset variables to null or initial state
             this.MTSnumber = null;
             this.degreeNum = null;
-            this.localChosenBtn = ''; 
+            this.localChosenBtn = '';
             this.afterDelete = true;
             this.localString = '';
+
+            // Clear the active interval if any
+            if (this.intervalId) {
+                clearInterval(this.intervalId);
+                this.intervalId = null; // Ensure the reference is removed
+            }
+
+            // Deselect any active placeholder
+            if (this.selectedPlaceholder) {
+                this.selectedPlaceholder.textContent = ''; // Clear displayed content
+                this.selectedPlaceholder = null;
+            }
+
+            // Trigger a re-render
+            this.$nextTick(() => {
+                this.renderPlaceholderFormula(); // Re-render the formula with placeholders
+            });
         },
         alertUpdate() {
             this.newInput = true;
