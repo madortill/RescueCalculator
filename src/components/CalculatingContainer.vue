@@ -38,7 +38,7 @@
         <div class="charStyle" :class="darkMode ? 'dark' : 'light'" v-show="!clickedStates.formula && !clickedStates.ground && !clickedStates.degree">
             {{ chosenFormula.name }}
         </div>
-        <div class="calc" ref="formulaContainer" v-show="!clickedStates.formula && !clickedStates.ground && !clickedStates.degree" @click="handlePlaceholderClick">
+        <div class="calc" :class="darkMode ? 'dark' : 'light'" ref="formulaContainer" v-show="!clickedStates.formula && !clickedStates.ground && !clickedStates.degree" @click="handlePlaceholderClick">
             <div v-show="!errorMessage" v-html="renderFormula()"></div>
             <span v-show="!errorMessage && result"> = {{ result }}</span>
             <div v-show="errorMessage" class="error-message">{{ errorMessage }}</div>
@@ -57,34 +57,25 @@ data() {
     MKnumber: null,
     MTSnumber: null,
     degreeNum: null,
+    degreeFactor: null,
     afterDelete: false,
     safetyFactor: 1.25,
-    formulasArrOriginal: [
-        {name: 'התנגדות לחילוץ עד 45 מעלות',
-        formula: this.safetyFactor * ((this.MKnumber * this.MTSnumber) + (this.MTSnumber * this.degreeNum / 60))},
-        {name: 'התנגדות לחילוץ מעל 45 מעלות',
-        formula: this.safetyFactor * ((this.MKnumber * this.MTSnumber) + this.MTSnumber)},
-        {name: 'התנגדות לחילוץ במישור',
-        formula: this.safetyFactor * ((this.MKnumber * this.MTSnumber))},
-        {name: 'התנגדות להיפוך - חוק היפוך הרכב',
-        formula: (this.MTSnumber * 2 / 3)}
-    ],
     formulasArr: [
         {
             name: 'התנגדות לחילוץ עד 45 מעלות',
-            formula: 'safetyFactor x ((MKnumber x MTSnumber) + (MTSnumber x degreeNum / 60))'
+            formula: '(safetyFactor x ((MKnumber x MTSnumber) + (MTSnumber x degreeNum / 60)) x degreeFactor ',
         },
         {
             name: 'התנגדות לחילוץ מעל 45 מעלות',
-            formula: 'safetyFactor x ((MKnumber x MTSnumber) + MTSnumber)'
+            formula: '(safetyFactor x ((MKnumber x MTSnumber) + MTSnumber)) x degreeFactor',
         },
         {
             name: 'התנגדות לחילוץ במישור',
-            formula: 'safetyFactor x (MKnumber x MTSnumber)'
+            formula: '(safetyFactor x (MKnumber x MTSnumber)) x degreeFactor',
         },
         {
             name: 'התנגדות להיפוך - חוק היפוך הרכב',
-            formula: '(MTSnumber x 2 / 3)'
+            formula: '(MTSnumber x 2 / 3) x degreeFactor',
         }
     ],
     groundTypesArr: [
@@ -104,6 +95,7 @@ data() {
         {degree: 30, factor: 2},
     ],
     chosenFormula: '',
+    chosenFormulaCalc: null,
     chosenCalc: null,
     localChosenBtn: this.chosenValueString,
     localString: null,
@@ -114,9 +106,15 @@ data() {
     selectedPlaceholder: null,
     intervalId: null,
     result: null,
+    calculationTriggered: false, // Tracks if "=" was clicked
   };
 },
 watch: {
+    MKnumber: 'updateResult',
+    MTSnumber: 'updateResult',
+    degreeNum: 'updateResult',
+    chosenFormula: 'updateResult',
+
     chosenValueString(newVal) {
         // Extract the most left digit
         this.localChosenBtn = newVal.charAt(0);
@@ -138,7 +136,100 @@ computed: {
     },
     updateStringBtn() {
         return this.stringBtn;
+    },
+    calculatedResult() {
+    if (!this.chosenFormula || !this.chosenFormula.formula) {
+        return null; // No formula selected
     }
+
+    const formulaVariables = {
+        MKnumber: this.MKnumber,
+        MTSnumber: this.MTSnumber,
+        degreeNum: this.degreeNum,
+        safetyFactor: this.safetyFactor,
+        degreeFactor: this.degreeFactor || 1 // Default to 1 if not used
+    };
+
+    const missingVariables = [];
+    const variableLabels = {
+        MKnumber: 'מקדם קרקע',
+        MTSnumber: 'משקל ציוד',
+        degreeNum: 'זוית השיפוע',
+        safetyFactor: 'מקדם בטיחות'
+    };
+
+    for (const variable of Object.keys(formulaVariables)) {
+        if (
+            this.chosenFormula.formula.includes(variable) &&
+            formulaVariables[variable] === null
+        ) {
+            missingVariables.push(variableLabels[variable]);
+        }
+    }
+
+    if (missingVariables.length) {
+        this.errorMessage = ` יש להשלים את הנתונים הבאים: ${missingVariables.join(', ')}`;
+        return null;
+    }
+
+    try {
+        const formulaString = this.chosenFormula.formula.replace(/x/g, '*');
+        const formulaWithValues = formulaString.replace(
+            /(MKnumber|MTSnumber|degreeNum|safetyFactor|degreeFactor)/g,
+            (match) => formulaVariables[match]
+        );
+        return eval(formulaWithValues);
+    } catch (error) {
+        console.error('Error in calculation:', error);
+        this.errorMessage = 'אירעה שגיאה בחישוב. אנא בדוק את הנוסחא והנתונים';
+        return null;
+    }
+}
+
+    // calculatedResult() {
+    //     if (!this.chosenFormula || !this.chosenFormula.formula) {
+    //         return null; // No formula selected
+    //     }
+
+    //     const formulaVariables = {
+    //         MKnumber: this.MKnumber,
+    //         MTSnumber: this.MTSnumber,
+    //         degreeNum: this.degreeNum,
+    //         safetyFactor: this.safetyFactor
+    //     };
+
+    //     const missingVariables = [];
+    //     const variableLabels = {
+    //         MKnumber: 'מקדם קרקע',
+    //         MTSnumber: 'משקל ציוד',
+    //         degreeNum: 'זוית השיפוע',
+    //         safetyFactor: 'מקדם בטיחות'
+    //     };
+
+    //     // Check for missing variables
+    //     for (const variable of Object.keys(formulaVariables)) {
+    //         if (this.chosenFormula.formula.includes(variable) && !formulaVariables[variable]) {
+    //             missingVariables.push(variableLabels[variable]);
+    //         }
+    //     }
+
+    //     if (missingVariables.length) {
+    //         this.errorMessage = ` יש להשלים את הנתונים הבאים: ${missingVariables.join(', ')}`;
+    //         return null;
+    //     }
+
+    //     try {
+    //         const formulaString = this.chosenFormula.formula.replace(/x/g, '*');
+    //         const formulaWithValues = formulaString.replace(/(MKnumber|MTSnumber|degreeNum|safetyFactor)/g, 
+    //             (match) => formulaVariables[match]);
+    //         return eval(formulaWithValues); // Evaluate safely
+    //     } catch (error) {
+    //         console.error('Error in calculation:', error);
+    //         this.errorMessage = 'אירעה שגיאה בחישוב. אנא בדוק את הנוסחא והנתונים';
+    //         return null;
+    //     }
+    // }
+
 },
 methods: {
     chooseFormula(formula) {
@@ -160,7 +251,8 @@ methods: {
     },
     chooseDegree(degree) {
         setTimeout(() => {
-            this.degreeNum = degree.factor;
+            this.degreeFactor = degree.factor;
+            this.calcWithDegree(this.degreeFactor);
             this.$emit("DegreeInfo", degree);
             this.$emit("clickedBtn", "degree");
             // this.$emit("resetButtonState");
@@ -170,30 +262,34 @@ methods: {
         if (!this.chosenFormula || typeof this.chosenFormula.formula !== 'string') {
             return ' '; // Return blank if no formula is chosen
         }
-        // Handle delete button: Reset inputs but keep safetyFactor
-        if (this.localString === 'איפוס') {
-            this.resetFormulaInputs(); // Reset inputs
-            return this.renderPlaceholderFormula(); // Re-render formula with placeholders
-        }
-        // Replace placeholders with current variable values or leave placeholders if null
+
         let formula = this.chosenFormula.formula;
         const variableLabels = {
             MKnumber: 'מקדם קרקע',
             MTSnumber: 'משקל ציוד',
             degreeNum: 'זוית השיפוע',
-            safetyFactor: '1.25' // Default value for safetyFactor
+            safetyFactor: '1.25', // Default value for safetyFactor
+            degreeFactor: 'מקדם שיפוע' // Label for degreeFactor
         };
+
         const variables = {
             MKnumber: this.MKnumber,
             MTSnumber: this.MTSnumber,
             degreeNum: this.degreeNum,
-            safetyFactor: this.safetyFactor
+            safetyFactor: this.safetyFactor,
+            degreeFactor: this.degreeFactor // Include degreeFactor in the variables
         };
+
         const modeClass = this.darkMode ? 'dark-mode' : 'light-mode';
+
         Object.keys(variables).forEach((key) => {
             let value;
             if (key === 'safetyFactor') {
                 value = variableLabels[key]; // Always use default value for safetyFactor
+            } else if (key === 'degreeFactor') {
+                value = variables[key] !== null 
+                    ? variables[key] 
+                    : ''; // Hide if not used
             } else {
                 value =
                     variables[key] !== null
@@ -202,6 +298,7 @@ methods: {
             }
             formula = formula.split(key).join(value);
         });
+
         return formula;
     },
     renderPlaceholderFormula() {
@@ -231,6 +328,7 @@ methods: {
         this.afterDelete = true;
         this.localString = '';
         this.result= null;
+        this.calculationTriggered = false; // Reset calculation flag
         // Clear the active interval if any
         if (this.intervalId) {
             clearInterval(this.intervalId);
@@ -337,39 +435,49 @@ methods: {
             }, 4500);
             return;
         }
+        this.calculationTriggered = true;
+        this.updateResult(); // Trigger the calculation immediately
+        },
 
-        // Prepare variables for formula calculation
+    updateResult() {
+    if (!this.calculationTriggered) return;
+
+    try {
+        // Dynamically evaluate the formula
         const variables = {
             MKnumber: this.MKnumber,
             MTSnumber: this.MTSnumber,
             degreeNum: this.degreeNum,
-            safetyFactor: this.safetyFactor
+            safetyFactor: this.safetyFactor,
+            degreeFactor: this.degreeFactor ?? 1 // Default to 1 if undefined
         };
 
-        // Dynamically evaluate the chosen formula
-        try {
-            let formulaString = this.chosenFormula.formula;
-            formulaString = formulaString.replace(/x/g, '*');
-            const formulaWithValues = formulaString.replace(/(MKnumber|MTSnumber|degreeNum|safetyFactor)/g, match => variables[match] ?? match);
-            this.result = eval(formulaWithValues); // Evaluate the formula
-            // Display the formula with values and the result
-            // this.chosenCalc = `${formulaWithValues} = ${result.toFixed(2)}`;
-        } catch (error) {
-            console.error('Error evaluating formula:', error);
-            this.errorMessage = 'החישוב נכשל, בדקו את הנתונים ואת הנוסחא';
-            setTimeout(() => {
-                this.errorMessage = '';
-            }, 4500);
-        }
+        // Start with the chosen formula
+        let formulaString = this.chosenFormula.formula;
+
+        // Remove wrapping parentheses and 'x'
+        formulaString = formulaString.replace(/^\((.+?)x\)/, '$1');
+
+        // Replace 'x' with '*' for multiplication and inject variable values
+        formulaString = formulaString.replace(/x/g, '*')
+            .replace(/(MKnumber|MTSnumber|degreeNum|safetyFactor|degreeFactor)/g, match => variables[match] ?? match);
+
+        // Safely evaluate the final formula
+        this.result = eval(formulaString);
+
+    } catch (error) {
+        console.error('Error evaluating formula:', error);
+        this.errorMessage = 'החישוב נכשל, בדקו את הנתונים ואת הנוסחא';
+        setTimeout(() => {
+            this.errorMessage = '';
+        }, 4500);
+    }
+},
+    calcWithDegree(factor) {
+        this.result = this.result * factor;
+        this.updateResult();
     }
 
-    // handleCalculation() {
-    //     // if clicked "=" before finished entering vars inputs or there are no inputs show error message that some
-    //     // data is missing
-
-    //     // if all data is ok, send the use the inserted data in the formulas and show the calculated result on screen like this:
-    //     // (formula with inserted data) = (result)
-    // }
 },
 mounted() {
     const calcContainer = this.$refs.formulaContainer;
@@ -535,13 +643,14 @@ created() {
 }
 
 .calc {
-    color: rgb(201, 176, 87);
     direction: ltr;
     text-align: left;
     margin-top: 5rem;
     font-family: 'Heebo';
 }
-
+.dark {
+    color: rgb(255, 255, 255);
+}
 .error-message {
   color: rgb(222, 67, 53);
   margin-top: 0.2rem;
