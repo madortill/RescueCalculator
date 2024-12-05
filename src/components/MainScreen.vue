@@ -105,7 +105,7 @@ export default {
   mounted() {
     setTimeout(() => {
             this.showLoader = false;
-        }, 3000);
+        }, 4500);
   }
 }
 </script>
@@ -145,7 +145,8 @@ export default {
 }
 
 .gif {
-  width: 110%
+  width: 100%;
+  z-index: 1000000;
 }
 
 .loader-text {
