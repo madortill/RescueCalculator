@@ -5,7 +5,7 @@
           @nextScreen="goToNext"
            @toggle-theme="changeMode"
           :darkMode="darkMode">
-    </opening-screen>
+      </opening-screen>
 
       <main-screen 
           v-else-if="page === 1"  

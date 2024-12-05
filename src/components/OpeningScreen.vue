@@ -1,8 +1,10 @@
 <template>
-    <div id="opening-screen">
+    <div id="opening-screen" :class="darkMode ? 'dark-mode' : 'light-mode'">
+        <img class= "madortill" src="/src/assets/media/madortill.png" alt="icon"/>
+
         <div  v-if="page===0" class="open-page" :class="darkMode ? 'dark-mode' : 'light-mode'">
             <div class="title">ברוכים הבאים למחשבון חישוב התנגדות לחילוץ!</div>
-            <div class="button" @click="goNext">המשך</div>  
+            <div class="button upper" @click="goNext">יאללה נתחיל!</div>  
         </div>
 
         <div  v-else-if="page===1" class="continue-page" :class="darkMode ? 'dark-mode' : 'light-mode'">
@@ -75,7 +77,7 @@ export default {
 
 .title {
     position: absolute;
-    top: 4rem;
+    top: 9rem;
     font-size: 2.2rem;
     font-weight: bold;
     text-align: center;
@@ -85,6 +87,21 @@ export default {
     padding-right: 0.5rem;
     padding-left: 0.5rem;
     border-radius: 1rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+
+/* Keyframes for the floating effect */
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
 
 .button-container {
@@ -104,12 +121,12 @@ export default {
 .dark-mode .title  {
     color:rgb(250, 182, 57);
     /* background-color: orange; */
-    border: 2px solid rgb(250, 154, 71);
+    /* border: 2px solid rgb(250, 154, 71); */
 }
 .light-mode .title  {
     color:rgb(62, 112, 108);
     /* background-color: pink; */
-    border: 2px solid rgb(157, 195, 189);
+    /* border: 2px solid rgb(157, 195, 189); */
 }
 
 .button {
@@ -121,18 +138,24 @@ export default {
     font-size: 1.6rem;
 }
 
+.upper {
+    bottom: 10rem;
+}
+
+
  .dark-mode {
     background-color: black;
     color: rgb(255, 255, 255);
 }
 
 .dark-mode .button {
-    background-color: rgb(250, 182, 57);
-    color: black;
+    border: 2px solid  rgb(250, 182, 57);
+    color:  rgb(250, 182, 57);;
 }
 
 .light-mode .button {
-    background-color:rgb(228, 139, 154);
+    border: 2px solid rgb(228, 118, 137);
+    color: rgb(192, 113, 126);
 }
 
 .light-mode {
@@ -178,4 +201,17 @@ export default {
 .container-checklist {
    margin-top: 1.7rem;
 }
+
+.madortill, .mifkada {
+    width: 4rem;
+    position: absolute;
+    bottom: 1.25rem;
+    right: 1.25rem;
+}
+
+
+.dark-mode .madortill {
+    filter: invert(1) brightness(2);
+}
+
 </style>

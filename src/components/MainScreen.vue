@@ -1,32 +1,41 @@
 <template>
   <div div id="main-screen" :style="{ backgroundColor: darkMode ? 'black' : 'white' }">
-    
-    <Calculator2SVG 
-        class="container" 
-        :darkMode="darkMode" 
-        :MKinfo = "MKinfo"
-        :degreeInfo = "degreeInfo"
-        :clickedStates="clickedStates"
-        @chosen-btn="handleChosenBtn" 
-        @clickedBtn="handleClicked">
-    </Calculator2SVG>
-    
-    <!-- <ThemeSwitcher
-        @click="changeMode">
-    </ThemeSwitcher> -->
 
-    <CalculatingContainer 
-      class="container"
-      :darkMode="darkMode"
-      :chosenValueString="chosenValueString"
-      :stringBtn="stringBtn"
-      :clickedStates="clickedStates" 
-      @clickedBtn="handleClicked"
-      @MKinfo="foundMK"
-      @DegreeInfo="foundDegree"
-      >
-  </CalculatingContainer>
-  
+    <div class="loader" v-if="showLoader" :class="darkMode ? 'dark-mode' : 'light-mode'">
+        <img class="gif" src="../assets/media/blackonwhite-ezgif.com-gif-maker.gif" alt="Loading..."/>
+        <!-- מיד מתחילים... -->
+        <p class="loader-text"> מיד מתחילים... </p>
+    </div> 
+
+    <div v-else>
+        <Calculator2SVG 
+          class="container" 
+          :darkMode="darkMode" 
+          :MKinfo = "MKinfo"
+          :degreeInfo = "degreeInfo"
+          :clickedStates="clickedStates"
+          @chosen-btn="handleChosenBtn" 
+          @clickedBtn="handleClicked">
+      </Calculator2SVG>
+      
+      <!-- <ThemeSwitcher
+          @click="changeMode">
+      </ThemeSwitcher> -->
+
+      <CalculatingContainer 
+        class="container"
+        :darkMode="darkMode"
+        :chosenValueString="chosenValueString"
+        :stringBtn="stringBtn"
+        :clickedStates="clickedStates" 
+        @clickedBtn="handleClicked"
+        @MKinfo="foundMK"
+        @DegreeInfo="foundDegree"
+        >
+       </CalculatingContainer>
+    </div>
+
+   
   </div>
 </template>
 
@@ -59,6 +68,7 @@ export default {
       MKinfo: null,
       degreeInfo: null,
       counter: 0,
+      showLoader: true,
    };
   },
   computed: {
@@ -91,6 +101,11 @@ export default {
         // console.log(this.stringBtn);
        }
     },
+  },
+  mounted() {
+    setTimeout(() => {
+            this.showLoader = false;
+        }, 3000);
   }
 }
 </script>
@@ -107,5 +122,37 @@ export default {
   height: 100vh;
   position: absolute;
   top: 0;
+}
+
+/* טוען */
+.loader {
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    font-weight: 800;
+}
+
+.dark-mode .loader {
+  background-color: black;
+}
+
+.gif {
+  width: 110%
+}
+
+.loader-text {
+  font-size: 2rem;
+}
+
+.dark-mode .loader-text {
+  color: white;
 }
 </style>
