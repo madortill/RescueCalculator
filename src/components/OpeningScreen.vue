@@ -199,7 +199,7 @@ export default {
 }
 
 .container-checklist {
-   margin-top: 1.7rem;
+   margin-top: 1rem;
 }
 
 .madortill, .mifkada {
