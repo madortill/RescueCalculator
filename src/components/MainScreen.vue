@@ -17,10 +17,7 @@
           @chosen-btn="handleChosenBtn" 
           @clickedBtn="handleClicked">
       </Calculator2SVG>
-      
-      <!-- <ThemeSwitcher
-          @click="changeMode">
-      </ThemeSwitcher> -->
+    
 
       <CalculatingContainer 
         class="container"

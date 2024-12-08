@@ -1,8 +1,8 @@
 <template>
-    <div :class="{ 'dark-mode': isDark }" class="theme-wrapper">
+    <div :class="{ 'dark-mode': !isDark }" class="theme-wrapper">
       <div class="button-switcher" @click="toggleTheme">
-        <span class="text" v-if="!isDark">בהיר</span>
-        <span class="text second" v-else>כהה</span>
+        <span class="text second" v-if="isDark">בהיר</span>
+        <span class="text first" v-else>כהה</span>
         <div class="moving-circle" :style="circlePositionStyle"></div>
       </div>
     </div>
@@ -25,7 +25,7 @@
         return {
           transform: this.isDark
             ? 'translateX(0.25rem)' // Circle moves to the right for dark mode
-            : 'translateX(-1.85rem)', // Circle stays left for light mode
+            : 'translateX(-1.77rem)', // Circle stays left for light mode
           transition: 'transform 0.5s ease',
         };
       },
@@ -86,6 +86,10 @@
   
   .text.second {
     margin-right: 1.4rem;
+  }
+
+  .text.first {
+    margin-right: 0.17rem;
   }
   
   .moving-circle {

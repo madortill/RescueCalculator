@@ -43,6 +43,7 @@
             <span v-show="!errorMessage && result"> = {{ result }}</span>
             <div v-show="errorMessage" class="error-message">{{ errorMessage }}</div>
         </div>
+
     </div>
 </template>
 
@@ -620,8 +621,8 @@ created() {
   margin-top: 0.2rem;
   text-align: center;
   direction: rtl;
+  
 }
-
 </style>
 
 <style>

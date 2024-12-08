@@ -36,7 +36,7 @@ export default {
     return {
       page: 0,
       // page: 1,
-      darkMode: true,
+      darkMode: false,
 
     }
   },

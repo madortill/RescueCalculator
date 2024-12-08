@@ -79,6 +79,7 @@
               <tspan x="-265" y="-217.5">איפוס</tspan>
           </text>
       </g>
+
       <g class="button" :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <ellipse class="cls-5 equal" cx="382" cy="276" rx="47" ry="47" />
           <text class="cls-3" :style="{ fontSize: '4.5rem'}" transform="translate(365 395) scale(.999)">
@@ -86,7 +87,8 @@
           </text>
       </g>
       
-      <g id="ground-btn" class="button"  @click="handleGround" :class="{'disabled': currState.ground || currState.formula}">
+
+      <g id="ground-btn" class="button"  @click="handleGround" :class="{'disabled': currState.degree || currState.formula}">
           <rect class="cls-5" x="477.5" y="578.5" width="100" height="110" rx="29.2" ry="29.2" transform="translate(-260 1030) rotate(-90)" />
           <g transform="translate(0, 0)">
               <text class="cls-2" text-anchor="middle" x="370" y="495">סוג</text>
@@ -94,12 +96,6 @@
           </g>
       </g>
 
-      <!-- <g id="ground-btn" class="button"  @click="handleGround" :class="{'disabled': currState.formula || currState.degree}">
-          <rect class="cls-6" x="-45" y="470" width="70" height="110" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" />
-          <text class="cls-2" transform="translate(55 280) scale(0.999)">
-              <tspan x="380" y="130">סוג קרקע</tspan>
-          </text>
-      </g> -->
       <g>
           <g :class="{'disabled': currState.formula || currState.degree || currState.ground}">
           <rect  x="95.5" y="375.5" width="60" height="90" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
@@ -184,25 +180,37 @@
   },
   methods: {
     handleGround() {
-      this.$emit('clickedBtn', 'ground');
-        this.addListeners();
-    },
-    handleFormula() {
-      this.$emit('clickedBtn', 'formula');
-    },
-    addListeners() {
-      const buttonGroups = document.querySelectorAll(".button");
-      const formulaBtn = document.getElementById("formula-btn");
-      const degreeBtn = document.getElementById("degree-btn");
-      formulaBtn.addEventListener("click", () => {
-        this.handleFormula();
-        degreeBtn.addEventListener("click", () => {
-          this.$emit('clickedBtn', 'degree')});
-        buttonGroups.forEach((button) => {
-          button.addEventListener("click", this.getInfo);
-         });
-      });
-     },
+    this.$emit('clickedBtn', 'ground');
+    this.addFormulaListener(); // Add listener for "formula" button after clicking "ground"
+  },
+  handleFormula() {
+    this.$emit('clickedBtn', 'formula');
+    this.addDegreeListener(); // Add listener for "degree" button after clicking "formula"
+  },
+  handleDegree() {
+    this.$emit('clickedBtn', 'degree');
+    this.addRemainingListeners(); // Add listeners for all other buttons after clicking "degree"
+  },
+  addFormulaListener() {
+    const formulaBtn = document.getElementById("formula-btn");
+    if (formulaBtn) {
+      formulaBtn.addEventListener("click", this.handleFormula);
+    }
+  },
+  addDegreeListener() {
+    const degreeBtn = document.getElementById("degree-btn");
+    if (degreeBtn) {
+      degreeBtn.addEventListener("click", this.handleDegree);
+    }
+  },
+  addRemainingListeners() {
+    const buttonGroups = document.querySelectorAll(".button");
+    buttonGroups.forEach((button) => {
+      if (!button.id.includes("formula") && !button.id.includes("degree")) {
+        button.addEventListener("click", this.getInfo);
+      }
+    });
+  },
       getInfo(event) {
           if (this.childrenArr.length === 0) {
               this.childrenArr = event.currentTarget.children;
