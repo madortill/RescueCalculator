@@ -328,8 +328,9 @@ fill: #000;
   font-size: 1.9rem !important;
   font-family: 'OpenSansHebrew';
 }
+
 .light-mode .background {
-fill: #fff; 
+    fill: white;
 }
 
 

@@ -148,6 +148,10 @@ export default {
     color: rgb(255, 255, 255);
 }
 
+.light-mode {
+    background-color: white !important;
+}
+
 .dark-mode .button {
     border: 2px solid  rgb(250, 182, 57);
     color:  rgb(250, 182, 57);;
@@ -195,7 +199,8 @@ export default {
 }
 
 .light-mode .item {
-    background-color: #6f9a9ac2;
+    color: #5f8282;
+    border: 2px solid #6f9a9ac2;
 }
 
 .container-checklist {
