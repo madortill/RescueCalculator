@@ -85,9 +85,6 @@ export default {
       this.clickedStates[btn] = !currentState;
     },
 
-    // changeMode() {
-    //   this.darkMode = !this.darkMode;
-    // },
     handleChosenBtn(chosenBtn) { 
       this.counter++;
       // console.log(chosenBtn);
@@ -153,4 +150,17 @@ export default {
 .dark-mode .loader-text {
   color: white;
 }
+
+.light-mode .loader-text {
+  color: #005051b3;
+}
+
+.dark-mode .gif {
+  filter: brightness(1.9) contrast(1.2) sepia(1) saturate(400%) hue-rotate(-10deg); /* Makes it orange */
+}
+
+.light-mode .gif {
+  filter: brightness(1.2) contrast(1.2) sepia(1) saturate(300%) hue-rotate(-60deg); /* Makes it pink */
+}
+
 </style>
