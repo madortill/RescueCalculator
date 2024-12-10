@@ -30,7 +30,7 @@
                 <div class="degreeTitle">תרצו לשנות את כיוון הזוית?</div>
                 <div class="degree-inner-container">
                     <div class="item" @click="changeDegreeFlag">כן</div>
-                    <div class="item" @click="changeDegreeFlag">לא</div>
+                    <div class="item" @click="close">לא</div>
                 </div>
             </div>
             <div v-else-if="showOptions">
@@ -202,21 +202,21 @@ computed: {
  }
 },
 methods: {
-    changeDegreeFlag(event) {
-        this.degreeFlag = false;
-
-        if (event.currentTarget.innerText === "כן") {
+    changeDegreeFlag() {
+        setTimeout(() => {
+            this.degreeFlag = false;
             this.showOptions = true;
-        } else {
-            this.showOptions = false;
+        },750)  
+    },
+    close() {
+        setTimeout(() => {
             this.$emit("clickedBtn", "degree");
-        }
+        },750)  
     },
     chooseFormula(formula) {
         setTimeout(() => {
             this.chosenFormula = formula;
             this.$emit("clickedBtn", "formula");
-            // this.$emit("resetButtonState")
         },750)
         
     },
