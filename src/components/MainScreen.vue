@@ -9,7 +9,8 @@
 
     <div v-else>
         <Calculator2SVG 
-          class="container" 
+          class="container"
+          :key="containerKey" 
           :darkMode="darkMode" 
           :MKinfo = "MKinfo"
           :degreeInfo = "degreeInfo"
@@ -21,11 +22,13 @@
 
       <CalculatingContainer 
         class="container"
+        :key="containerKey"
         :darkMode="darkMode"
         :chosenValueString="chosenValueString"
         :stringBtn="stringBtn"
         :clickedStates="clickedStates" 
         @clickedBtn="handleClicked"
+        @reset="reset"
         @MKinfo="foundMK"
         @DegreeInfo="foundDegree"
         >
@@ -66,6 +69,7 @@ export default {
       degreeInfo: null,
       counter: 0,
       showLoader: true,
+      containerKey: 0,
    };
   },
   computed: {
@@ -95,6 +99,23 @@ export default {
         // console.log(this.stringBtn);
        }
     },
+    reset() {
+      this.resetCalc = true;
+      this.chosenValueString = null;
+      this.stringBtn = '';
+      this.clickedStates = {
+        formula: false,
+        ground: false,
+        degree: false,
+      };
+      this.MKinfo = null;
+      this.degreeInfo = null;
+      this.containerKey++;
+
+      setTimeout( () => {
+        this.resetCalc = false;
+      }, 100);
+    }
   },
   mounted() {
     setTimeout(() => {

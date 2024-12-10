@@ -251,6 +251,7 @@ methods: {
 
         if (this.localString === 'איפוס') {
             // resets the "page" as if it was just entered.
+            this.$emit("reset");
         }
 
         let formula = this.chosenFormula.formula;
@@ -501,13 +502,6 @@ handleButtonPress(value) {
             }
         }
     },
-
-
-    // calcWithDegree(factor) {
-    //     this.result = this.result * factor;
-    //     this.updateResult();
-    // }
-
 },
 mounted() {
     const calcContainer = this.$refs.formulaContainer;
