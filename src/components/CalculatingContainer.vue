@@ -138,7 +138,7 @@ watch: {
     stringBtn(newVal) {
         if (newVal.includes("=")) {
             this.localString = "=";
-            this.handleCalculation();
+            this.handleButtonPress(this.localString);
         } else {
             const match = newVal.match(/^[a-zA-Zא-ת]+/); 
             this.localString = match ? match[0] : '';
@@ -232,7 +232,7 @@ methods: {
     chooseDegree(degree) {
         setTimeout(() => {
             this.degreeFactor = degree.factor;
-            this.calcWithDegree(this.degreeFactor);
+            this.updateResult();
             this.$emit("DegreeInfo", degree);
             this.$emit("clickedBtn", "degree");
             this.degreeFlag = true;
@@ -244,9 +244,13 @@ methods: {
             return ' '; // Return blank if no formula is chosen
         }
 
-        if (this.localString === 'איפוס') {
+        if (this.localString === 'מחק') {
             this.resetFormulaInputs(); // Reset inputs
             return this.renderPlaceholderFormula(); // Re-render formula with placeholders
+        }
+
+        if (this.localString === 'איפוס') {
+            // resets the "page" as if it was just entered.
         }
 
         let formula = this.chosenFormula.formula;
@@ -373,7 +377,10 @@ methods: {
             this.currentInput += this.updatedChosenBtn;
             this.newInput = false;
         }
-        this.selectedPlaceholder.textContent = this.currentInput;
+        if (this.selectedPlaceholder !== null) {
+            this.selectedPlaceholder.textContent = this.currentInput;
+        }
+
         if (this.currentInput.length === 7) {
             clearInterval(this.intervalId);
             if (variable === 'degreeNum') {
@@ -444,7 +451,7 @@ methods: {
 
         // Start with the chosen formula
         let formulaString = this.chosenFormula.formula;
-        console.log(formulaString)
+        // console.log(formulaString)
 
         // Replace 'x' with '*' for multiplication and inject variable values
         formulaString = formulaString.replace(/x/g, '*')
@@ -463,10 +470,43 @@ methods: {
         }, 4500);
     }
 },
-    calcWithDegree(factor) {
-        this.result = this.result * factor;
-        this.updateResult();
-    }
+handleButtonPress(value) {
+        if (value === "=") {
+            // Ensure all required values are up-to-date
+            this.saveInputValues();
+
+            // Trigger the calculation
+            this.handleCalculation();
+        } else {
+            // Save non-equal button presses (e.g., numbers or operations)
+            this.localChosenBtn = value.trim();
+            this.newInput = true;
+        }
+    },
+
+    saveInputValues() {
+        // Collect and validate any pending inputs
+        if (this.selectedPlaceholder) {
+            const variable = this.selectedPlaceholder.getAttribute('data-var');
+            if (this.currentInput && variable) {
+                // Save and trim input
+                const trimmedInput = this.currentInput.trim();
+                if (variable === 'degreeNum') {
+                    this.validateDegreeNum(Number(trimmedInput));
+                } else {
+                    this[variable] = Number(trimmedInput); // Save as a number
+                }
+                this.selectedPlaceholder = null;
+                this.currentInput = '';
+            }
+        }
+    },
+
+
+    // calcWithDegree(factor) {
+    //     this.result = this.result * factor;
+    //     this.updateResult();
+    // }
 
 },
 mounted() {

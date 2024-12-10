@@ -140,21 +140,6 @@
           </g>
       </g>
 
-      <g>
-          <!-- <g :class="{'disabled': currState.formula || currState.degree || currState.ground}">
-          <rect  x="95.5" y="265.5" width="60" height="90" rx="17.78" ry="17.78" transform="translate(-150 390) rotate(-90)" :class="isDark ? 'dark-button' : 'light-button'" />
-          <text class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
-              <tspan v-if="degreeFound" :x="95" :y="5" :style="{ fontSize: '2rem'}">{{ degreeInfo.factor }}</tspan>
-          </text>
-          <text v-if="degreeFound" class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
-            <tspan :x="95" :y="25" :style="{ fontSize: '1rem'}"> {{ degreeInfo.degree }} מעלות</tspan>     
-          </text>
-          <text v-else class="cls-2" :transform="'translate(65 265) scale(0.999)'" text-anchor="middle" alignment-baseline="middle"  :class="['center-text', isDark ? 'dark-text' : 'light-text']">
-            <tspan :x="95" :y="-5" :style="{ fontSize: '1rem'}"> לא נבחר</tspan>
-            <tspan :x="95" :y="15" :style="{ fontSize: '1rem'}">  שינוי זוית</tspan>
-          </text>
-          </g> -->
-      </g>
 
       <g id="formula-btn" class="button" :class="{'disabled': currState.ground || currState.degree}">
           <rect class="cls-5" x="130" y="243" width="60" height="125" rx="25" ry="25" transform="translate(60 605) rotate(-90)" />
@@ -205,11 +190,12 @@
   },
   handleFormula() {
     this.$emit('clickedBtn', 'formula');
-    this.addDegreeListener(); // Add listener for "degree" button after clicking "formula"
+    this.addDegreeListener();
+    this.addRemainingListeners(); // Add listener for "degree" button after clicking "formula"
   },
   handleDegree() {
     this.$emit('clickedBtn', 'degree');
-    this.addRemainingListeners(); // Add listeners for all other buttons after clicking "degree"
+    // Add listeners for all other buttons after clicking "degree"
   },
   addFormulaListener() {
     const formulaBtn = document.getElementById("formula-btn");
