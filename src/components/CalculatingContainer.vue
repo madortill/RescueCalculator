@@ -25,13 +25,25 @@
             </div>
         </div>
 
-        <div class="degree-container" v-show="clickedStates.degree" :class="darkMode ? 'dark-mode' : 'light-mode'">
-            <div 
-                class="item" 
-                v-for="(degree, index) in degreeFactorsArr" 
-                :key="index" 
-                @click="chooseDegree(degree)">
-                {{ degree.degree }}
+        <div class="degree-outer-container" v-show="clickedStates.degree" :class="darkMode ? 'dark-mode' : 'light-mode'">
+            <div v-if="degreeFlag">
+                <div class="degreeTitle">תרצו לשנות את כיוון הזוית?</div>
+                <div class="degree-inner-container">
+                    <div class="item" @click="changeDegreeFlag">כן</div>
+                    <div class="item" @click="changeDegreeFlag">לא</div>
+                </div>
+            </div>
+            <div v-else-if="showOptions">
+                <div class="degreeTitle">בחרו את הזוית הרצויה</div>
+                <div class="degree-inner-container">
+                    <div
+                        class="item" 
+                        v-for="(degree, index) in degreeFactorsArr" 
+                        :key="index" 
+                        @click="chooseDegree(degree)">
+                        {{ degree.degree }}
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -108,6 +120,8 @@ data() {
     intervalId: null,
     result: null,
     calculationTriggered: false, // Tracks if "=" was clicked
+    degreeFlag: true,
+    showOptions: false,
   };
 },
 watch: {
@@ -188,6 +202,16 @@ computed: {
  }
 },
 methods: {
+    changeDegreeFlag(event) {
+        this.degreeFlag = false;
+
+        if (event.currentTarget.innerText === "כן") {
+            this.showOptions = true;
+        } else {
+            this.showOptions = false;
+            this.$emit("clickedBtn", "degree");
+        }
+    },
     chooseFormula(formula) {
         setTimeout(() => {
             this.chosenFormula = formula;
@@ -211,6 +235,7 @@ methods: {
             this.calcWithDegree(this.degreeFactor);
             this.$emit("DegreeInfo", degree);
             this.$emit("clickedBtn", "degree");
+            this.degreeFlag = true;
             // this.$emit("resetButtonState");
         },750)  
     },
@@ -544,7 +569,7 @@ created() {
     width: 100%;
 }
 
-.degree-container {
+.degree-outer-container {
     position: absolute;
     top: 3.5rem;
     display: flex;
@@ -554,6 +579,17 @@ created() {
     border-radius: 15px;
     width: 100%;
 }
+
+.degree-inner-container {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    text-align: center;
+    border-radius: 15px;
+    width: 100%;
+}
+
 .item {
     padding: 0.7rem;
     margin: 0.3rem;
@@ -622,6 +658,24 @@ created() {
   text-align: center;
   direction: rtl;
   
+}
+
+.degreeTitle {
+    position: absolute;
+    width: 100%;
+    top: -2rem;
+    right: 50%;
+    transform: translateX(50%);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.dark-mode .degreeTitle {
+    color: white;
+}
+
+.light-mode .degreeTitle {
+    color:#406767db;
 }
 </style>
 
