@@ -75,6 +75,7 @@
     cursor: pointer;
     background-color: var(--bg-color); /* Dynamic background */
     transition: background-color 0.5s ease;
+    z-index: 10000000;
   }
   
   .text {
