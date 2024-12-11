@@ -2,7 +2,7 @@
   <div div id="main-screen" :style="{ backgroundColor: darkMode ? 'black' : 'white' }">
 
     <div class="loader" v-if="showLoader" :class="darkMode ? 'dark-mode' : 'light-mode'">
-        <img class="gif" src="/public/media/blackonwhite-ezgif.com-gif-maker.gif" alt="Loading..."/>
+        <img class="gif" src="/media/blackonwhite-ezgif.com-gif-maker.gif" alt="Loading..."/>
         <!-- מיד מתחילים... -->
         <p class="loader-text"> מיד מתחילים... </p>
     </div> 

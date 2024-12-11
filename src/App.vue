@@ -93,7 +93,7 @@ export default {
   font-family: 'OpenSansHebrew';
   src: url(/src/assets/fonts/OpenSansHebrew/OpenSansHebrew-Italic.ttf);
 }
-html {
+/* html {
   font-size: calc(14px + 0.4vw);
 }
 
@@ -103,5 +103,33 @@ html {
 	height: 100vh;
   overflow: hidden;
   font-family: 'Heebo';
+} */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black; /* Matches dark mode */
+  color: white; /* Adjust text color for dark mode */
 }
+
+#app {
+  direction: rtl;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Heebo';
+  padding-top: env(safe-area-inset-top); /* Ensures the app accounts for the notch */
+  background-color: var(--app-bg-color); /* Dynamic background */
+}
+
+/* Add a dynamic background color for light/dark mode */
+:root {
+  --app-bg-color: white;
+}
+.dark-mode {
+  --app-bg-color: black;
+}
+
 </style>
