@@ -47,8 +47,23 @@ export default {
     changeMode() {
       this.darkMode = !this.darkMode;
     },
-  }
-}
+    updateThemeColor() {
+      const metaTag = document.querySelector('meta[name="theme-color"]');
+      if (metaTag) {
+        metaTag.setAttribute("content", this.darkMode ? "#000000" : "#ffffff");
+      }
+    }
+  },
+  watch: {
+    darkMode: {
+      handler: "updateThemeColor",
+    },
+  },
+  mounted() {
+    // Ensure the initial theme color is set when the app is loaded
+    this.updateThemeColor();
+  },
+};
 </script>
 
 <style scoped>
