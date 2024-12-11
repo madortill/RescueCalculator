@@ -47,21 +47,38 @@ export default {
     changeMode() {
       this.darkMode = !this.darkMode;
     },
-    updateThemeColor() {
-      const metaTag = document.querySelector('meta[name="theme-color"]');
-      if (metaTag) {
-        metaTag.setAttribute("content", this.darkMode ? "#000000" : "#ffffff");
+    updateMetaTags() {
+      // Update theme color for Android browsers
+      const themeMetaTag = document.querySelector('meta[name="theme-color"]');
+      if (themeMetaTag) {
+        themeMetaTag.setAttribute("content", this.darkMode ? "#000000" : "#ffffff");
+      } else {
+        const newThemeMetaTag = document.createElement("meta");
+        newThemeMetaTag.name = "theme-color";
+        newThemeMetaTag.content = this.darkMode ? "#000000" : "#ffffff";
+        document.head.appendChild(newThemeMetaTag);
+      }
+
+      // Update status bar style for iOS Safari
+      const statusBarMetaTag = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+      if (statusBarMetaTag) {
+        statusBarMetaTag.setAttribute("content", this.darkMode ? "black-translucent" : "default");
+      } else {
+        const newStatusBarMetaTag = document.createElement("meta");
+        newStatusBarMetaTag.name = "apple-mobile-web-app-status-bar-style";
+        newStatusBarMetaTag.content = this.darkMode ? "black-translucent" : "default";
+        document.head.appendChild(newStatusBarMetaTag);
       }
     }
   },
   watch: {
     darkMode: {
-      handler: "updateThemeColor",
+      handler: "updateMetaTags",
     },
   },
   mounted() {
     // Ensure the initial theme color is set when the app is loaded
-    this.updateThemeColor();
+    this.updateMetaTags();
   },
 };
 </script>
