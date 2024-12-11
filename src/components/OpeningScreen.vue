@@ -7,7 +7,7 @@
             <div class="button upper" @click="goNext">יאללה נתחיל!</div>
         </div>
 
-        <div v-else-if="page === 1" class="continue-page">
+        <div v-else-if="page === 1" class="continue-page page-conatiner">
             <div class="text">
                 נהג חילוץ יקר, בעת הגעה לאירוע חילוץ מסוג משיכה יש לזכור כי ישנם כמה פרמטרים חשובים אותם יש לבדוק טרם החילוץ:
             </div>
@@ -21,16 +21,16 @@
                     {{ item }}
                 </div>
             </div>
-            <div class="button" @click="goNext">המשך</div>
+            <div class="button fixed" @click="goNext">המשך</div>
         </div>
 
-        <div v-else class="continue-page">
+        <div v-else class="continue-page page-conatiner">
             <div class="text">
                 לאחר שבדקתם את כל אלו, תוכלו להשתמש במחשבון! <br /><br />
                 עליכם להשתמש בכפתורים שנמצאים במחשבון על מנת להכניס את הערכים הרצויים לנוסחא שבחרתם. <br /><br />
                 לאחר מכן תוכלו לחשב את תוצאת ההתנגדות שיש להפעיל, בהתאם לנוסחאות החילוץ.
             </div>
-            <div class="button" @click="startCalc">המשך</div>
+            <div class="button fixed" @click="startCalc">המשך</div>
         </div>
     </div>
 </template>
@@ -52,10 +52,14 @@ export default {
   },
   methods: {
     goNext() {
-      this.page++;
+        setTimeout( () => {
+            this.page++;
+        }, 750)
     },
     startCalc() {
-      this.$emit("nextScreen");
+        setTimeout( () => {
+            this.$emit("nextScreen");
+        }, 750)
     },
     getChecklistAnimationStyle(index) {
       return {
@@ -118,12 +122,10 @@ export default {
 }
 
 .button {
-    position: absolute;
-    bottom: 5rem;
     padding: 0.75rem;
     border-radius: 20px;
     font-size: 1.6rem;
-    transition: transform 0.2s, background-color 0.2s;
+    transition: transform 0.8s, background-color 0.8s;
 }
 
 .button:active {
@@ -131,7 +133,13 @@ export default {
 }
 
 .upper {
+    position: absolute;
     bottom: 10rem;
+}
+
+.fixed {
+    position: absolute;
+    bottom: -5rem;
 }
 
 .dark-mode .button {
@@ -151,6 +159,17 @@ export default {
     flex-direction: column;
     align-items: center;
     width: 90%;
+}
+
+.page-conatiner {
+    /* margin-top: 1rem; */
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .item {
@@ -202,12 +221,12 @@ export default {
 
 /* Dark and Light Modes */
 .dark-mode {
-    background: linear-gradient(135deg, #000, #333);
+    background: black;
     color: white;
 }
 
 .light-mode {
-    background: linear-gradient(135deg, #fff, #f0f0f0);
+    background: white;
     color: black;
 }
 
@@ -232,8 +251,8 @@ export default {
 }
 
 .text {
-    position: absolute;
-    top: 2rem;
+    /* position: absolute; */
+    /* top: 2rem; */
     margin: 2rem;
     padding: 1rem;
     border-radius: 20px;
