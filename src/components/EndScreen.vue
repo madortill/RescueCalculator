@@ -1,7 +1,7 @@
 <template>
     <div id="ending-screen" :class="darkMode ? 'dark-mode' : 'light-mode'">
         <div>
-            <div class="title">תוצאת ההתנגדות היא: {{ result }} </div>
+            <div class="title"> ההתנגדות לחילוץ היא: {{ result }} </div>
             <div class="button " @click="goBack">בחזרה למחשבון</div>
         </div>
 
