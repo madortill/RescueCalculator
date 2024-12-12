@@ -33,6 +33,8 @@
         @reset="reset"
         @MKinfo="foundMK"
         @DegreeInfo="foundDegree"
+        @calculatedResult="sendResult"
+        @nextScreen="sendToNext"
         >
        </CalculatingContainer>
     </div>
@@ -90,7 +92,9 @@ export default {
       });
       this.clickedStates[btn] = !currentState;
     },
-
+    sendToNext(page) {
+      this.$emit("nextScreen", page);     
+    },
     handleChosenBtn(chosenBtn) { 
       this.counter++;
       // console.log(chosenBtn);
@@ -117,12 +121,15 @@ export default {
       setTimeout( () => {
         this.resetCalc = false;
       }, 100);
+    },
+    sendResult(result) {
+      this.$emit("calculatedResult", result);
     }
   },
   mounted() {
     setTimeout(() => {
             this.showLoader = false;
-        }, 4500);
+        }, 6750);
   }
 }
 </script>

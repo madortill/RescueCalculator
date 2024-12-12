@@ -1,18 +1,26 @@
 <template>
     <div id="app">
       <opening-screen 
-          v-if="page === 0" 
+          v-show="page === 0" 
           @nextScreen="goToNext"
            @toggle-theme="changeMode"
           :darkMode="darkMode">
       </opening-screen>
 
       <main-screen 
-          v-else-if="page === 1"  
+           v-show="page === 1"  
           @nextScreen="goToNext"
-           @toggle-theme="changeMode"
+          @calculatedResult="saveResult"
+          @toggle-theme="changeMode"
           :darkMode="darkMode">
       </main-screen>
+
+      <ending-screen
+         v-show="page === 2" 
+         @goBack="goBack" 
+         :darkMode="darkMode"
+         :result="result">
+      </ending-screen>
 
       <ThemeSwitcher
         @click="changeMode">
@@ -23,6 +31,7 @@
 <script>
 import MainScreen from './components/MainScreen.vue'
 import OpeningScreen from './components/OpeningScreen.vue'
+import EndingScreen from './components/EndScreen.vue'
 import ThemeSwitcher from './components/ThemeSwitcher.vue'
 
 export default {
@@ -30,19 +39,32 @@ export default {
   components: {
   MainScreen,
   OpeningScreen,
-  ThemeSwitcher
+  ThemeSwitcher,
+  EndingScreen
   },
   data() {
     return {
       page: 0,
-      // page: 1,
+      // page: 2,
       darkMode: false,
+      result: null,
 
     }
   },
   methods: {
-    goToNext() {
-      this.page++;
+    goToNext(pageSent) {
+      if (pageSent === null || pageSent === undefined) {
+        this.page++;
+      } else {
+        this.page = pageSent;
+      }
+      console.log(this.page);
+    },
+    goBack() {
+      this.page--;
+    },
+    saveResult(unsavedResult) {
+      this.result = unsavedResult;
     },
     changeMode() {
       this.darkMode = !this.darkMode;

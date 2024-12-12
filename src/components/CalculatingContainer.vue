@@ -196,7 +196,7 @@ computed: {
         return eval(formulaWithValues);
     } catch (error) {
         console.error('Error in calculation:', error);
-        this.errorMessage = 'אירעה שגיאה בחישוב. אנא בדוק את הנוסחא והנתונים';
+        this.errorMessage = 'אופס... משהו השתבש, לחצו על כפתור "איפוס" כדי לחשב מחדש';
         return null;
     }
  }
@@ -462,6 +462,10 @@ methods: {
 
         // Safely evaluate the final formula
         this.result = eval(formulaString);
+        this.$emit("calculatedResult", this.result);
+        setTimeout( () => {
+            this.$emit("nextScreen", 2);        
+        }, 100);
 
     } catch (error) {
         console.error('Error evaluating formula:', error);
