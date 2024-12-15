@@ -89,7 +89,7 @@ export default {
   });
 },
 async initializeLoader(type) {
-  const MINIMUM_LOADER_TIME = 6750;
+  const MINIMUM_LOADER_TIME = 5000;
   const loaderStartTime = Date.now();
   const gifSrc = type === "calc"
     ? "/src/assets/media/calc-gif.gif"
@@ -108,10 +108,14 @@ async initializeLoader(type) {
   const timeRemaining = MINIMUM_LOADER_TIME - timeElapsed;
 
   setTimeout(() => {
-    if (type === "calc") this.showCalcLoader = false;
-    else this.showGlobalLoader = false;
+    if (type === "calc") {
+      this.showCalcLoader = false;
+    } else {
+       this.showGlobalLoader = false;
+    }
   }, timeRemaining > 0 ? timeRemaining : 0);
-},
+}
+,
     goBack() {
       this.page--;
     },
