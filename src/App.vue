@@ -81,41 +81,37 @@ export default {
   },
   methods: {
     async preloadGif(src) {
-      // Preload the specified GIF
-      await new Promise((resolve) => {
-        const img = new Image();
-        img.src = src;
-        img.onload = () => resolve();
-      });
-    },
-    async initializeLoader(type) {
-      const MINIMUM_LOADER_TIME = 6750; 
-      const loaderStartTime = Date.now();
-      const gifSrc = type === "calc"
-        ? "/src/assets/media/calc-gif.gif"
-        : "/src/assets/media/blackonwhite-ezgif.com-gif-maker.gif";
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false); // Handle failures gracefully
+  });
+},
+async initializeLoader(type) {
+  const MINIMUM_LOADER_TIME = 6750;
+  const loaderStartTime = Date.now();
+  const gifSrc = type === "calc"
+    ? "/src/assets/media/calc-gif.gif"
+    : "/src/assets/media/blackonwhite-ezgif.com-gif-maker.gif";
 
-      if (type === "calc") this.showCalcLoader = true;
-      else this.showGlobalLoader = true;
+  if (type === "calc") this.showCalcLoader = true;
+  else this.showGlobalLoader = true;
 
-      await this.preloadGif(gifSrc); // Wait for GIF to preload
+  const gifPreloaded = await this.preloadGif(gifSrc);
 
-      const timeElapsed = Date.now() - loaderStartTime;
-      const timeRemaining = MINIMUM_LOADER_TIME - timeElapsed;
+  if (!gifPreloaded) {
+    console.error(`Failed to preload GIF: ${gifSrc}`);
+  }
 
-      setTimeout(() => {
-        if (type === "calc") this.showCalcLoader = false;
-        else this.showGlobalLoader = false;
-      }, timeRemaining > 0 ? timeRemaining : 0);
-    },
-    goToNext(pageSent) {
-      this.page = pageSent ?? this.page + 1;
-      if (this.page === 1) {
-        this.initializeLoader("global");
-      } else if (this.page === 2) {
-        this.initializeLoader("calc");
-      }
-    },
+  const timeElapsed = Date.now() - loaderStartTime;
+  const timeRemaining = MINIMUM_LOADER_TIME - timeElapsed;
+
+  setTimeout(() => {
+    if (type === "calc") this.showCalcLoader = false;
+    else this.showGlobalLoader = false;
+  }, timeRemaining > 0 ? timeRemaining : 0);
+},
     goBack() {
       this.page--;
     },
