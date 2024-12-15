@@ -1,5 +1,29 @@
 <template>
     <div id="app">
+
+    <!-- Global Loader -->
+    <div v-if="showGlobalLoader" class="loader" :class="darkMode ? 'dark-mode' : 'light-mode'">
+      <img 
+        class="gif" 
+        src="/src/assets/media/blackonwhite-ezgif.com-gif-maker.gif" 
+        alt="Loading..." 
+        @load="gifLoaded = true" 
+      />
+      <p class="loader-text">מיד מתחילים...</p>
+    </div>
+
+    <!-- Calc Loader -->
+    <div v-if="showCalcLoader" class="loader" :class="darkMode ? 'dark-mode orange' : 'light-mode'">
+      <img 
+        class="gif" 
+        src="/src/assets/media/calc-gif.gif" 
+        alt="Calculating..." 
+        @load="calcGifLoaded = true" 
+      />
+      <!-- <p class="loader-text">בקרוב מחשבים...</p> -->
+    </div>
+      
+
       <opening-screen 
           v-show="page === 0" 
           @nextScreen="goToNext"
@@ -48,17 +72,49 @@ export default {
       // page: 2,
       darkMode: false,
       result: null,
+      showGlobalLoader: false,
+      showCalcLoader: false,
+      gifLoaded: false,
+      calcGifLoaded: false,
 
     }
   },
   methods: {
+    async preloadGif(src) {
+      // Preload the specified GIF
+      await new Promise((resolve) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => resolve();
+      });
+    },
+    async initializeLoader(type) {
+      const MINIMUM_LOADER_TIME = 6750; 
+      const loaderStartTime = Date.now();
+      const gifSrc = type === "calc"
+        ? "/src/assets/media/calc-gif.gif"
+        : "/src/assets/media/blackonwhite-ezgif.com-gif-maker.gif";
+
+      if (type === "calc") this.showCalcLoader = true;
+      else this.showGlobalLoader = true;
+
+      await this.preloadGif(gifSrc); // Wait for GIF to preload
+
+      const timeElapsed = Date.now() - loaderStartTime;
+      const timeRemaining = MINIMUM_LOADER_TIME - timeElapsed;
+
+      setTimeout(() => {
+        if (type === "calc") this.showCalcLoader = false;
+        else this.showGlobalLoader = false;
+      }, timeRemaining > 0 ? timeRemaining : 0);
+    },
     goToNext(pageSent) {
-      if (pageSent === null || pageSent === undefined) {
-        this.page++;
-      } else {
-        this.page = pageSent;
+      this.page = pageSent ?? this.page + 1;
+      if (this.page === 1) {
+        this.initializeLoader("global");
+      } else if (this.page === 2) {
+        this.initializeLoader("calc");
       }
-      console.log(this.page);
     },
     goBack() {
       this.page--;
@@ -154,4 +210,54 @@ html, body {
   --app-bg-color: black;
 }
 
+
+
+
+/* טוען */
+.loader {
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    background-color: white ;
+    font-weight: 800;
+}
+
+.dark-mode {
+  background-color: black !important;
+}
+
+.gif {
+  width: 100%;
+  z-index: 1000000;
+}
+
+.loader-text {
+  font-size: 2rem;
+}
+
+.dark-mode .loader-text {
+  color: white;
+}
+
+.light-mode .loader-text {
+  color: #005051b3;
+}
+
+.dark-mode .gif {
+  filter: brightness(1.9) contrast(1.2) sepia(1) saturate(400%) hue-rotate(-10deg); /* Makes it orange */
+}
+.orange {
+  filter: brightness(0.8) contrast(1.2) sepia(1) saturate(600%) hue-rotate(-40deg);
+}
+.light-mode .gif {
+  filter: brightness(1.2) contrast(1.2) sepia(1) saturate(300%) hue-rotate(-60deg); /* Makes it pink */
+}
 </style>

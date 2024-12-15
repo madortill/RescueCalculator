@@ -2,6 +2,12 @@
     <div id="ending-screen" :class="darkMode ? 'dark-mode' : 'light-mode'">
         <div>
             <div class="title"> ההתנגדות לחילוץ היא: {{ result }} </div>
+            <div class="text">
+                   חשוב לזכור כי בחילוץ יש אלמנט חשוב נוסף - כושר העיגון של הרכב המחלץ. <br><br>
+                    יש לשים לב שכושר העיגון של הרכב המחלץ גבוה מתוצאת ההתנגדות שחושבה במחשבון <br>
+                    אחרת בעת משיכה, יגרר הרכב המחלץ לכיוון הרכב הנחלץ.<br><br>
+                    בהצלחה!
+            </div>
             <div class="button " @click="goBack">בחזרה למחשבון</div>
         </div>
 
@@ -36,35 +42,22 @@ export default {
 }
 
 .title {
-    position: absolute;
-    top: 9rem;
-    font-size: 2.2rem;
+    /* position: absolute; */
+    /* top: 2rem; */
+    margin: 2rem;
+    margin-top: 3rem;
+    font-size: 2rem;
     font-weight: bold;
     text-align: center;
-    margin: 0.85rem;
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
-    border-radius: 1rem;
-    animation: float 3s ease-in-out infinite;
 }
 
-/* Buttons */
-.button-container {
-    position: absolute;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    top: 17rem;
-    width: 87%;
-    height: 50%;
-    margin: 0.85rem;
-    border-radius: 1rem;
-    border: 2px solid rgb(255, 255, 255);
-}
+
 
 .button {
+    position: absolute;
+    right: 50%;
+    transform: translateX(50%);
+    bottom: 5rem;
     padding: 0.75rem;
     border-radius: 20px;
     font-size: 1.6rem;
@@ -109,8 +102,8 @@ export default {
 
 
 .text {
-    /* position: absolute; */
-    /* top: 2rem; */
+    position: absolute;
+    top: 7.5rem;
     margin: 2rem;
     padding: 1rem;
     border-radius: 20px;
