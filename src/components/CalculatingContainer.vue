@@ -465,7 +465,7 @@ methods: {
         this.$emit("calculatedResult", this.result);
         setTimeout( () => {
             this.$emit("nextScreen", 2);        
-        }, 100);
+        }, 0);
 
     } catch (error) {
         console.error('Error evaluating formula:', error);

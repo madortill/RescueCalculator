@@ -30,14 +30,14 @@
     
 
       <opening-screen 
-          v-if="page === 0" 
+          v-show="page === 0" 
           @nextScreen="goToNext"
            @toggle-theme="changeMode"
           :darkMode="darkMode">
       </opening-screen>
 
       <main-screen 
-           v-else-if="page === 1"  
+           v-show="page === 1"  
           @nextScreen="goToNext"
           @calculatedResult="saveResult"
           @toggle-theme="changeMode"
@@ -45,7 +45,7 @@
       </main-screen>
 
       <ending-screen
-         v-else-if="page === 2" 
+         v-show="page === 2" 
          @goBack="goBack" 
          :darkMode="darkMode"
          :result="result">
