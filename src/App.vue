@@ -22,17 +22,22 @@
       />
       <!-- <p class="loader-text">בקרוב מחשבים...</p> -->
     </div>
-      
+
+    <div v-if="!gifLoaded && (showGlobalLoader || showCalcLoader)" class="fallback-spinner">
+      <p>טוען...</p>
+      <div class="spinner"></div>
+    </div>
+    
 
       <opening-screen 
-          v-show="page === 0" 
+          v-if="page === 0" 
           @nextScreen="goToNext"
            @toggle-theme="changeMode"
           :darkMode="darkMode">
       </opening-screen>
 
       <main-screen 
-           v-show="page === 1"  
+           v-else-if="page === 1"  
           @nextScreen="goToNext"
           @calculatedResult="saveResult"
           @toggle-theme="changeMode"
@@ -40,7 +45,7 @@
       </main-screen>
 
       <ending-screen
-         v-show="page === 2" 
+         v-else-if="page === 2" 
          @goBack="goBack" 
          :darkMode="darkMode"
          :result="result">
@@ -88,6 +93,14 @@ export default {
     img.onerror = () => resolve(false); // Handle failures gracefully
   });
 },
+goToNext(pageSent) {
+      this.page = pageSent ?? this.page + 1;
+      if (this.page === 1) {
+        this.initializeLoader("global");
+      } else if (this.page === 2) {
+        this.initializeLoader("calc");
+      }
+    },
 async initializeLoader(type) {
   const MINIMUM_LOADER_TIME = 6750;
   const loaderStartTime = Date.now();
@@ -102,6 +115,12 @@ async initializeLoader(type) {
 
   if (!gifPreloaded) {
     console.error(`Failed to preload GIF: ${gifSrc}`);
+    // Show fallback content or hide the loader
+    setTimeout(() => {
+      this.showCalcLoader = false;
+      this.showGlobalLoader = false;
+    }, MINIMUM_LOADER_TIME);
+    return; // Exit early since the GIF failed
   }
 
   const timeElapsed = Date.now() - loaderStartTime;
@@ -256,4 +275,27 @@ html, body {
 .light-mode .gif {
   filter: brightness(1.2) contrast(1.2) sepia(1) saturate(300%) hue-rotate(-60deg); /* Makes it pink */
 }
+
+.fallback-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 </style>
